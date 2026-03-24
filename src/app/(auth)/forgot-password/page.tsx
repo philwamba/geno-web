@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
                         Forgot Password
                     </h1>
                     <p className="text-subtitle">
-                        Enter your email address and we'll send you a link to
+                        Enter your email and we'll send you a link to
                         reset your password.
                     </p>
                 </div>
@@ -120,7 +120,7 @@ export default function ForgotPasswordPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                        className="w-full py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-600 transition-colors disabled:opacity-50"
                     >
                         {isLoading ? 'Sending...' : 'Send Reset Link'}
                     </button>
