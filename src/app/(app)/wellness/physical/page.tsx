@@ -12,7 +12,10 @@ import { AppHeader } from '@/components/layout/app-header'
 import { GoalCard } from '@/components/wellness/goals'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { bmiCalculatorSchema, type BMICalculatorInput } from '@/lib/validations/wellness'
+import {
+    bmiCalculatorSchema,
+    type BMICalculatorInput,
+} from '@/lib/validations/wellness'
 import type { WellnessMetric } from '@/types'
 import {
     FiActivity,
@@ -40,7 +43,7 @@ export default function PhysicalWellnessPage() {
     const [showBMIForm, setShowBMIForm] = useState(false)
 
     const physicalGoals = goals.filter(
-        (g) => g.category === 'physical' && g.status === 'active',
+        g => g.category === 'physical' && g.status === 'active',
     )
 
     const {
@@ -65,12 +68,16 @@ export default function PhysicalWellnessPage() {
                     wellnessApi.getLatestMetrics(),
                     wellnessApi.getMetrics({ type: 'steps' }),
                 ])
-                const loadedMetrics = metricsRes.metrics as Record<string, WellnessMetric>
+                const loadedMetrics = metricsRes.metrics as Record<
+                    string,
+                    WellnessMetric
+                >
                 setMetrics(loadedMetrics)
                 // Sort steps by date descending (most recent first)
-                const sortedSteps = (stepsRes.metrics as WellnessMetric[]).sort((a, b) =>
-                    new Date(b.logged_at || b.created_at).getTime() -
-                    new Date(a.logged_at || a.created_at).getTime()
+                const sortedSteps = (stepsRes.metrics as WellnessMetric[]).sort(
+                    (a, b) =>
+                        new Date(b.logged_at || b.created_at).getTime() -
+                        new Date(a.logged_at || a.created_at).getTime(),
                 )
                 setStepHistory(sortedSteps)
                 // Prefill form with existing values
@@ -89,39 +96,42 @@ export default function PhysicalWellnessPage() {
         fetchGoals('physical')
     }, [fetchGoals, reset])
 
-    const onSubmitBMI = useCallback(
-        async (data: BMICalculatorInput) => {
-            try {
-                await Promise.all([
-                    wellnessApi.logMetric({
-                        metric_type: 'height',
-                        value: data.height,
-                        unit: 'cm',
-                    }),
-                    wellnessApi.logMetric({
-                        metric_type: 'weight',
-                        value: data.weight,
-                        unit: 'kg',
-                    }),
-                ])
-                toast.success('Measurements saved!')
-                setShowBMIForm(false)
-                // Refresh metrics
-                const metricsRes = await wellnessApi.getLatestMetrics()
-                setMetrics(metricsRes.metrics as Record<string, WellnessMetric>)
-            } catch {
-                toast.error('Failed to save measurements')
-            }
-        },
-        [],
-    )
+    const onSubmitBMI = useCallback(async (data: BMICalculatorInput) => {
+        try {
+            await Promise.all([
+                wellnessApi.logMetric({
+                    metric_type: 'height',
+                    value: data.height,
+                    unit: 'cm',
+                }),
+                wellnessApi.logMetric({
+                    metric_type: 'weight',
+                    value: data.weight,
+                    unit: 'kg',
+                }),
+            ])
+            toast.success('Measurements saved!')
+            setShowBMIForm(false)
+            // Refresh metrics
+            const metricsRes = await wellnessApi.getLatestMetrics()
+            setMetrics(metricsRes.metrics as Record<string, WellnessMetric>)
+        } catch {
+            toast.error('Failed to save measurements')
+        }
+    }, [])
 
-    const stepChartData = stepHistory.slice(0, 7).reverse().map((m) => ({
-        date: new Date(m.logged_at || m.created_at).toLocaleDateString('en-US', {
-            weekday: 'short',
-        }),
-        steps: m.value,
-    }))
+    const stepChartData = stepHistory
+        .slice(0, 7)
+        .reverse()
+        .map(m => ({
+            date: new Date(m.logged_at || m.created_at).toLocaleDateString(
+                'en-US',
+                {
+                    weekday: 'short',
+                },
+            ),
+            steps: m.value,
+        }))
 
     return (
         <div className="min-h-screen bg-gray-50 pb-24">
@@ -139,7 +149,9 @@ export default function PhysicalWellnessPage() {
                             <FiActivity className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Physical Wellness</h1>
+                            <h1 className="text-xl font-bold">
+                                Physical Wellness
+                            </h1>
                             <p className="text-sm text-white/80">
                                 Track fitness, nutrition & health
                             </p>
@@ -150,17 +162,20 @@ export default function PhysicalWellnessPage() {
                 {/* BMI Card */}
                 <section className="rounded-xl bg-white p-4 shadow-sm">
                     <div className="mb-3 flex items-center justify-between">
-                        <h2 className="text-sm font-medium text-gray-700">BMI Tracker</h2>
+                        <h2 className="text-sm font-medium text-gray-700">
+                            BMI Tracker
+                        </h2>
                         <button
                             onClick={() => setShowBMIForm(!showBMIForm)}
-                            className="text-xs text-primary hover:underline"
-                        >
+                            className="text-xs text-primary hover:underline">
                             {showBMIForm ? 'Cancel' : 'Update'}
                         </button>
                     </div>
 
                     {showBMIForm ? (
-                        <form onSubmit={handleSubmit(onSubmitBMI)} className="space-y-3">
+                        <form
+                            onSubmit={handleSubmit(onSubmitBMI)}
+                            className="space-y-3">
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
                                     <label className="mb-1 block text-xs text-gray-500">
@@ -168,7 +183,9 @@ export default function PhysicalWellnessPage() {
                                     </label>
                                     <Input
                                         type="number"
-                                        {...register('height', { valueAsNumber: true })}
+                                        {...register('height', {
+                                            valueAsNumber: true,
+                                        })}
                                         error={errors.height?.message}
                                     />
                                 </div>
@@ -178,7 +195,9 @@ export default function PhysicalWellnessPage() {
                                     </label>
                                     <Input
                                         type="number"
-                                        {...register('weight', { valueAsNumber: true })}
+                                        {...register('weight', {
+                                            valueAsNumber: true,
+                                        })}
                                         error={errors.weight?.message}
                                     />
                                 </div>
@@ -193,8 +212,7 @@ export default function PhysicalWellnessPage() {
                                         className={cn(
                                             'text-sm font-medium',
                                             bmiCategory?.color,
-                                        )}
-                                    >
+                                        )}>
                                         {bmiCategory?.label}
                                     </p>
                                 </div>
@@ -214,16 +232,19 @@ export default function PhysicalWellnessPage() {
                                 className={cn(
                                     'text-sm font-medium',
                                     getBMICategory(metrics.bmi.value)?.color,
-                                )}
-                            >
+                                )}>
                                 {getBMICategory(metrics.bmi.value)?.label}
                             </p>
                             <div className="mt-2 flex justify-center gap-4 text-xs text-gray-500">
                                 {metrics.height && (
-                                    <span>Height: {metrics.height.value} cm</span>
+                                    <span>
+                                        Height: {metrics.height.value} cm
+                                    </span>
                                 )}
                                 {metrics.weight && (
-                                    <span>Weight: {metrics.weight.value} kg</span>
+                                    <span>
+                                        Weight: {metrics.weight.value} kg
+                                    </span>
                                 )}
                             </div>
                         </div>
@@ -235,8 +256,7 @@ export default function PhysicalWellnessPage() {
                             <Button
                                 onClick={() => setShowBMIForm(true)}
                                 size="sm"
-                                variant="outline"
-                            >
+                                variant="outline">
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Add Measurements
                             </Button>
@@ -255,9 +275,12 @@ export default function PhysicalWellnessPage() {
                             <div className="mb-3 flex items-center justify-between">
                                 <div>
                                     <p className="text-2xl font-bold text-gray-900">
-                                        {stepHistory[0]?.value.toLocaleString() || 0}
+                                        {stepHistory[0]?.value.toLocaleString() ||
+                                            0}
                                     </p>
-                                    <p className="text-xs text-gray-500">steps today</p>
+                                    <p className="text-xs text-gray-500">
+                                        steps today
+                                    </p>
                                 </div>
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
                                     <FiTrendingUp className="h-5 w-5 text-green-500" />
@@ -271,15 +294,20 @@ export default function PhysicalWellnessPage() {
                                             dataKey="date"
                                             axisLine={false}
                                             tickLine={false}
-                                            tick={{ fontSize: 10, fill: '#9ca3af' }}
+                                            tick={{
+                                                fontSize: 10,
+                                                fill: '#9ca3af',
+                                            }}
                                         />
                                         <YAxis hide />
                                         <Tooltip
                                             content={({ active, payload }) => {
-                                                if (!active || !payload?.[0]) return null
+                                                if (!active || !payload?.[0])
+                                                    return null
                                                 return (
                                                     <div className="rounded bg-gray-900 px-2 py-1 text-xs text-white">
-                                                        {payload[0].value?.toLocaleString()} steps
+                                                        {payload[0].value?.toLocaleString()}{' '}
+                                                        steps
                                                     </div>
                                                 )
                                             }}
@@ -310,10 +338,11 @@ export default function PhysicalWellnessPage() {
                         </h2>
                         <button
                             onClick={() =>
-                                router.push('/wellness/goals/new?category=physical')
+                                router.push(
+                                    '/wellness/goals/new?category=physical',
+                                )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
+                            className="flex items-center gap-1 text-xs text-primary hover:underline">
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -322,11 +351,13 @@ export default function PhysicalWellnessPage() {
                     {physicalGoals.length === 0 ? (
                         <div className="rounded-xl bg-white p-4 text-center shadow-sm">
                             <FiTarget className="mx-auto mb-2 h-8 w-8 text-gray-300" />
-                            <p className="text-sm text-gray-500">No physical goals yet</p>
+                            <p className="text-sm text-gray-500">
+                                No physical goals yet
+                            </p>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {physicalGoals.map((goal) => (
+                            {physicalGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} compact />
                             ))}
                         </div>

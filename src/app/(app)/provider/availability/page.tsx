@@ -38,8 +38,9 @@ export default function AvailabilityPage() {
     useEffect(() => {
         const loadAvailability = async () => {
             try {
-                const { time_slots } = await providerDashboardApi.getAvailability()
-                
+                const { time_slots } =
+                    await providerDashboardApi.getAvailability()
+
                 // Transform time_slots array to WeeklySchedule object
                 const newSchedule: WeeklySchedule = {
                     monday: [],
@@ -55,14 +56,16 @@ export default function AvailabilityPage() {
                     // Try to use day_name first, then fallback to logic if needed (though TimeSlot has day_name)
                     const rawDay = slot.day_name || ''
                     const day = rawDay.toLowerCase().trim() as WeekDay
-                    
+
                     if (newSchedule[day]) {
                         newSchedule[day].push({
                             start: slot.start_time.substring(0, 5), // HH:MM
-                            end: slot.end_time.substring(0, 5)
+                            end: slot.end_time.substring(0, 5),
                         })
                     } else {
-                        console.warn(`Encountered unknown day "${slot.day_name}" (id: ${slot.id}) in availability slots.`)
+                        console.warn(
+                            `Encountered unknown day "${slot.day_name}" (id: ${slot.id}) in availability slots.`,
+                        )
                     }
                 })
 
@@ -74,7 +77,7 @@ export default function AvailabilityPage() {
                 setIsInitialLoading(false)
             }
         }
-        
+
         if (user) {
             loadAvailability()
         } else {
@@ -83,14 +86,14 @@ export default function AvailabilityPage() {
     }, [user])
 
     const addSlot = (day: WeekDay) => {
-        setSchedule((prev) => ({
+        setSchedule(prev => ({
             ...prev,
             [day]: [...prev[day], { start: '09:00', end: '10:00' }],
         }))
     }
 
     const removeSlot = (day: WeekDay, index: number) => {
-        setSchedule((prev) => ({
+        setSchedule(prev => ({
             ...prev,
             [day]: prev[day].filter((_, i) => i !== index),
         }))
@@ -102,7 +105,7 @@ export default function AvailabilityPage() {
         field: keyof AvailabilitySlot,
         value: string,
     ) => {
-        setSchedule((prev) => ({
+        setSchedule(prev => ({
             ...prev,
             [day]: prev[day].map((slot, i) =>
                 i === index ? { ...slot, [field]: value } : slot,
@@ -115,7 +118,9 @@ export default function AvailabilityPage() {
         for (const day of DAYS) {
             for (const slot of schedule[day.id]) {
                 if (slot.start >= slot.end) {
-                    toast.error(`Invalid time slot on ${day.label}: Start time must be before end time`)
+                    toast.error(
+                        `Invalid time slot on ${day.label}: Start time must be before end time`,
+                    )
                     return
                 }
             }
@@ -147,22 +152,25 @@ export default function AvailabilityPage() {
                     <div className="p-6 border-b border-gray-100">
                         <div className="flex items-center gap-2 text-gray-900">
                             <FiClock className="w-5 h-5 text-primary" />
-                            <h2 className="text-lg font-semibold">Weekly Schedule</h2>
+                            <h2 className="text-lg font-semibold">
+                                Weekly Schedule
+                            </h2>
                         </div>
                         <p className="text-gray-500 text-sm mt-1">
-                            Set your recurring availability for each day of the week.
+                            Set your recurring availability for each day of the
+                            week.
                         </p>
                     </div>
 
                     <div className="divide-y divide-gray-100">
-                        {DAYS.map((day) => (
+                        {DAYS.map(day => (
                             <div
                                 key={day.id}
                                 className={cn(
                                     'p-6 transition-colors',
-                                    schedule[day.id].length === 0 && 'bg-gray-50/50',
-                                )}
-                            >
+                                    schedule[day.id].length === 0 &&
+                                        'bg-gray-50/50',
+                                )}>
                                 <div className="flex flex-col md:flex-row md:items-start gap-4">
                                     <div className="w-32 pt-2">
                                         <span className="font-medium text-gray-900">
@@ -176,54 +184,60 @@ export default function AvailabilityPage() {
                                                 Unavailable
                                             </p>
                                         ) : (
-                                            schedule[day.id].map((slot, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="flex items-center gap-3"
-                                                >
-                                                    <input
-                                                        type="time"
-                                                        value={slot.start}
-                                                        onChange={(e) =>
-                                                            updateSlot(
-                                                                day.id,
-                                                                index,
-                                                                'start',
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                        className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                                    />
-                                                    <span className="text-gray-400">-</span>
-                                                    <input
-                                                        type="time"
-                                                        value={slot.end}
-                                                        onChange={(e) =>
-                                                            updateSlot(
-                                                                day.id,
-                                                                index,
-                                                                'end',
-                                                                e.target.value,
-                                                            )
-                                                        }
-                                                        className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                                                    />
-                                                    <button
-                                                        onClick={() =>
-                                                            removeSlot(day.id, index)
-                                                        }
-                                                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                                                        aria-label="Remove slot"
-                                                    >
-                                                        <FiTrash2 className="w-4 h-4" />
-                                                    </button>
-                                                </div>
-                                            ))
+                                            schedule[day.id].map(
+                                                (slot, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="flex items-center gap-3">
+                                                        <input
+                                                            type="time"
+                                                            value={slot.start}
+                                                            onChange={e =>
+                                                                updateSlot(
+                                                                    day.id,
+                                                                    index,
+                                                                    'start',
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                        />
+                                                        <span className="text-gray-400">
+                                                            -
+                                                        </span>
+                                                        <input
+                                                            type="time"
+                                                            value={slot.end}
+                                                            onChange={e =>
+                                                                updateSlot(
+                                                                    day.id,
+                                                                    index,
+                                                                    'end',
+                                                                    e.target
+                                                                        .value,
+                                                                )
+                                                            }
+                                                            className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                                        />
+                                                        <button
+                                                            onClick={() =>
+                                                                removeSlot(
+                                                                    day.id,
+                                                                    index,
+                                                                )
+                                                            }
+                                                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                                            aria-label="Remove slot">
+                                                            <FiTrash2 className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                ),
+                                            )
                                         )}
                                         <button
                                             onClick={() => addSlot(day.id)}
-                                            className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1"
-                                        >
+                                            className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1">
                                             <FiPlus className="w-4 h-4" />
                                             Add Time Slot
                                         </button>
@@ -237,8 +251,7 @@ export default function AvailabilityPage() {
                         <button
                             onClick={handleSave}
                             disabled={isLoading}
-                            className="px-6 py-2 bg-primary text-white rounded-xl font-medium flex items-center gap-2 hover:bg-primary/90 disabled:opacity-50 transition-colors"
-                        >
+                            className="px-6 py-2 bg-primary text-white rounded-xl font-medium flex items-center gap-2 hover:bg-primary/90 disabled:opacity-50 transition-colors">
                             {isLoading ? (
                                 'Saving...'
                             ) : (

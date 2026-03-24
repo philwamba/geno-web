@@ -18,8 +18,6 @@ import {
 } from 'recharts'
 import { FiDollarSign, FiCalendar, FiUsers, FiTrendingUp } from 'react-icons/fi'
 
-
-
 import { ChartDataItem } from '@/types'
 
 import { useAuthStore } from '@/lib/stores/auth-store'
@@ -36,8 +34,6 @@ interface StatItem {
 export default function AnalyticsPage() {
     const router = useRouter()
 
-
-
     const { user } = useAuthStore()
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -47,7 +43,7 @@ export default function AnalyticsPage() {
 
     useEffect(() => {
         const loadAnalytics = async () => {
-             if (!user) return
+            if (!user) return
 
             try {
                 const [overview, sessions, revenue] = await Promise.all([
@@ -97,19 +93,28 @@ export default function AnalyticsPage() {
                 ])
 
                 // Transform revenue data for chart
-                setEarningsData(revenue.data.map((item) => ({
-                    date: item.date,
-                    name: new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-                    amount: item.amount
-                })))
+                setEarningsData(
+                    revenue.data.map(item => ({
+                        date: item.date,
+                        name: new Date(item.date).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                        }),
+                        amount: item.amount,
+                    })),
+                )
 
                 // Transform sessions data for chart
-                setSessionsData(sessions.data.map((item) => ({
-                    date: item.date,
-                    name: new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-                    count: item.count
-                })))
-
+                setSessionsData(
+                    sessions.data.map(item => ({
+                        date: item.date,
+                        name: new Date(item.date).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                        }),
+                        count: item.count,
+                    })),
+                )
             } catch (error) {
                 console.error('Failed to load analytics:', error)
                 setError('Failed to load analytics data.')
@@ -138,38 +143,40 @@ export default function AnalyticsPage() {
                         <p>{error}</p>
                     </div>
                 )}
-                
+
                 <div className="grid grid-cols-2 gap-4">
-                    {isLoading && stats.length === 0 ? (
-                        [1, 2, 3, 4].map((i) => (
-                            <div key={i} className="bg-white p-4 rounded-2xl shadow-sm animate-pulse">
-                                <div className="flex justify-between mb-3">
-                                    <div className="w-10 h-10 bg-gray-200 rounded-full" />
-                                </div>
-                                <div className="h-4 bg-gray-200 rounded w-1/2 mb-2" />
-                                <div className="h-8 bg-gray-200 rounded w-2/3" />
-                            </div>
-                        ))
-                    ) : (
-                        stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className="bg-white p-4 rounded-2xl shadow-sm"
-                            >
-                                <div className="flex items-center justify-between mb-3">
-                                    <div
-                                        className={`w-10 h-10 ${stat.bg} rounded-full flex items-center justify-center`}
-                                    >
-                                        <stat.icon className={`w-5 h-5 ${stat.color}`} />
-                                    </div>
-                                </div>
-                                <p className="text-sm text-gray-500">{stat.label}</p>
-                                <p className="text-xl font-bold text-gray-900">
-                                    {stat.value}
-                                </p>
-                            </div>
-                        ))
-                    )}
+                    {isLoading && stats.length === 0
+                        ? [1, 2, 3, 4].map(i => (
+                              <div
+                                  key={i}
+                                  className="bg-white p-4 rounded-2xl shadow-sm animate-pulse">
+                                  <div className="flex justify-between mb-3">
+                                      <div className="w-10 h-10 bg-gray-200 rounded-full" />
+                                  </div>
+                                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-2" />
+                                  <div className="h-8 bg-gray-200 rounded w-2/3" />
+                              </div>
+                          ))
+                        : stats.map((stat, index) => (
+                              <div
+                                  key={index}
+                                  className="bg-white p-4 rounded-2xl shadow-sm">
+                                  <div className="flex items-center justify-between mb-3">
+                                      <div
+                                          className={`w-10 h-10 ${stat.bg} rounded-full flex items-center justify-center`}>
+                                          <stat.icon
+                                              className={`w-5 h-5 ${stat.color}`}
+                                          />
+                                      </div>
+                                  </div>
+                                  <p className="text-sm text-gray-500">
+                                      {stat.label}
+                                  </p>
+                                  <p className="text-xl font-bold text-gray-900">
+                                      {stat.value}
+                                  </p>
+                              </div>
+                          ))}
                 </div>
 
                 {/* Earnings Chart */}
@@ -189,8 +196,7 @@ export default function AnalyticsPage() {
                                             x1="0"
                                             y1="0"
                                             x2="0"
-                                            y2="1"
-                                        >
+                                            y2="1">
                                             <stop
                                                 offset="5%"
                                                 stopColor="#10b981"
@@ -203,7 +209,10 @@ export default function AnalyticsPage() {
                                             />
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        vertical={false}
+                                    />
                                     <XAxis
                                         dataKey="name"
                                         axisLine={false}
@@ -215,10 +224,13 @@ export default function AnalyticsPage() {
                                         axisLine={false}
                                         tickLine={false}
                                         tick={{ fontSize: 12, fill: '#6b7280' }}
-                                        tickFormatter={(value) => `$${value}`}
+                                        tickFormatter={value => `$${value}`}
                                     />
                                     <Tooltip
-                                        formatter={(value?: number) => [`$${value || 0}`, 'Earnings']}
+                                        formatter={(value?: number) => [
+                                            `$${value || 0}`,
+                                            'Earnings',
+                                        ]}
                                         contentStyle={{
                                             borderRadius: '12px',
                                             border: 'none',
@@ -251,7 +263,10 @@ export default function AnalyticsPage() {
                         ) : (
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={sessionsData}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <CartesianGrid
+                                        strokeDasharray="3 3"
+                                        vertical={false}
+                                    />
                                     <XAxis
                                         dataKey="name"
                                         axisLine={false}

@@ -36,7 +36,7 @@ export function MoodHistoryList({
     return (
         <div className={cn('rounded-xl bg-white shadow-sm', className)}>
             <div className="divide-y divide-gray-100">
-                {displayMoods.map((entry) => (
+                {displayMoods.map(entry => (
                     <MoodHistoryItem key={entry.id} entry={entry} />
                 ))}
             </div>
@@ -59,11 +59,15 @@ function MoodHistoryItem({ entry }: { entry: MoodLog }) {
                         {mood.replace('_', ' ')}
                     </span>
                     <span className="text-xs text-gray-500">
-                        {formatRelativeTime(entry.logged_at || entry.created_at)}
+                        {formatRelativeTime(
+                            entry.logged_at || entry.created_at,
+                        )}
                     </span>
                 </div>
                 {entry.note && (
-                    <p className="mt-1 text-sm text-gray-600 line-clamp-2">{entry.note}</p>
+                    <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                        {entry.note}
+                    </p>
                 )}
             </div>
         </div>

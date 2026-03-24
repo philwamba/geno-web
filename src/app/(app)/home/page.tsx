@@ -97,11 +97,12 @@ export default function HomePage() {
 
     const fetchData = useCallback(async () => {
         try {
-            const [servicesResult, tipResult, articlesResult] = await Promise.all([
-                servicesApi.list().catch(() => ({ services: [] })),
-                contentApi.getDailyTip().catch(() => ({ tip: null })),
-                contentApi.getArticles().catch(() => ({ articles: [] })),
-            ])
+            const [servicesResult, tipResult, articlesResult] =
+                await Promise.all([
+                    servicesApi.list().catch(() => ({ services: [] })),
+                    contentApi.getDailyTip().catch(() => ({ tip: null })),
+                    contentApi.getArticles().catch(() => ({ articles: [] })),
+                ])
             setServices(servicesResult.services)
             setTip(tipResult.tip as WellnessTip | null)
             setArticles((articlesResult.articles as Article[]).slice(0, 3))
@@ -120,7 +121,9 @@ export default function HomePage() {
         try {
             const result = await logMood(moodId)
             if (result.points_earned > 0) {
-                toast.success(`Mood logged! You earned ${result.points_earned} points`)
+                toast.success(
+                    `Mood logged! You earned ${result.points_earned} points`,
+                )
             } else {
                 toast.success('Mood logged successfully!')
             }
@@ -143,7 +146,10 @@ export default function HomePage() {
                         <div className="h-32 bg-gray-200 rounded-2xl" />
                         <div className="grid grid-cols-3 gap-3">
                             {[1, 2, 3, 4, 5, 6].map(i => (
-                                <div key={i} className="h-24 bg-gray-200 rounded-xl" />
+                                <div
+                                    key={i}
+                                    className="h-24 bg-gray-200 rounded-xl"
+                                />
                             ))}
                         </div>
                     </div>
@@ -180,7 +186,8 @@ export default function HomePage() {
                                     selectedMood === mood.id
                                         ? 'bg-primary/10 ring-2 ring-primary scale-110'
                                         : 'hover:bg-gray-100',
-                                    isMoodLoading && 'opacity-50 cursor-not-allowed'
+                                    isMoodLoading &&
+                                        'opacity-50 cursor-not-allowed',
                                 )}>
                                 {mood.emoji}
                             </button>
@@ -226,7 +233,7 @@ export default function HomePage() {
                                     <div
                                         className={cn(
                                             'w-10 h-10 rounded-full mx-auto flex items-center justify-center mb-2',
-                                            category.color
+                                            category.color,
                                         )}>
                                         <Icon className="w-5 h-5" />
                                     </div>
@@ -253,7 +260,9 @@ export default function HomePage() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         {services.slice(0, 4).map(service => {
-                            const imageSrc = serviceImages[service.slug] || service.image_path
+                            const imageSrc =
+                                serviceImages[service.slug] ||
+                                service.image_path
 
                             return (
                                 <Link

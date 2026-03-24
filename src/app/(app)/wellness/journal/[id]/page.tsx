@@ -26,8 +26,12 @@ export default function JournalEntryDetailPage() {
     const router = useRouter()
     const params = useParams()
     const searchParams = useSearchParams()
-    const { journalEntries, fetchJournalEntries, deleteJournalEntry, isJournalLoading } =
-        useWellnessStore()
+    const {
+        journalEntries,
+        fetchJournalEntries,
+        deleteJournalEntry,
+        isJournalLoading,
+    } = useWellnessStore()
 
     const entryId = Number(params.id)
     const isValidId = !Number.isNaN(entryId) && entryId > 0
@@ -41,19 +45,29 @@ export default function JournalEntryDetailPage() {
 
     useEffect(() => {
         if (!isValidId) return
-        
-        if (!hasFetchedEntries && journalEntries.length === 0 && !isJournalLoading) {
+
+        if (
+            !hasFetchedEntries &&
+            journalEntries.length === 0 &&
+            !isJournalLoading
+        ) {
             Promise.resolve(fetchJournalEntries()).finally(() =>
                 setHasFetchedEntries(true),
             )
         } else if (journalEntries.length > 0) {
             setHasFetchedEntries(true)
         }
-    }, [isValidId, journalEntries.length, fetchJournalEntries, isJournalLoading, hasFetchedEntries])
+    }, [
+        isValidId,
+        journalEntries.length,
+        fetchJournalEntries,
+        isJournalLoading,
+        hasFetchedEntries,
+    ])
 
     useEffect(() => {
         if (isValidId) {
-            const found = journalEntries.find((e) => e.id === entryId)
+            const found = journalEntries.find(e => e.id === entryId)
             setEntry(found || null)
         }
     }, [isValidId, journalEntries, entryId])
@@ -147,10 +161,16 @@ export default function JournalEntryDetailPage() {
                                 <div className="flex items-center gap-2 text-sm text-gray-500">
                                     <FiCalendar className="h-4 w-4" />
                                     <span>
-                                        {formatDate(entry.logged_at || entry.created_at)}
+                                        {formatDate(
+                                            entry.logged_at || entry.created_at,
+                                        )}
                                     </span>
                                     <span className="text-xs">
-                                        ({formatRelativeTime(entry.logged_at || entry.created_at)})
+                                        (
+                                        {formatRelativeTime(
+                                            entry.logged_at || entry.created_at,
+                                        )}
+                                        )
                                     </span>
                                 </div>
                                 {emoji && (
@@ -168,11 +188,10 @@ export default function JournalEntryDetailPage() {
                             {/* Tags */}
                             {entry.tags && entry.tags.length > 0 && (
                                 <div className="mt-4 flex flex-wrap gap-2 border-t pt-4">
-                                    {entry.tags.map((tag) => (
+                                    {entry.tags.map(tag => (
                                         <span
                                             key={tag}
-                                            className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600"
-                                        >
+                                            className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
                                             #{tag}
                                         </span>
                                     ))}
@@ -185,16 +204,14 @@ export default function JournalEntryDetailPage() {
                             <Button
                                 variant="outline"
                                 onClick={() => setIsEditing(true)}
-                                className="flex-1"
-                            >
+                                className="flex-1">
                                 <FiEdit2 className="mr-2 h-4 w-4" />
                                 Edit
                             </Button>
                             <Button
                                 variant="outline"
                                 onClick={() => setShowDeleteDialog(true)}
-                                className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700"
-                            >
+                                className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700">
                                 <FiTrash2 className="mr-2 h-4 w-4" />
                                 Delete
                             </Button>
@@ -204,13 +221,17 @@ export default function JournalEntryDetailPage() {
             </main>
 
             {/* Delete Confirmation */}
-            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+            <AlertDialog
+                open={showDeleteDialog}
+                onOpenChange={setShowDeleteDialog}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Journal Entry</AlertDialogTitle>
+                        <AlertDialogTitle>
+                            Delete Journal Entry
+                        </AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete this journal entry? This
-                            action cannot be undone.
+                            Are you sure you want to delete this journal entry?
+                            This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -218,8 +239,7 @@ export default function JournalEntryDetailPage() {
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={isJournalLoading}
-                            className="bg-red-600 hover:bg-red-700"
-                        >
+                            className="bg-red-600 hover:bg-red-700">
                             Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>

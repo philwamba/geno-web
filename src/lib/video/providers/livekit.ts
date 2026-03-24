@@ -4,9 +4,14 @@ import {
     Participant,
     RemoteParticipant,
     LocalParticipant,
-    Track
+    Track,
 } from 'livekit-client'
-import { IVideoParticipant, IVideoProvider, IVideoRoom, IVideoTrack } from '../interfaces'
+import {
+    IVideoParticipant,
+    IVideoProvider,
+    IVideoRoom,
+    IVideoTrack,
+} from '../interfaces'
 
 export class LiveKitVideoProvider implements IVideoProvider {
     readonly name = 'livekit'
@@ -25,7 +30,12 @@ class LiveKitVideoRoom implements IVideoRoom {
     name: string = ''
     localParticipant: IVideoParticipant | undefined
     remoteParticipants: IVideoParticipant[] = []
-    state: 'disconnected' | 'connecting' | 'connected' | 'reconnecting' | 'error' = 'disconnected'
+    state:
+        | 'disconnected'
+        | 'connecting'
+        | 'connected'
+        | 'reconnecting'
+        | 'error' = 'disconnected'
     error?: Error
 
     private room: Room
@@ -37,24 +47,30 @@ class LiveKitVideoRoom implements IVideoRoom {
         this.room = new Room({
             adaptiveStream: true,
             dynacast: true,
-            ...options
+            ...options,
         })
         this.setupListeners()
     }
 
-    async join(token: string, options?: Record<string, unknown>): Promise<void> {
+    async join(
+        token: string,
+        options?: Record<string, unknown>,
+    ): Promise<void> {
         this.state = 'connecting'
         try {
-            const url = options?.url as string || this.options?.url as string
+            const url =
+                (options?.url as string) || (this.options?.url as string)
             if (!url) {
-                throw new Error('LiveKit provider requires a generic room URL (ws key) in options')
+                throw new Error(
+                    'LiveKit provider requires a generic room URL (ws key) in options',
+                )
             }
 
             await this.room.connect(url, token)
             this.state = 'connected'
             this.id = this.room.name
             this.name = this.room.name
-            
+
             this.updateParticipants()
             this.emit('connected')
         } catch (err: unknown) {
@@ -82,17 +98,29 @@ class LiveKitVideoRoom implements IVideoRoom {
 
     async setCameraEnabled(enabled: boolean): Promise<void> {
         if (this.room.localParticipant) {
-             await this.room.localParticipant.setCameraEnabled(enabled)
-             this.updateParticipants()
+            await this.room.localParticipant.setCameraEnabled(enabled)
+            this.updateParticipants()
         }
     }
 
     on(event: 'connected', listener: () => void): void
     on(event: 'disconnected', listener: () => void): void
-    on(event: 'participantConnected', listener: (participant: IVideoParticipant) => void): void
-    on(event: 'participantDisconnected', listener: (participant: IVideoParticipant) => void): void
-    on(event: 'trackSubscribed', listener: (track: IVideoTrack, participant: IVideoParticipant) => void): void
-    on(event: 'trackUnsubscribed', listener: (track: IVideoTrack, participant: IVideoParticipant) => void): void
+    on(
+        event: 'participantConnected',
+        listener: (participant: IVideoParticipant) => void,
+    ): void
+    on(
+        event: 'participantDisconnected',
+        listener: (participant: IVideoParticipant) => void,
+    ): void
+    on(
+        event: 'trackSubscribed',
+        listener: (track: IVideoTrack, participant: IVideoParticipant) => void,
+    ): void
+    on(
+        event: 'trackUnsubscribed',
+        listener: (track: IVideoTrack, participant: IVideoParticipant) => void,
+    ): void
     on(event: 'error', listener: (error: Error) => void): void
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     on(event: string, listener: (...args: any[]) => void): void {
@@ -106,7 +134,9 @@ class LiveKitVideoRoom implements IVideoRoom {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     off(event: string, listener: (...args: any[]) => void): void {
         if (!this.listeners[event]) return
-        this.listeners[event] = this.listeners[event].filter(l => l !== listener)
+        this.listeners[event] = this.listeners[event].filter(
+            l => l !== listener,
+        )
     }
 
     private emit(event: string, ...args: unknown[]): void {
@@ -123,63 +153,85 @@ class LiveKitVideoRoom implements IVideoRoom {
                 this.state = 'disconnected'
                 this.emit('disconnected')
             })
-            .on(RoomEvent.ParticipantConnected, (participant: RemoteParticipant) => {
-                const p = this.mapParticipant(participant)
-                this.remoteParticipants.push(p)
-                this.emit('participantConnected', p)
-            })
-            .on(RoomEvent.ParticipantDisconnected, (participant: RemoteParticipant) => {
-                const p = this.mapParticipant(participant)
-                this.remoteParticipants = this.remoteParticipants.filter(rp => rp.id !== p.id)
-                this.emit('participantDisconnected', p)
-            })
+            .on(
+                RoomEvent.ParticipantConnected,
+                (participant: RemoteParticipant) => {
+                    const p = this.mapParticipant(participant)
+                    this.remoteParticipants.push(p)
+                    this.emit('participantConnected', p)
+                },
+            )
+            .on(
+                RoomEvent.ParticipantDisconnected,
+                (participant: RemoteParticipant) => {
+                    const p = this.mapParticipant(participant)
+                    this.remoteParticipants = this.remoteParticipants.filter(
+                        rp => rp.id !== p.id,
+                    )
+                    this.emit('participantDisconnected', p)
+                },
+            )
             .on(RoomEvent.TrackSubscribed, () => {
-                 this.updateParticipants()
+                this.updateParticipants()
             })
             .on(RoomEvent.TrackUnsubscribed, () => {
-                 this.updateParticipants()
+                this.updateParticipants()
             })
             .on(RoomEvent.LocalTrackPublished, () => this.updateParticipants())
-            .on(RoomEvent.LocalTrackUnpublished, () => this.updateParticipants())
+            .on(RoomEvent.LocalTrackUnpublished, () =>
+                this.updateParticipants(),
+            )
             .on(RoomEvent.TrackMuted, () => this.updateParticipants())
             .on(RoomEvent.TrackUnmuted, () => this.updateParticipants())
     }
 
     private updateParticipants() {
         if (this.room.localParticipant) {
-            this.localParticipant = this.mapParticipant(this.room.localParticipant)
+            this.localParticipant = this.mapParticipant(
+                this.room.localParticipant,
+            )
         }
 
-        this.remoteParticipants = Array.from(this.room.remoteParticipants.values()).map(p => this.mapParticipant(p))
+        this.remoteParticipants = Array.from(
+            this.room.remoteParticipants.values(),
+        ).map(p => this.mapParticipant(p))
     }
 
     private mapParticipant(participant: Participant): IVideoParticipant {
         // Find audio and video tracks
-        const audioPub = Array.from(participant.trackPublications.values())
-            .find(pub => pub.kind === Track.Kind.Audio)
-        
-        const videoPub = Array.from(participant.trackPublications.values())
-            .find(pub => pub.kind === Track.Kind.Video)
+        const audioPub = Array.from(
+            participant.trackPublications.values(),
+        ).find(pub => pub.kind === Track.Kind.Audio)
 
-        const audioTrack = audioPub?.track ? {
-            id: audioPub.trackSid,
-            kind: 'audio' as const,
-            isEnabled: !audioPub.isMuted,
-            isMuted: audioPub.isMuted,
-            mediaStreamTrack: audioPub.track.mediaStreamTrack
-        } : undefined
+        const videoPub = Array.from(
+            participant.trackPublications.values(),
+        ).find(pub => pub.kind === Track.Kind.Video)
 
-        const videoTrack = videoPub?.track ? {
-            id: videoPub.trackSid,
-            kind: 'video' as const,
-            isEnabled: !videoPub.isMuted,
-            isMuted: videoPub.isMuted,
-            mediaStreamTrack: videoPub.track.mediaStreamTrack
-        } : undefined
+        const audioTrack = audioPub?.track
+            ? {
+                  id: audioPub.trackSid,
+                  kind: 'audio' as const,
+                  isEnabled: !audioPub.isMuted,
+                  isMuted: audioPub.isMuted,
+                  mediaStreamTrack: audioPub.track.mediaStreamTrack,
+              }
+            : undefined
+
+        const videoTrack = videoPub?.track
+            ? {
+                  id: videoPub.trackSid,
+                  kind: 'video' as const,
+                  isEnabled: !videoPub.isMuted,
+                  isMuted: videoPub.isMuted,
+                  mediaStreamTrack: videoPub.track.mediaStreamTrack,
+              }
+            : undefined
 
         let metadata
         try {
-            metadata = participant.metadata ? JSON.parse(participant.metadata) : undefined
+            metadata = participant.metadata
+                ? JSON.parse(participant.metadata)
+                : undefined
         } catch {
             metadata = {}
         }
@@ -192,7 +244,7 @@ class LiveKitVideoRoom implements IVideoRoom {
             hasVideo: !!videoTrack,
             audioTrack,
             videoTrack,
-            metadata
+            metadata,
         }
     }
 }

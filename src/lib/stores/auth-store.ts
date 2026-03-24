@@ -115,7 +115,10 @@ export const useAuthStore = create<AuthState>()(
                     })
                 } catch (error) {
                     set({
-                        error: getAuthErrorMessage(error, 'Registration failed'),
+                        error: getAuthErrorMessage(
+                            error,
+                            'Registration failed',
+                        ),
                         isLoading: false,
                     })
                     throw error
@@ -136,7 +139,10 @@ export const useAuthStore = create<AuthState>()(
                     })
                 } catch (error) {
                     set({
-                        error: getAuthErrorMessage(error, 'Google login failed'),
+                        error: getAuthErrorMessage(
+                            error,
+                            'Google login failed',
+                        ),
                         isLoading: false,
                     })
                     throw error
@@ -172,19 +178,22 @@ export const useAuthStore = create<AuthState>()(
                 } catch (error) {
                     console.error('Failed to fetch user:', error)
                     if (error instanceof AuthenticationError) {
-                         get().logout()
+                        get().logout()
                     }
                 }
             },
 
-            updateProfile: async (updates) => {
+            updateProfile: async updates => {
                 set({ isLoading: true, error: null })
                 try {
                     const response = await authApi.updateProfile(updates)
                     set({ user: response.user as User, isLoading: false })
                 } catch (error) {
                     set({
-                        error: getAuthErrorMessage(error, 'Failed to update profile'),
+                        error: getAuthErrorMessage(
+                            error,
+                            'Failed to update profile',
+                        ),
                         isLoading: false,
                     })
                     throw error

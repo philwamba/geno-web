@@ -36,7 +36,11 @@ export default function ProfileSettingsPage() {
         setIsLoading(true)
 
         try {
-            await updateProfile({ name, phone_number: phone, address: location })
+            await updateProfile({
+                name,
+                phone_number: phone,
+                address: location,
+            })
             toast.success('Profile updated successfully!')
             setSuccess(true)
             setTimeout(() => setSuccess(false), 3000)
@@ -177,7 +181,6 @@ export default function ProfileSettingsPage() {
                                 />
                             </div>
                         </div>
-
                     </div>
 
                     {/* Password Change Link */}

@@ -23,19 +23,19 @@ export function DocumentUploader({
     required = false,
     onUpload,
     currentDocumentUrl,
-    rejectionReason
+    rejectionReason,
 }: DocumentUploaderProps) {
     const [isUploading, setIsUploading] = useState(false)
     const [uploadError, setUploadError] = useState<string | null>(null)
 
     const handleFileSelect = (file: File | null) => {
         if (!file) return
-        
+
         setIsUploading(true)
         setUploadError(null)
 
         onUpload(file)
-            .catch((err) => {
+            .catch(err => {
                 setUploadError('Failed to upload document. Please try again.')
                 console.error(err)
             })
@@ -90,14 +90,13 @@ export function DocumentUploader({
                     </h3>
                     <p className="text-sm text-gray-500 mt-1">{description}</p>
                 </div>
-                
+
                 {currentDocumentUrl && (
-                    <a 
-                        href={currentDocumentUrl} 
-                        target="_blank" 
+                    <a
+                        href={currentDocumentUrl}
+                        target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1"
-                    >
+                        className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1">
                         <FileText className="w-4 h-4" />
                         View Current
                     </a>
@@ -108,18 +107,23 @@ export function DocumentUploader({
                 <div className="mb-4 p-3 bg-red-50 border border-red-100 rounded-lg text-sm text-red-700 flex items-start gap-2">
                     <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
                     <div>
-                        <span className="font-semibold">Action Required:</span> {rejectionReason}
+                        <span className="font-semibold">Action Required:</span>{' '}
+                        {rejectionReason}
                     </div>
                 </div>
             )}
 
             {status !== 'verified' && (
                 <FileUpload
-                    label={status === 'rejected' ? 'Upload corrected document' : 'Upload document'}
+                    label={
+                        status === 'rejected'
+                            ? 'Upload corrected document'
+                            : 'Upload document'
+                    }
                     description="PDF, JPG, or PNG (Max 5MB)"
                     accept={{
                         'application/pdf': ['.pdf'],
-                        'image/*': ['.png', '.jpg', '.jpeg']
+                        'image/*': ['.png', '.jpg', '.jpeg'],
                     }}
                     onFileSelect={handleFileSelect}
                     disabled={status === 'pending' || isUploading}
@@ -127,7 +131,7 @@ export function DocumentUploader({
                     maxSize={5 * 1024 * 1024}
                 />
             )}
-            
+
             {status === 'pending' && (
                 <p className="mt-4 text-sm text-gray-500 text-center italic">
                     Your document is currently under review by our team.

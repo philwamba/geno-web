@@ -21,7 +21,7 @@ export function FileUpload({
     onFileSelect,
     accept = {
         'image/*': ['.png', '.jpg', '.jpeg', '.webp'],
-        'application/pdf': ['.pdf']
+        'application/pdf': ['.pdf'],
     },
     maxSize = 5 * 1024 * 1024, // 5MB default
     label = 'Upload file',
@@ -29,13 +29,17 @@ export function FileUpload({
     error: externalError,
     value,
     disabled = false,
-    className
+    className,
 }: FileUploadProps) {
     const [preview, setPreview] = useState<string | null>(
-        typeof value === 'string' ? value : value ? URL.createObjectURL(value) : null
+        typeof value === 'string'
+            ? value
+            : value
+              ? URL.createObjectURL(value)
+              : null,
     )
     const [fileName, setFileName] = useState<string | null>(
-        typeof value === 'string' ? 'Uploaded File' : value ? value.name : null
+        typeof value === 'string' ? 'Uploaded File' : value ? value.name : null,
     )
     const [internalError, setInternalError] = useState<string | null>(null)
 
@@ -63,50 +67,55 @@ export function FileUpload({
     // Cleanup on unmount
     React.useEffect(() => {
         return () => {
-             if (preview && preview.startsWith('blob:')) {
-                 URL.revokeObjectURL(preview)
-             }
+            if (preview && preview.startsWith('blob:')) {
+                URL.revokeObjectURL(preview)
+            }
         }
     }, [preview])
 
-    const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
-        setInternalError(null)
+    const onDrop = useCallback(
+        (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+            setInternalError(null)
 
-        if (fileRejections.length > 0) {
-            const rejection = fileRejections[0]
-            if (rejection.errors[0].code === 'file-too-large') {
-                setInternalError(`File is too large. Max size is ${maxSize / 1024 / 1024}MB`)
-            } else {
-                setInternalError(rejection.errors[0].message)
+            if (fileRejections.length > 0) {
+                const rejection = fileRejections[0]
+                if (rejection.errors[0].code === 'file-too-large') {
+                    setInternalError(
+                        `File is too large. Max size is ${maxSize / 1024 / 1024}MB`,
+                    )
+                } else {
+                    setInternalError(rejection.errors[0].message)
+                }
+                return
             }
-            return
-        }
 
-        if (acceptedFiles.length > 0) {
-            const file = acceptedFiles[0]
-            onFileSelect(file)
-            setFileName(file.name)
-            
-            if (file.type.startsWith('image/')) {
-                const objectUrl = URL.createObjectURL(file)
-                setPreview(objectUrl)
-            } else {
-                setPreview(null)
+            if (acceptedFiles.length > 0) {
+                const file = acceptedFiles[0]
+                onFileSelect(file)
+                setFileName(file.name)
+
+                if (file.type.startsWith('image/')) {
+                    const objectUrl = URL.createObjectURL(file)
+                    setPreview(objectUrl)
+                } else {
+                    setPreview(null)
+                }
             }
-        }
-    }, [maxSize, onFileSelect])
+        },
+        [maxSize, onFileSelect],
+    )
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept,
         maxSize,
         disabled,
-        multiple: false
+        multiple: false,
     })
 
     const handleRemove = (e: React.MouseEvent) => {
         e.stopPropagation()
-        onFileSelect(null) 
+        onFileSelect(null)
         setPreview(null)
         setFileName(null)
         setInternalError(null)
@@ -116,23 +125,26 @@ export function FileUpload({
     const hasFile = value !== undefined ? !!value : !!fileName
 
     return (
-        <div className={cn("w-full", className)}>
+        <div className={cn('w-full', className)}>
             {label && (
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                     {label}
                 </label>
             )}
-            
+
             <div
                 {...getRootProps()}
                 className={cn(
-                    "relative border-2 border-dashed rounded-lg p-6 transition-colors cursor-pointer flex flex-col items-center justify-center text-center min-h-[150px]",
-                    isDragActive ? "border-primary bg-primary/5" : "border-gray-300 hover:border-primary/50",
-                    errorMessage ? "border-red-500 bg-red-50" : "",
-                    hasFile ? "border-solid border-gray-200 bg-gray-50" : "",
-                    disabled ? "opacity-60 cursor-not-allowed hover:border-gray-300" : ""
-                )}
-            >
+                    'relative border-2 border-dashed rounded-lg p-6 transition-colors cursor-pointer flex flex-col items-center justify-center text-center min-h-[150px]',
+                    isDragActive
+                        ? 'border-primary bg-primary/5'
+                        : 'border-gray-300 hover:border-primary/50',
+                    errorMessage ? 'border-red-500 bg-red-50' : '',
+                    hasFile ? 'border-solid border-gray-200 bg-gray-50' : '',
+                    disabled
+                        ? 'opacity-60 cursor-not-allowed hover:border-gray-300'
+                        : '',
+                )}>
                 <input {...getInputProps()} />
 
                 {hasFile ? (
@@ -150,7 +162,7 @@ export function FileUpload({
                                 <File className="w-8 h-8 text-gray-400" />
                             </div>
                         )}
-                        
+
                         <div className="flex-1 text-left overflow-hidden">
                             <p className="text-sm font-medium text-gray-900 truncate">
                                 {fileName}
@@ -165,8 +177,7 @@ export function FileUpload({
                             <button
                                 type="button"
                                 onClick={handleRemove}
-                                className="p-1 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-red-500"
-                            >
+                                className="p-1 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-red-500">
                                 <X className="w-5 h-5" />
                             </button>
                         )}
@@ -178,7 +189,9 @@ export function FileUpload({
                         </div>
                         <div className="space-y-1">
                             <p className="text-sm font-medium text-gray-700">
-                                {isDragActive ? "Drop the file here" : "Click to upload or drag and drop"}
+                                {isDragActive
+                                    ? 'Drop the file here'
+                                    : 'Click to upload or drag and drop'}
                             </p>
                             <p className="text-xs text-gray-500">
                                 {description}

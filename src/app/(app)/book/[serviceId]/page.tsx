@@ -281,13 +281,18 @@ export default function BookingPage() {
                                     {selectedProvider.avatar ? (
                                         <Image
                                             src={selectedProvider.avatar}
-                                            alt={selectedProvider.name || 'Provider'}
+                                            alt={
+                                                selectedProvider.name ||
+                                                'Provider'
+                                            }
                                             fill
                                             className="object-cover"
                                         />
                                     ) : (
                                         <span className="flex h-full w-full items-center justify-center text-xs font-medium text-primary">
-                                            {getInitials(selectedProvider.name || 'P')}
+                                            {getInitials(
+                                                selectedProvider.name || 'P',
+                                            )}
                                         </span>
                                     )}
                                 </div>

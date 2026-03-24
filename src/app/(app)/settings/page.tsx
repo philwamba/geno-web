@@ -2,13 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { AppHeader } from '@/components/layout/app-header'
-import {
-    FiUser,
-    FiBell,
-    FiShield,
-    FiTrash2,
-    FiLoader,
-} from 'react-icons/fi'
+import { FiUser, FiBell, FiShield, FiTrash2, FiLoader } from 'react-icons/fi'
 import { authApi } from '@/lib/api/client'
 import { toast } from 'sonner'
 import { useAuth } from '@/lib/hooks/use-auth'
@@ -25,7 +19,9 @@ interface NotificationSettings {
 
 export default function SettingsPage() {
     const { user, mutate } = useAuth()
-    const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'notifications'>('profile')
+    const [activeTab, setActiveTab] = useState<
+        'profile' | 'security' | 'notifications'
+    >('profile')
     const [isLoading, setIsLoading] = useState(false)
     const [isLoadingSettings, setIsLoadingSettings] = useState(true)
 
@@ -88,7 +84,10 @@ export default function SettingsPage() {
             await mutate()
             toast.success('Profile updated successfully')
         } catch (error) {
-            const message = error instanceof Error ? error.message : 'Failed to update profile'
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to update profile'
             toast.error(message)
         } finally {
             setIsLoading(false)
@@ -110,21 +109,26 @@ export default function SettingsPage() {
             await authApi.changePassword({
                 current_password: currentPassword,
                 password: newPassword,
-                password_confirmation: confirmPassword
+                password_confirmation: confirmPassword,
             })
             setCurrentPassword('')
             setNewPassword('')
             setConfirmPassword('')
             toast.success('Password changed successfully')
         } catch (error) {
-            const message = error instanceof Error ? error.message : 'Failed to change password'
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to change password'
             toast.error(message)
         } finally {
             setIsLoading(false)
         }
     }
 
-    const handleToggleNotification = async (key: keyof NotificationSettings) => {
+    const handleToggleNotification = async (
+        key: keyof NotificationSettings,
+    ) => {
         const newValue = !notifications[key]
 
         // Optimistically update UI
@@ -146,9 +150,16 @@ export default function SettingsPage() {
     }
 
     const handleDeleteAccount = async () => {
-        if (!confirm('Are you sure you want to delete your account? This action cannot be undone.')) return
+        if (
+            !confirm(
+                'Are you sure you want to delete your account? This action cannot be undone.',
+            )
+        )
+            return
 
-        toast.error('Account deletion not yet available. Please contact support.')
+        toast.error(
+            'Account deletion not yet available. Please contact support.',
+        )
     }
 
     const tabs = [
@@ -160,7 +171,7 @@ export default function SettingsPage() {
     const NotificationToggle = ({
         label,
         description,
-        settingKey
+        settingKey,
     }: {
         label: string
         description: string
@@ -198,7 +209,7 @@ export default function SettingsPage() {
                                 'flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-colors',
                                 activeTab === tab.id
                                     ? 'bg-primary text-white font-medium'
-                                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                                    : 'bg-white text-gray-600 hover:bg-gray-100',
                             )}>
                             <tab.icon className="w-4 h-4" />
                             {tab.label}
@@ -209,7 +220,9 @@ export default function SettingsPage() {
                 {/* Content */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm">
                     {activeTab === 'profile' && (
-                        <form onSubmit={handleUpdateProfile} className="space-y-6">
+                        <form
+                            onSubmit={handleUpdateProfile}
+                            className="space-y-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Full Name
@@ -254,8 +267,12 @@ export default function SettingsPage() {
 
                     {activeTab === 'security' && (
                         <div className="space-y-8">
-                             <form onSubmit={handleChangePassword} className="space-y-6">
-                                <h3 className="font-medium text-gray-900 border-b pb-2">Change Password</h3>
+                            <form
+                                onSubmit={handleChangePassword}
+                                className="space-y-6">
+                                <h3 className="font-medium text-gray-900 border-b pb-2">
+                                    Change Password
+                                </h3>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
                                         Current Password
@@ -263,7 +280,9 @@ export default function SettingsPage() {
                                     <input
                                         type="password"
                                         value={currentPassword}
-                                        onChange={e => setCurrentPassword(e.target.value)}
+                                        onChange={e =>
+                                            setCurrentPassword(e.target.value)
+                                        }
                                         required
                                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                                     />
@@ -275,12 +294,16 @@ export default function SettingsPage() {
                                     <input
                                         type="password"
                                         value={newPassword}
-                                        onChange={e => setNewPassword(e.target.value)}
+                                        onChange={e =>
+                                            setNewPassword(e.target.value)
+                                        }
                                         required
                                         minLength={8}
                                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                                     />
-                                    <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
+                                    <p className="text-xs text-gray-500 mt-1">
+                                        Must be at least 8 characters
+                                    </p>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -289,7 +312,9 @@ export default function SettingsPage() {
                                     <input
                                         type="password"
                                         value={confirmPassword}
-                                        onChange={e => setConfirmPassword(e.target.value)}
+                                        onChange={e =>
+                                            setConfirmPassword(e.target.value)
+                                        }
                                         required
                                         className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                                     />
@@ -298,12 +323,16 @@ export default function SettingsPage() {
                                     type="submit"
                                     disabled={isLoading}
                                     className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
-                                    {isLoading ? 'Updating...' : 'Update Password'}
+                                    {isLoading
+                                        ? 'Updating...'
+                                        : 'Update Password'}
                                 </button>
                             </form>
 
                             <div className="pt-6 border-t border-gray-100">
-                                <h3 className="font-medium text-red-600 mb-2">Danger Zone</h3>
+                                <h3 className="font-medium text-red-600 mb-2">
+                                    Danger Zone
+                                </h3>
                                 <button
                                     onClick={handleDeleteAccount}
                                     className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium">
@@ -311,7 +340,8 @@ export default function SettingsPage() {
                                     Delete Account
                                 </button>
                                 <p className="text-sm text-gray-500 mt-2">
-                                    Permanently delete your account and all of your content.
+                                    Permanently delete your account and all of
+                                    your content.
                                 </p>
                             </div>
                         </div>

@@ -72,49 +72,49 @@ export function JournalEntryCard({
                     onClick || !compact ? 'cursor-pointer' : '',
                     className,
                 )}
-                onClick={handleClick}
-            >
+                onClick={handleClick}>
                 {/* Header */}
                 <div className="mb-2 flex items-start justify-between">
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                         <FiCalendar className="h-3 w-3" />
-                        <span>{formatRelativeTime(entry.logged_at || entry.created_at)}</span>
+                        <span>
+                            {formatRelativeTime(
+                                entry.logged_at || entry.created_at,
+                            )}
+                        </span>
                         {emoji && <span className="text-base">{emoji}</span>}
                     </div>
 
                     {showActions && (
                         <div className="relative">
                             <button
-                                onClick={(e) => {
+                                onClick={e => {
                                     e.stopPropagation()
                                     setShowMenu(!showMenu)
                                 }}
-                                className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-                            >
+                                className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
                                 <FiMoreVertical className="h-4 w-4" />
                             </button>
 
                             {showMenu && (
                                 <div className="absolute right-0 top-full z-10 mt-1 w-32 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
                                     <button
-                                        onClick={(e) => {
+                                        onClick={e => {
                                             e.stopPropagation()
                                             handleEdit()
                                             setShowMenu(false)
                                         }}
-                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    >
+                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         <FiEdit2 className="h-4 w-4" />
                                         Edit
                                     </button>
                                     <button
-                                        onClick={(e) => {
+                                        onClick={e => {
                                             e.stopPropagation()
                                             setShowDeleteDialog(true)
                                             setShowMenu(false)
                                         }}
-                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
-                                    >
+                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50">
                                         <FiTrash2 className="h-4 w-4" />
                                         Delete
                                     </button>
@@ -129,19 +129,17 @@ export function JournalEntryCard({
                     className={cn(
                         'text-sm text-gray-700',
                         compact ? 'line-clamp-2' : 'line-clamp-4',
-                    )}
-                >
+                    )}>
                     {entry.preview || entry.content}
                 </p>
 
                 {/* Tags */}
                 {entry.tags && entry.tags.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-1">
-                        {entry.tags.slice(0, compact ? 3 : 10).map((tag) => (
+                        {entry.tags.slice(0, compact ? 3 : 10).map(tag => (
                             <span
                                 key={tag}
-                                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
-                            >
+                                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
                                 #{tag}
                             </span>
                         ))}
@@ -155,13 +153,17 @@ export function JournalEntryCard({
             </div>
 
             {/* Delete Confirmation Dialog */}
-            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+            <AlertDialog
+                open={showDeleteDialog}
+                onOpenChange={setShowDeleteDialog}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Journal Entry</AlertDialogTitle>
+                        <AlertDialogTitle>
+                            Delete Journal Entry
+                        </AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete this journal entry? This action
-                            cannot be undone.
+                            Are you sure you want to delete this journal entry?
+                            This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -169,8 +171,7 @@ export function JournalEntryCard({
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={isJournalLoading}
-                            className="bg-red-600 hover:bg-red-700"
-                        >
+                            className="bg-red-600 hover:bg-red-700">
                             Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>

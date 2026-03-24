@@ -23,7 +23,11 @@ const STATUS_STYLES: Record<
     { bg: string; text: string; label: string }
 > = {
     active: { bg: 'bg-blue-100', text: 'text-blue-700', label: 'Active' },
-    completed: { bg: 'bg-green-100', text: 'text-green-700', label: 'Completed' },
+    completed: {
+        bg: 'bg-green-100',
+        text: 'text-green-700',
+        label: 'Completed',
+    },
     paused: { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'Paused' },
     cancelled: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Cancelled' },
 }
@@ -37,7 +41,12 @@ const CATEGORY_LABELS: Record<GoalCategoryValue, string> = {
     spiritual: 'Spiritual',
 }
 
-export function GoalCard({ goal, className, onClick, compact = false }: GoalCardProps) {
+export function GoalCard({
+    goal,
+    className,
+    onClick,
+    compact = false,
+}: GoalCardProps) {
     const router = useRouter()
     const category = goal.category as GoalCategoryValue
     const status = goal.status as GoalStatusValue
@@ -74,13 +83,14 @@ export function GoalCard({ goal, className, onClick, compact = false }: GoalCard
                 'cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                 isOverdue && status === 'active' && 'ring-2 ring-red-200',
                 className,
-            )}
-        >
+            )}>
             {/* Header */}
             <div className="mb-3 flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2">
                     {/* Category indicator */}
-                    <div className={cn('h-3 w-3 rounded-full', categoryColor)} />
+                    <div
+                        className={cn('h-3 w-3 rounded-full', categoryColor)}
+                    />
                     <span className="text-xs text-gray-500">
                         {CATEGORY_LABELS[category]}
                     </span>
@@ -90,8 +100,7 @@ export function GoalCard({ goal, className, onClick, compact = false }: GoalCard
                         'rounded-full px-2 py-0.5 text-xs font-medium',
                         statusStyle.bg,
                         statusStyle.text,
-                    )}
-                >
+                    )}>
                     {statusStyle.label}
                 </span>
             </div>
@@ -112,7 +121,8 @@ export function GoalCard({ goal, className, onClick, compact = false }: GoalCard
                     <div className="mb-1 flex items-center justify-between text-xs">
                         <span className="text-gray-600">Progress</span>
                         <span className="font-medium text-gray-900">
-                            {goal.current_value || 0} / {goal.target_value} {goal.unit}
+                            {goal.current_value || 0} / {goal.target_value}{' '}
+                            {goal.unit}
                         </span>
                     </div>
                     <div className="h-2 w-full overflow-hidden rounded-full bg-gray-100">
@@ -141,8 +151,7 @@ export function GoalCard({ goal, className, onClick, compact = false }: GoalCard
                         className={cn(
                             'flex items-center gap-1',
                             isOverdue && status === 'active' && 'text-red-500',
-                        )}
-                    >
+                        )}>
                         <FiCalendar className="h-3 w-3" />
                         <span>
                             {isOverdue ? 'Overdue: ' : 'Due: '}

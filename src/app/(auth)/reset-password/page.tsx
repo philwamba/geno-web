@@ -51,10 +51,16 @@ function ResetPasswordContent() {
                 password_confirmation: passwordConfirmation,
             })
             setIsSuccess(true)
-            successRedirectTimeoutRef.current = setTimeout(() => router.push('/login'), 3000)
+            successRedirectTimeoutRef.current = setTimeout(
+                () => router.push('/login'),
+                3000,
+            )
         } catch (error) {
             console.error('Failed to reset password:', error)
-            const message = error instanceof Error ? error.message : 'Failed to reset password'
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to reset password'
             toast.error(message)
         } finally {
             setIsLoading(false)
@@ -94,73 +100,76 @@ function ResetPasswordContent() {
     return (
         <div className="min-h-screen flex items-center justify-center px-6 py-12">
             <div className="w-full max-w-md flex flex-col">
-            {/* Back to Login */}
-            <Link
-                href="/login"
-                className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start">
-                <FiArrowLeft className="w-4 h-4" />
-                Back to Login
-            </Link>
+                {/* Back to Login */}
+                <Link
+                    href="/login"
+                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start">
+                    <FiArrowLeft className="w-4 h-4" />
+                    Back to Login
+                </Link>
 
-            {/* Header */}
-            <div className="text-center mb-8">
-                <Image
-                    src="/logo.png"
-                    alt="GENO"
-                    width={80}
-                    height={80}
-                    className="mx-auto mb-4"
-                />
-                <h1 className="text-2xl font-bold text-title mb-2">
-                    Reset Password
-                </h1>
-                <p className="text-subtitle">
-                    Enter your new password below.
-                </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-title mb-1">
-                        New Password <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                        <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-inactive" />
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                            required
-                            className="w-full pl-10 pr-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                            placeholder="••••••••"
-                        />
-                    </div>
+                {/* Header */}
+                <div className="text-center mb-8">
+                    <Image
+                        src="/logo.png"
+                        alt="GENO"
+                        width={80}
+                        height={80}
+                        className="mx-auto mb-4"
+                    />
+                    <h1 className="text-2xl font-bold text-title mb-2">
+                        Reset Password
+                    </h1>
+                    <p className="text-subtitle">
+                        Enter your new password below.
+                    </p>
                 </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-title mb-1">
-                        Confirm Password <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                        <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-inactive" />
-                        <input
-                            type="password"
-                            value={passwordConfirmation}
-                            onChange={e => setPasswordConfirmation(e.target.value)}
-                            required
-                            className="w-full pl-10 pr-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                            placeholder="••••••••"
-                        />
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-title mb-1">
+                            New Password <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-inactive" />
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                                className="w-full pl-10 pr-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="••••••••"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
-                    {isLoading ? 'Resetting...' : 'Reset Password'}
-                </button>
-            </form>
+                    <div>
+                        <label className="block text-sm font-medium text-title mb-1">
+                            Confirm Password{' '}
+                            <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-inactive" />
+                            <input
+                                type="password"
+                                value={passwordConfirmation}
+                                onChange={e =>
+                                    setPasswordConfirmation(e.target.value)
+                                }
+                                required
+                                className="w-full pl-10 pr-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="••••••••"
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                        {isLoading ? 'Resetting...' : 'Reset Password'}
+                    </button>
+                </form>
             </div>
         </div>
     )

@@ -20,31 +20,34 @@ import {
     FiAlertCircle,
 } from 'react-icons/fi'
 
-const STATUS_CONFIG: Record<string, { label: string; className: string; icon: React.ReactNode }> = {
+const STATUS_CONFIG: Record<
+    string,
+    { label: string; className: string; icon: React.ReactNode }
+> = {
     pending: {
         label: 'Pending Confirmation',
         className: 'bg-yellow-100 text-yellow-700',
-        icon: <FiClock className="w-4 h-4" />
+        icon: <FiClock className="w-4 h-4" />,
     },
     confirmed: {
         label: 'Confirmed',
         className: 'bg-green-100 text-green-700',
-        icon: <FiCheck className="w-4 h-4" />
+        icon: <FiCheck className="w-4 h-4" />,
     },
     rescheduled: {
         label: 'Rescheduled',
         className: 'bg-blue-100 text-blue-700',
-        icon: <FiRefreshCw className="w-4 h-4" />
+        icon: <FiRefreshCw className="w-4 h-4" />,
     },
     completed: {
         label: 'Completed',
         className: 'bg-gray-100 text-gray-700',
-        icon: <FiCheck className="w-4 h-4" />
+        icon: <FiCheck className="w-4 h-4" />,
     },
     cancelled: {
         label: 'Cancelled',
         className: 'bg-red-100 text-red-700',
-        icon: <FiX className="w-4 h-4" />
+        icon: <FiX className="w-4 h-4" />,
     },
 }
 
@@ -104,10 +107,11 @@ export default function BookingDetailPage() {
     const getStatusBadge = (status: string) => {
         const config = STATUS_CONFIG[status] || STATUS_CONFIG.pending
         return (
-            <span className={cn(
-                'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium',
-                config.className
-            )}>
+            <span
+                className={cn(
+                    'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium',
+                    config.className,
+                )}>
                 {config.icon}
                 {config.label}
             </span>
@@ -136,8 +140,7 @@ export default function BookingDetailPage() {
                     <p className="text-gray-500 mb-4">Booking not found</p>
                     <Link
                         href="/bookings"
-                        className="text-primary font-medium hover:underline"
-                    >
+                        className="text-primary font-medium hover:underline">
                         Back to Bookings
                     </Link>
                 </div>
@@ -165,19 +168,22 @@ export default function BookingDetailPage() {
                     {booking.provider && (
                         <Link
                             href={`/providers/${booking.provider.id}`}
-                            className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-                        >
+                            className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                             <div className="relative w-12 h-12 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                 {booking.provider.avatar ? (
                                     <Image
                                         src={booking.provider.avatar}
-                                        alt={booking.provider.name || 'Provider'}
+                                        alt={
+                                            booking.provider.name || 'Provider'
+                                        }
                                         fill
                                         className="object-cover"
                                     />
                                 ) : (
                                     <span className="flex h-full w-full items-center justify-center text-sm font-medium text-primary">
-                                        {getInitials(booking.provider.name || 'P')}
+                                        {getInitials(
+                                            booking.provider.name || 'P',
+                                        )}
                                     </span>
                                 )}
                             </div>
@@ -196,7 +202,9 @@ export default function BookingDetailPage() {
 
                 {/* Booking Details */}
                 <section className="bg-white rounded-2xl p-4 shadow-sm">
-                    <h3 className="font-semibold text-gray-900 mb-4">Booking Details</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                        Booking Details
+                    </h3>
 
                     <div className="space-y-4">
                         <div className="flex items-start gap-3">
@@ -204,7 +212,9 @@ export default function BookingDetailPage() {
                                 <FiCalendar className="w-5 h-5 text-primary" />
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500">Date & Time</p>
+                                <p className="text-sm text-gray-500">
+                                    Date & Time
+                                </p>
                                 <p className="font-medium text-gray-900">
                                     {formatDateTime(booking.scheduled_at)}
                                 </p>
@@ -216,7 +226,9 @@ export default function BookingDetailPage() {
                                 <FiClock className="w-5 h-5 text-primary" />
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500">Duration</p>
+                                <p className="text-sm text-gray-500">
+                                    Duration
+                                </p>
                                 <p className="font-medium text-gray-900">
                                     {booking.duration_minutes} minutes
                                 </p>
@@ -228,7 +240,9 @@ export default function BookingDetailPage() {
                                 <FiVideo className="w-5 h-5 text-primary" />
                             </div>
                             <div>
-                                <p className="text-sm text-gray-500">Session Type</p>
+                                <p className="text-sm text-gray-500">
+                                    Session Type
+                                </p>
                                 <p className="font-medium text-gray-900">
                                     Video Call
                                 </p>
@@ -240,7 +254,9 @@ export default function BookingDetailPage() {
                 {/* Notes */}
                 {booking.client_notes && (
                     <section className="bg-white rounded-2xl p-4 shadow-sm">
-                        <h3 className="font-semibold text-gray-900 mb-2">Your Notes</h3>
+                        <h3 className="font-semibold text-gray-900 mb-2">
+                            Your Notes
+                        </h3>
                         <p className="text-gray-600 whitespace-pre-wrap">
                             {booking.client_notes}
                         </p>
@@ -249,15 +265,21 @@ export default function BookingDetailPage() {
 
                 {/* Payment Details */}
                 <section className="bg-white rounded-2xl p-4 shadow-sm">
-                    <h3 className="font-semibold text-gray-900 mb-4">Payment Details</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                        Payment Details
+                    </h3>
 
                     <div className="space-y-3">
                         <div className="flex justify-between">
                             <span className="text-gray-600">Service Fee</span>
-                            <span className="text-gray-900">{formatCurrency(booking.price)}</span>
+                            <span className="text-gray-900">
+                                {formatCurrency(booking.price)}
+                            </span>
                         </div>
                         <div className="pt-3 border-t border-gray-100 flex justify-between">
-                            <span className="font-semibold text-gray-900">Total</span>
+                            <span className="font-semibold text-gray-900">
+                                Total
+                            </span>
                             <span className="font-semibold text-primary">
                                 {formatCurrency(booking.price)}
                             </span>
@@ -267,7 +289,9 @@ export default function BookingDetailPage() {
 
                 {/* Timeline */}
                 <section className="bg-white rounded-2xl p-4 shadow-sm">
-                    <h3 className="font-semibold text-gray-900 mb-4">Booking Timeline</h3>
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                        Booking Timeline
+                    </h3>
 
                     <div className="space-y-4">
                         <div className="flex gap-3">
@@ -276,7 +300,9 @@ export default function BookingDetailPage() {
                                 <div className="w-0.5 h-full bg-gray-200 my-1" />
                             </div>
                             <div className="pb-4">
-                                <p className="font-medium text-gray-900">Booking Created</p>
+                                <p className="font-medium text-gray-900">
+                                    Booking Created
+                                </p>
                                 <p className="text-sm text-gray-500">
                                     {formatDateTime(booking.created_at)}
                                 </p>
@@ -290,7 +316,9 @@ export default function BookingDetailPage() {
                                     <div className="w-0.5 h-full bg-gray-200 my-1" />
                                 </div>
                                 <div className="pb-4">
-                                    <p className="font-medium text-gray-900">Confirmed</p>
+                                    <p className="font-medium text-gray-900">
+                                        Confirmed
+                                    </p>
                                     <p className="text-sm text-gray-500">
                                         {formatDateTime(booking.confirmed_at)}
                                     </p>
@@ -304,32 +332,40 @@ export default function BookingDetailPage() {
                                     <div className="w-3 h-3 rounded-full bg-red-500" />
                                 </div>
                                 <div>
-                                    <p className="font-medium text-gray-900">Cancelled</p>
+                                    <p className="font-medium text-gray-900">
+                                        Cancelled
+                                    </p>
                                     <p className="text-sm text-gray-500">
                                         {formatDateTime(booking.cancelled_at)}
                                     </p>
                                     {booking.cancellation_reason && (
                                         <p className="text-sm text-gray-600 mt-1">
-                                            Reason: {booking.cancellation_reason}
+                                            Reason:{' '}
+                                            {booking.cancellation_reason}
                                         </p>
                                     )}
                                 </div>
                             </div>
                         )}
 
-                        {!booking.cancelled_at && !booking.confirmed_at && booking.status === 'pending' && (
-                            <div className="flex gap-3">
-                                <div className="flex flex-col items-center">
-                                    <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse" />
+                        {!booking.cancelled_at &&
+                            !booking.confirmed_at &&
+                            booking.status === 'pending' && (
+                                <div className="flex gap-3">
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-3 h-3 rounded-full bg-yellow-400 animate-pulse" />
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-gray-900">
+                                            Awaiting Confirmation
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            The provider will confirm your
+                                            booking soon
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="font-medium text-gray-900">Awaiting Confirmation</p>
-                                    <p className="text-sm text-gray-500">
-                                        The provider will confirm your booking soon
-                                    </p>
-                                </div>
-                            </div>
-                        )}
+                            )}
                     </div>
                 </section>
 
@@ -338,8 +374,7 @@ export default function BookingDetailPage() {
                     {booking.session && (
                         <Link
                             href={`/sessions/${booking.session.uuid}`}
-                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2"
-                        >
+                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2">
                             <FiVideo className="w-5 h-5" />
                             View Session
                         </Link>
@@ -347,9 +382,12 @@ export default function BookingDetailPage() {
 
                     {booking.can_reschedule && (
                         <button
-                            onClick={() => router.push(`/bookings/${booking.uuid}/reschedule`)}
-                            className="w-full py-3 bg-blue-50 text-blue-600 rounded-2xl font-medium flex items-center justify-center gap-2"
-                        >
+                            onClick={() =>
+                                router.push(
+                                    `/bookings/${booking.uuid}/reschedule`,
+                                )
+                            }
+                            className="w-full py-3 bg-blue-50 text-blue-600 rounded-2xl font-medium flex items-center justify-center gap-2">
                             <FiRefreshCw className="w-5 h-5" />
                             Reschedule
                         </button>
@@ -358,17 +396,17 @@ export default function BookingDetailPage() {
                     {booking.can_cancel && (
                         <button
                             onClick={() => setShowCancelModal(true)}
-                            className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium"
-                        >
+                            className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium">
                             Cancel Booking
                         </button>
                     )}
 
                     {booking.provider && (
                         <button
-                            onClick={() => router.push(`/messages/${booking.provider?.id}`)}
-                            className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2"
-                        >
+                            onClick={() =>
+                                router.push(`/messages/${booking.provider?.id}`)
+                            }
+                            className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2">
                             <FiMessageSquare className="w-5 h-5" />
                             Message Provider
                         </button>
@@ -385,12 +423,10 @@ export default function BookingDetailPage() {
                         setCancelReason('')
                     }}
                     role="dialog"
-                    aria-modal="true"
-                >
+                    aria-modal="true">
                     <div
                         className="bg-white rounded-2xl p-6 w-full max-w-sm"
-                        onClick={(e) => e.stopPropagation()}
-                    >
+                        onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-900">
                                 Cancel Booking
@@ -400,17 +436,17 @@ export default function BookingDetailPage() {
                                     setShowCancelModal(false)
                                     setCancelReason('')
                                 }}
-                                className="p-2 hover:bg-gray-100 rounded-full"
-                            >
+                                className="p-2 hover:bg-gray-100 rounded-full">
                                 <FiX className="w-5 h-5" />
                             </button>
                         </div>
                         <p className="text-gray-600 mb-4">
-                            Are you sure you want to cancel this booking? This action cannot be undone.
+                            Are you sure you want to cancel this booking? This
+                            action cannot be undone.
                         </p>
                         <textarea
                             value={cancelReason}
-                            onChange={(e) => setCancelReason(e.target.value)}
+                            onChange={e => setCancelReason(e.target.value)}
                             placeholder="Reason for cancellation (optional)"
                             rows={3}
                             autoFocus
@@ -423,16 +459,16 @@ export default function BookingDetailPage() {
                                     setCancelReason('')
                                 }}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium"
-                            >
+                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium">
                                 Keep Booking
                             </button>
                             <button
                                 onClick={handleCancel}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50"
-                            >
-                                {isCancelling ? 'Cancelling...' : 'Cancel Booking'}
+                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50">
+                                {isCancelling
+                                    ? 'Cancelling...'
+                                    : 'Cancel Booking'}
                             </button>
                         </div>
                     </div>

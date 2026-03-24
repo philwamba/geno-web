@@ -38,7 +38,7 @@ export default function ProviderProfilePage() {
     const handleAddSpec = () => {
         const trimmed = specInput.trim()
         if (trimmed && !formData.specializations.includes(trimmed)) {
-            setFormData((prev) => ({
+            setFormData(prev => ({
                 ...prev,
                 specializations: [...prev.specializations, trimmed],
             }))
@@ -47,9 +47,9 @@ export default function ProviderProfilePage() {
     }
 
     const removeSpec = (spec: string) => {
-        setFormData((prev) => ({
+        setFormData(prev => ({
             ...prev,
-            specializations: prev.specializations.filter((s) => s !== spec),
+            specializations: prev.specializations.filter(s => s !== spec),
         }))
     }
 
@@ -76,17 +76,20 @@ export default function ProviderProfilePage() {
     if (!user || !profile) {
         return (
             <div className="min-h-screen bg-gray-50 pb-24 flex items-center justify-center">
-                 <div className="text-center p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Profile Not Found</h2>
-                    <p className="text-gray-500">Unable to load provider profile. Please try again later.</p>
-                    <Button 
-                        variant="outline" 
+                <div className="text-center p-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                        Profile Not Found
+                    </h2>
+                    <p className="text-gray-500">
+                        Unable to load provider profile. Please try again later.
+                    </p>
+                    <Button
+                        variant="outline"
                         className="mt-4"
-                        onClick={() => router.back()}
-                    >
+                        onClick={() => router.back()}>
                         Go Back
                     </Button>
-                 </div>
+                </div>
             </div>
         )
     }
@@ -109,8 +112,11 @@ export default function ProviderProfilePage() {
                             </label>
                             <textarea
                                 value={formData.bio}
-                                onChange={(e) =>
-                                    setFormData({ ...formData, bio: e.target.value })
+                                onChange={e =>
+                                    setFormData({
+                                        ...formData,
+                                        bio: e.target.value,
+                                    })
                                 }
                                 rows={4}
                                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
@@ -130,7 +136,7 @@ export default function ProviderProfilePage() {
                                     min="0"
                                     step="0.01"
                                     value={formData.hourly_rate}
-                                    onChange={(e) =>
+                                    onChange={e =>
                                         setFormData({
                                             ...formData,
                                             hourly_rate: e.target.value,
@@ -153,7 +159,7 @@ export default function ProviderProfilePage() {
                                     type="number"
                                     min="0"
                                     value={formData.experience_years}
-                                    onChange={(e) =>
+                                    onChange={e =>
                                         setFormData({
                                             ...formData,
                                             experience_years: e.target.value,
@@ -175,8 +181,10 @@ export default function ProviderProfilePage() {
                                     <FiAward className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                                     <Input
                                         value={specInput}
-                                        onChange={(e) => setSpecInput(e.target.value)}
-                                        onKeyDown={(e) => {
+                                        onChange={e =>
+                                            setSpecInput(e.target.value)
+                                        }
+                                        onKeyDown={e => {
                                             if (e.key === 'Enter') {
                                                 e.preventDefault()
                                                 handleAddSpec()
@@ -189,23 +197,20 @@ export default function ProviderProfilePage() {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={handleAddSpec}
-                                >
+                                    onClick={handleAddSpec}>
                                     Add
                                 </Button>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                {formData.specializations.map((spec) => (
+                                {formData.specializations.map(spec => (
                                     <span
                                         key={spec}
-                                        className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
-                                    >
+                                        className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
                                         {spec}
                                         <button
                                             type="button"
                                             onClick={() => removeSpec(spec)}
-                                            className="hover:text-primary/70 ml-1"
-                                        >
+                                            className="hover:text-primary/70 ml-1">
                                             &times;
                                         </button>
                                     </span>
@@ -217,8 +222,7 @@ export default function ProviderProfilePage() {
                     <Button
                         type="submit"
                         className="w-full h-12 text-lg"
-                        disabled={isLoading}
-                    >
+                        disabled={isLoading}>
                         {isLoading ? (
                             'Saving...'
                         ) : (

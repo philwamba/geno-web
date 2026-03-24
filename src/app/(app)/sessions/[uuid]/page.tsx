@@ -124,12 +124,19 @@ export default function SessionDetailPage() {
 
     const videoProvider = useMemo(() => {
         const envProvider = process.env.NEXT_PUBLIC_VIDEO_PROVIDER
-        const providerName: 'daily' | 'livekit' = envProvider === 'livekit' ? 'livekit' : 'daily'
-        
-        if (envProvider && envProvider !== 'daily' && envProvider !== 'livekit') {
-            console.warn(`Unknown video provider "${envProvider}", defaulting to "daily"`)
+        const providerName: 'daily' | 'livekit' =
+            envProvider === 'livekit' ? 'livekit' : 'daily'
+
+        if (
+            envProvider &&
+            envProvider !== 'daily' &&
+            envProvider !== 'livekit'
+        ) {
+            console.warn(
+                `Unknown video provider "${envProvider}", defaulting to "daily"`,
+            )
         }
-        
+
         return VideoProviderFactory.create(providerName)
     }, [])
 
@@ -148,27 +155,33 @@ export default function SessionDetailPage() {
                 }
 
                 try {
-                    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
+                    const baseUrl =
+                        process.env.NEXT_PUBLIC_API_URL ||
+                        'http://localhost:8000/api/v1'
                     const res = await fetch(`${baseUrl}/video/token`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
+                            Authorization: `Bearer ${token}`,
                         },
                         body: JSON.stringify({ sessionId: session.id }),
-                        signal: abortController.signal
+                        signal: abortController.signal,
                     })
-                    
+
                     if (!res.ok) {
-                        throw new Error(`Failed to fetch token: ${res.statusText}`)
+                        throw new Error(
+                            `Failed to fetch token: ${res.statusText}`,
+                        )
                     }
-                    
+
                     const data = await res.json()
                     setToken(data.token)
                 } catch (error) {
                     if (error instanceof Error && error.name !== 'AbortError') {
                         console.error('Failed to fetch video token:', error)
-                        toast.error('Failed to start video session. Please try again.')
+                        toast.error(
+                            'Failed to start video session. Please try again.',
+                        )
                         setActiveVideo(false)
                     }
                 }
@@ -216,15 +229,16 @@ export default function SessionDetailPage() {
                 <main className="px-4 py-6 space-y-6">
                     {activeVideo && session.meeting_url ? (
                         <section className="bg-white rounded-2xl p-4 shadow-sm">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Live Session</h2>
-                            <VideoRoom 
-                                token={token} 
-                                roomUrl={session.meeting_url} 
+                            <h2 className="text-xl font-bold text-gray-900 mb-4">
+                                Live Session
+                            </h2>
+                            <VideoRoom
+                                token={token}
+                                roomUrl={session.meeting_url}
                             />
-                             <button
+                            <button
                                 onClick={() => setActiveVideo(false)}
-                                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm"
-                            >
+                                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">
                                 Close Video View
                             </button>
                         </section>
@@ -244,14 +258,22 @@ export default function SessionDetailPage() {
                                         <div className="relative w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
                                             {session.provider.avatar ? (
                                                 <Image
-                                                    src={session.provider.avatar}
-                                                    alt={session.provider.name || 'Provider'}
+                                                    src={
+                                                        session.provider.avatar
+                                                    }
+                                                    alt={
+                                                        session.provider.name ||
+                                                        'Provider'
+                                                    }
                                                     fill
                                                     className="object-cover"
                                                 />
                                             ) : (
                                                 <span className="flex h-full w-full items-center justify-center text-sm font-medium text-primary">
-                                                    {getInitials(session.provider.name || 'P')}
+                                                    {getInitials(
+                                                        session.provider.name ||
+                                                            'P',
+                                                    )}
                                                 </span>
                                             )}
                                         </div>
@@ -269,11 +291,17 @@ export default function SessionDetailPage() {
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-3 text-gray-600">
                                         <FiCalendar className="w-5 h-5 text-gray-400" />
-                                        <span>{formatDateTime(session.scheduled_at)}</span>
+                                        <span>
+                                            {formatDateTime(
+                                                session.scheduled_at,
+                                            )}
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-3 text-gray-600">
                                         <FiClock className="w-5 h-5 text-gray-400" />
-                                        <span>{session.duration_minutes} minutes</span>
+                                        <span>
+                                            {session.duration_minutes} minutes
+                                        </span>
                                     </div>
                                     {session.meeting_url && (
                                         <div className="flex items-center gap-3 text-gray-600">
@@ -290,7 +318,9 @@ export default function SessionDetailPage() {
                                     <h3 className="font-semibold text-gray-900 mb-2">
                                         Session Details
                                     </h3>
-                                    <p className="text-gray-600">{session.description}</p>
+                                    <p className="text-gray-600">
+                                        {session.description}
+                                    </p>
                                 </section>
                             )}
 
@@ -343,7 +373,9 @@ export default function SessionDetailPage() {
 
                             <button
                                 onClick={() =>
-                                    router.push(`/messages/${session.provider?.id}`)
+                                    router.push(
+                                        `/messages/${session.provider?.id}`,
+                                    )
                                 }
                                 className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2">
                                 <FiMessageSquare className="w-5 h-5" />
@@ -368,8 +400,8 @@ export default function SessionDetailPage() {
                                 </button>
                             </div>
                             <p className="text-gray-600 mb-6">
-                                Are you sure you want to cancel this session? This
-                                action cannot be undone.
+                                Are you sure you want to cancel this session?
+                                This action cannot be undone.
                             </p>
                             <div className="flex gap-3">
                                 <button
@@ -404,7 +436,9 @@ export default function SessionDetailPage() {
                             </div>
 
                             <div className="mb-4">
-                                <p className="text-sm text-gray-600 mb-2">Rating</p>
+                                <p className="text-sm text-gray-600 mb-2">
+                                    Rating
+                                </p>
                                 <div className="flex gap-2">
                                     {[1, 2, 3, 4, 5].map(star => (
                                         <button
@@ -441,7 +475,9 @@ export default function SessionDetailPage() {
                                 onClick={handleSubmitReview}
                                 disabled={rating === 0 || isSubmitting}
                                 className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50">
-                                {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                                {isSubmitting
+                                    ? 'Submitting...'
+                                    : 'Submit Review'}
                             </button>
                         </div>
                     </div>

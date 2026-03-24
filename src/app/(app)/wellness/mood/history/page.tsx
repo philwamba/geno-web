@@ -8,13 +8,7 @@ import { AppHeader } from '@/components/layout/app-header'
 import { MoodHistoryList } from '@/components/wellness/mood'
 import { MOOD_EMOJIS, type MoodTypeValue } from '@/lib/validations/wellness'
 import { FiFilter, FiX } from 'react-icons/fi'
-import {
-    PieChart,
-    Pie,
-    Cell,
-    ResponsiveContainer,
-    Tooltip,
-} from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 
 const MOOD_COLORS: Record<MoodTypeValue, string> = {
     very_happy: '#22c55e',
@@ -45,7 +39,7 @@ export default function MoodHistoryPage() {
 
         // Apply mood filter
         if (moodFilter) {
-            filtered = filtered.filter((m) => m.mood === moodFilter)
+            filtered = filtered.filter(m => m.mood === moodFilter)
         }
 
         // Apply date filter
@@ -53,18 +47,17 @@ export default function MoodHistoryPage() {
         if (dateFilter === 'today') {
             const today = now.toISOString().split('T')[0]
             filtered = filtered.filter(
-                (m) =>
-                    m.logged_date === today || m.logged_at?.startsWith(today),
+                m => m.logged_date === today || m.logged_at?.startsWith(today),
             )
         } else if (dateFilter === 'week') {
             const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
             filtered = filtered.filter(
-                (m) => new Date(m.logged_at || m.created_at) >= weekAgo,
+                m => new Date(m.logged_at || m.created_at) >= weekAgo,
             )
         } else if (dateFilter === 'month') {
             const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
             filtered = filtered.filter(
-                (m) => new Date(m.logged_at || m.created_at) >= monthAgo,
+                m => new Date(m.logged_at || m.created_at) >= monthAgo,
             )
         }
 
@@ -74,7 +67,7 @@ export default function MoodHistoryPage() {
     // Calculate mood distribution
     const moodDistribution = useMemo(() => {
         const counts: Record<string, number> = {}
-        filteredMoods.forEach((m) => {
+        filteredMoods.forEach(m => {
             counts[m.mood] = (counts[m.mood] || 0) + 1
         })
 
@@ -118,18 +111,22 @@ export default function MoodHistoryPage() {
                                         innerRadius={50}
                                         outerRadius={70}
                                         paddingAngle={2}
-                                        dataKey="value"
-                                    >
-                                        {moodDistribution.map((entry, index) => (
-                                            <Cell
-                                                key={`cell-${index}`}
-                                                fill={MOOD_COLORS[entry.mood]}
-                                            />
-                                        ))}
+                                        dataKey="value">
+                                        {moodDistribution.map(
+                                            (entry, index) => (
+                                                <Cell
+                                                    key={`cell-${index}`}
+                                                    fill={
+                                                        MOOD_COLORS[entry.mood]
+                                                    }
+                                                />
+                                            ),
+                                        )}
                                     </Pie>
                                     <Tooltip
                                         content={({ active, payload }) => {
-                                            if (!active || !payload?.[0]) return null
+                                            if (!active || !payload?.[0])
+                                                return null
                                             const data = payload[0].payload
                                             return (
                                                 <div className="rounded-lg bg-white p-2 shadow-lg border">
@@ -152,19 +149,21 @@ export default function MoodHistoryPage() {
                             </ResponsiveContainer>
                         </div>
                         <div className="mt-3 flex flex-wrap justify-center gap-2">
-                            {moodDistribution.map((item) => (
+                            {moodDistribution.map(item => (
                                 <div
                                     key={item.mood}
-                                    className="flex items-center gap-1 text-xs"
-                                >
+                                    className="flex items-center gap-1 text-xs">
                                     <div
                                         className="h-3 w-3 rounded-full"
                                         style={{
-                                            backgroundColor: MOOD_COLORS[item.mood],
+                                            backgroundColor:
+                                                MOOD_COLORS[item.mood],
                                         }}
                                     />
                                     <span>{item.emoji}</span>
-                                    <span className="text-gray-500">{item.value}</span>
+                                    <span className="text-gray-500">
+                                        {item.value}
+                                    </span>
                                 </div>
                             ))}
                         </div>
@@ -181,8 +180,7 @@ export default function MoodHistoryPage() {
                         {hasFilters && (
                             <button
                                 onClick={clearFilters}
-                                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700"
-                            >
+                                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
                                 <FiX className="h-3 w-3" />
                                 Clear
                             </button>
@@ -191,22 +189,25 @@ export default function MoodHistoryPage() {
 
                     {/* Mood Filter */}
                     <div className="mb-3 flex flex-wrap gap-2">
-                        {(Object.keys(MOOD_EMOJIS) as MoodTypeValue[]).map((mood) => (
-                            <button
-                                key={mood}
-                                onClick={() =>
-                                    setMoodFilter(moodFilter === mood ? null : mood)
-                                }
-                                className={cn(
-                                    'flex h-9 w-9 items-center justify-center rounded-full text-lg transition-all',
-                                    moodFilter === mood
-                                        ? 'bg-primary/20 ring-2 ring-primary scale-110'
-                                        : 'bg-gray-100 hover:bg-gray-200',
-                                )}
-                            >
-                                {MOOD_EMOJIS[mood]}
-                            </button>
-                        ))}
+                        {(Object.keys(MOOD_EMOJIS) as MoodTypeValue[]).map(
+                            mood => (
+                                <button
+                                    key={mood}
+                                    onClick={() =>
+                                        setMoodFilter(
+                                            moodFilter === mood ? null : mood,
+                                        )
+                                    }
+                                    className={cn(
+                                        'flex h-9 w-9 items-center justify-center rounded-full text-lg transition-all',
+                                        moodFilter === mood
+                                            ? 'bg-primary/20 ring-2 ring-primary scale-110'
+                                            : 'bg-gray-100 hover:bg-gray-200',
+                                    )}>
+                                    {MOOD_EMOJIS[mood]}
+                                </button>
+                            ),
+                        )}
                     </div>
 
                     {/* Date Filter */}
@@ -218,7 +219,7 @@ export default function MoodHistoryPage() {
                                 { value: 'week', label: 'This Week' },
                                 { value: 'month', label: 'This Month' },
                             ] as const
-                        ).map((option) => (
+                        ).map(option => (
                             <button
                                 key={option.value}
                                 onClick={() => setDateFilter(option.value)}
@@ -227,8 +228,7 @@ export default function MoodHistoryPage() {
                                     dateFilter === option.value
                                         ? 'bg-primary text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                                )}
-                            >
+                                )}>
                                 {option.label}
                             </button>
                         ))}

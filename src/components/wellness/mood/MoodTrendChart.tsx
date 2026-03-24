@@ -65,10 +65,14 @@ export function MoodTrendChart({
             const month = String(date.getMonth() + 1).padStart(2, '0')
             const day = String(date.getDate()).padStart(2, '0')
             const dateStr = `${year}-${month}-${day}`
-            const dayName = date.toLocaleDateString('en-US', { weekday: 'short' })
+            const dayName = date.toLocaleDateString('en-US', {
+                weekday: 'short',
+            })
 
             const moodEntry = moodHistory.find(
-                (m) => m.logged_date === dateStr || m.logged_at?.startsWith(dateStr),
+                m =>
+                    m.logged_date === dateStr ||
+                    m.logged_at?.startsWith(dateStr),
             )
 
             const mood = moodEntry?.mood as MoodTypeValue | undefined
@@ -112,7 +116,7 @@ export function MoodTrendChart({
         )
     }
 
-    const hasData = chartData.some((d) => d.value > 0)
+    const hasData = chartData.some(d => d.value > 0)
 
     return (
         <div className={cn('rounded-xl bg-white p-4 shadow-sm', className)}>
@@ -130,10 +134,7 @@ export function MoodTrendChart({
                                 tickLine={false}
                                 tick={{ fontSize: 12, fill: '#6b7280' }}
                             />
-                            <YAxis
-                                hide
-                                domain={[0, 8]}
-                            />
+                            <YAxis hide domain={[0, 8]} />
                             <Tooltip content={<CustomTooltip />} />
                             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                                 {chartData.map((entry, index) => (
@@ -160,15 +161,18 @@ export function MoodTrendChart({
 
             {/* Legend */}
             <div className="mt-4 flex flex-wrap justify-center gap-3">
-                {Object.entries(MOOD_EMOJIS).slice(0, 4).map(([mood, emoji]) => (
-                    <div
-                        key={mood}
-                        className="flex items-center gap-1 text-xs text-gray-600"
-                    >
-                        <span>{emoji}</span>
-                        <span className="capitalize">{mood.replace('_', ' ')}</span>
-                    </div>
-                ))}
+                {Object.entries(MOOD_EMOJIS)
+                    .slice(0, 4)
+                    .map(([mood, emoji]) => (
+                        <div
+                            key={mood}
+                            className="flex items-center gap-1 text-xs text-gray-600">
+                            <span>{emoji}</span>
+                            <span className="capitalize">
+                                {mood.replace('_', ' ')}
+                            </span>
+                        </div>
+                    ))}
             </div>
         </div>
     )

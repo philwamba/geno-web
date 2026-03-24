@@ -16,7 +16,13 @@ export interface AppHeaderProps {
     onBack?: () => void
 }
 
-export function AppHeader({ showGreeting = true, title, rightContent, showBack, onBack }: AppHeaderProps) {
+export function AppHeader({
+    showGreeting = true,
+    title,
+    rightContent,
+    showBack,
+    onBack,
+}: AppHeaderProps) {
     const router = useRouter()
     const { user } = useAuthStore()
 
@@ -36,8 +42,7 @@ export function AppHeader({ showGreeting = true, title, rightContent, showBack, 
                         {showBack && (
                             <button
                                 onClick={handleBack}
-                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
-                            >
+                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
                                 <FiArrowLeft className="w-5 h-5" />
                             </button>
                         )}
@@ -55,7 +60,9 @@ export function AppHeader({ showGreeting = true, title, rightContent, showBack, 
                                 {title}
                             </h1>
                         ) : (
-                            <Link href="/home" className="flex items-center gap-2">
+                            <Link
+                                href="/home"
+                                className="flex items-center gap-2">
                                 <Image
                                     src="/logo.png"
                                     alt="GENO"

@@ -33,7 +33,8 @@ export function JournalEntryForm({
     isEditing = false,
     entryId,
 }: JournalEntryFormProps) {
-    const { createJournalEntry, updateJournalEntry, isJournalLoading } = useWellnessStore()
+    const { createJournalEntry, updateJournalEntry, isJournalLoading } =
+        useWellnessStore()
     const [selectedMood, setSelectedMood] = useState<MoodTypeValue | null>(
         (initialData?.mood as MoodTypeValue) || null,
     )
@@ -42,7 +43,9 @@ export function JournalEntryForm({
 
     // Safety check for edit mode
     if (isEditing && !entryId) {
-        console.error('JournalEntryForm: isEditing is true but no entryId provided')
+        console.error(
+            'JournalEntryForm: isEditing is true but no entryId provided',
+        )
     }
 
     const {
@@ -65,7 +68,7 @@ export function JournalEntryForm({
     }, [tagInput, tags])
 
     const handleRemoveTag = useCallback((tagToRemove: string) => {
-        setTags((prev) => prev.filter((t) => t !== tagToRemove))
+        setTags(prev => prev.filter(t => t !== tagToRemove))
     }, [])
 
     const handleKeyDown = useCallback(
@@ -95,21 +98,30 @@ export function JournalEntryForm({
                     )
                 }
                 toast.success(
-                    isEditing ? 'Journal entry updated!' : 'Journal entry created!',
+                    isEditing
+                        ? 'Journal entry updated!'
+                        : 'Journal entry created!',
                 )
                 onSuccess?.()
             } catch {
                 toast.error('Failed to save journal entry. Please try again.')
             }
         },
-        [createJournalEntry, updateJournalEntry, selectedMood, tags, isEditing, entryId, onSuccess],
+        [
+            createJournalEntry,
+            updateJournalEntry,
+            selectedMood,
+            tags,
+            isEditing,
+            entryId,
+            onSuccess,
+        ],
     )
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className={cn('space-y-4', className)}
-        >
+            className={cn('space-y-4', className)}>
             {/* Content */}
             <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -128,7 +140,9 @@ export function JournalEntryForm({
                     )}
                 />
                 {errors.content && (
-                    <p className="mt-1 text-xs text-red-500">{errors.content.message}</p>
+                    <p className="mt-1 text-xs text-red-500">
+                        {errors.content.message}
+                    </p>
                 )}
             </div>
 
@@ -146,8 +160,7 @@ export function JournalEntryForm({
                     <button
                         type="button"
                         onClick={() => setSelectedMood(null)}
-                        className="mt-2 text-xs text-gray-500 hover:text-gray-700"
-                    >
+                        className="mt-2 text-xs text-gray-500 hover:text-gray-700">
                         Clear mood selection
                     </button>
                 )}
@@ -161,7 +174,7 @@ export function JournalEntryForm({
                 <div className="flex gap-2">
                     <Input
                         value={tagInput}
-                        onChange={(e) => setTagInput(e.target.value)}
+                        onChange={e => setTagInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Add a tag"
                         className="flex-1"
@@ -172,24 +185,21 @@ export function JournalEntryForm({
                         variant="outline"
                         size="sm"
                         onClick={handleAddTag}
-                        disabled={!tagInput.trim() || tags.length >= 10}
-                    >
+                        disabled={!tagInput.trim() || tags.length >= 10}>
                         <FiPlus className="h-4 w-4" />
                     </Button>
                 </div>
                 {tags.length > 0 && (
                     <div className="mt-2 flex flex-wrap gap-2">
-                        {tags.map((tag) => (
+                        {tags.map(tag => (
                             <span
                                 key={tag}
-                                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
-                            >
+                                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
                                 #{tag}
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveTag(tag)}
-                                    className="hover:text-primary/70"
-                                >
+                                    className="hover:text-primary/70">
                                     <FiX className="h-3 w-3" />
                                 </button>
                             </span>
@@ -209,16 +219,14 @@ export function JournalEntryForm({
                         variant="outline"
                         onClick={onCancel}
                         disabled={isJournalLoading}
-                        className="flex-1"
-                    >
+                        className="flex-1">
                         Cancel
                     </Button>
                 )}
                 <Button
                     type="submit"
                     disabled={isJournalLoading}
-                    className="flex-1"
-                >
+                    className="flex-1">
                     <FiSave className="mr-2 h-4 w-4" />
                     {isEditing ? 'Update Entry' : 'Save Entry'}
                 </Button>

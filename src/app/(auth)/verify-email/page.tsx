@@ -12,7 +12,9 @@ export default function VerifyEmailPage() {
     const token = searchParams.get('token')
     const email = searchParams.get('email')
 
-    const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'idle'>('idle')
+    const [status, setStatus] = useState<
+        'loading' | 'success' | 'error' | 'idle'
+    >('idle')
     const [isResending, setIsResending] = useState(false)
 
     const verifyEmail = useCallback(async () => {
@@ -92,7 +94,8 @@ export default function VerifyEmailPage() {
                                 Verifying Email
                             </h1>
                             <p className="text-gray-500">
-                                Please wait while we verify your email address...
+                                Please wait while we verify your email
+                                address...
                             </p>
                         </>
                     )}
@@ -148,9 +151,9 @@ export default function VerifyEmailPage() {
                                 Check Your Email
                             </h1>
                             <p className="text-gray-500 mb-6">
-                                We sent a verification link to your email address.
-                                Please check your inbox and click the link to verify
-                                your account.
+                                We sent a verification link to your email
+                                address. Please check your inbox and click the
+                                link to verify your account.
                             </p>
                             <div className="space-y-3">
                                 <button

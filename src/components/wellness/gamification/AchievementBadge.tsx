@@ -1,7 +1,14 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { FiAward, FiStar, FiZap, FiHeart, FiTarget, FiTrendingUp } from 'react-icons/fi'
+import {
+    FiAward,
+    FiStar,
+    FiZap,
+    FiHeart,
+    FiTarget,
+    FiTrendingUp,
+} from 'react-icons/fi'
 
 interface Badge {
     id: string
@@ -44,7 +51,11 @@ const SIZE_CLASSES = {
 }
 
 // Badge color themes based on badge type/id
-function getBadgeTheme(badgeId: string): { bg: string; text: string; ring: string } {
+function getBadgeTheme(badgeId: string): {
+    bg: string
+    text: string
+    ring: string
+} {
     if (badgeId.includes('streak')) {
         return {
             bg: 'bg-gradient-to-br from-orange-400 to-red-500',
@@ -105,8 +116,7 @@ export function AchievementBadge({
                 theme.bg,
                 theme.text,
                 theme.ring,
-            )}
-        >
+            )}>
             <span className={sizeClass.icon}>{icon}</span>
         </div>
     )
@@ -124,16 +134,14 @@ export function AchievementBadge({
             className={cn(
                 'flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm',
                 className,
-            )}
-        >
+            )}>
             {BadgeIcon}
             <div className="text-center">
                 <p className="font-medium text-gray-900">{badge.name}</p>
                 <p className="text-xs text-gray-500">{badge.description}</p>
                 {badge.earned_at && (
                     <p className="mt-1 text-xs text-gray-400">
-                        Earned{' '}
-                        {new Date(badge.earned_at).toLocaleDateString()}
+                        Earned {new Date(badge.earned_at).toLocaleDateString()}
                     </p>
                 )}
             </div>
@@ -167,20 +175,15 @@ export function BadgeGrid({
 
     return (
         <div className={cn('flex flex-wrap gap-2', className)}>
-            {displayBadges.map((badge) => (
-                <AchievementBadge
-                    key={badge.id}
-                    badge={badge}
-                    size={size}
-                />
+            {displayBadges.map(badge => (
+                <AchievementBadge key={badge.id} badge={badge} size={size} />
             ))}
             {remaining > 0 && (
                 <div
                     className={cn(
                         'flex items-center justify-center rounded-full bg-gray-100 text-xs font-medium text-gray-500',
                         SIZE_CLASSES[size].container,
-                    )}
-                >
+                    )}>
                     +{remaining}
                 </div>
             )}

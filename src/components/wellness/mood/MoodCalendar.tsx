@@ -21,7 +21,11 @@ const MOOD_BG_COLORS: Record<MoodTypeValue, string> = {
     angry: 'bg-red-500',
 }
 
-export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProps) {
+export function MoodCalendar({
+    moodHistory,
+    className,
+    month,
+}: MoodCalendarProps) {
     const currentMonth = useMemo(() => month || new Date(), [month])
 
     const calendarData = useMemo(() => {
@@ -36,7 +40,7 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
 
         // Create mood lookup map
         const moodMap = new Map<string, MoodLog>()
-        moodHistory.forEach((entry) => {
+        moodHistory.forEach(entry => {
             const dateStr =
                 entry.logged_date || entry.logged_at?.split('T')[0] || ''
             if (dateStr) {
@@ -52,7 +56,7 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
                 mood: MoodLog | null
             }>
         > = []
-        let currentWeek: typeof weeks[0] = []
+        let currentWeek: (typeof weeks)[0] = []
 
         // Padding for first week
         for (let i = 0; i < startDayOfWeek; i++) {
@@ -102,8 +106,10 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
 
             {/* Day headers */}
             <div className="mb-2 grid grid-cols-7 gap-1 text-center">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                    <div key={day} className="text-xs font-medium text-gray-500">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div
+                        key={day}
+                        className="text-xs font-medium text-gray-500">
                         {day}
                     </div>
                 ))}
@@ -124,7 +130,8 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
                                     dayData.mood
                                         ? cn(
                                               MOOD_BG_COLORS[
-                                                  dayData.mood.mood as MoodTypeValue
+                                                  dayData.mood
+                                                      .mood as MoodTypeValue
                                               ],
                                               'text-white',
                                           )
@@ -134,11 +141,15 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
                                     dayData.mood
                                         ? `${dayData.mood.mood.replace('_', ' ')}${dayData.mood.note ? `: ${dayData.mood.note}` : ''}`
                                         : undefined
-                                }
-                            >
+                                }>
                                 {dayData.mood ? (
                                     <span className="text-base">
-                                        {MOOD_EMOJIS[dayData.mood.mood as MoodTypeValue]}
+                                        {
+                                            MOOD_EMOJIS[
+                                                dayData.mood
+                                                    .mood as MoodTypeValue
+                                            ]
+                                        }
                                     </span>
                                 ) : (
                                     dayData.day
@@ -157,8 +168,7 @@ export function MoodCalendar({ moodHistory, className, month }: MoodCalendarProp
                         className={cn(
                             'flex items-center gap-1 rounded-full px-2 py-0.5',
                             MOOD_BG_COLORS[mood as MoodTypeValue],
-                        )}
-                    >
+                        )}>
                         <span className="text-sm">{emoji}</span>
                     </div>
                 ))}

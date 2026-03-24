@@ -55,7 +55,7 @@ export function PointsHistory({
     return (
         <div className={cn('rounded-xl bg-white shadow-sm', className)}>
             <div className="divide-y divide-gray-100">
-                {displayPoints.map((point) => (
+                {displayPoints.map(point => (
                     <PointHistoryItem key={point.id} point={point} />
                 ))}
             </div>
@@ -76,8 +76,7 @@ function PointHistoryItem({ point }: { point: WellnessPoint }) {
                     className={cn(
                         'flex h-10 w-10 items-center justify-center rounded-full',
                         colorClass,
-                    )}
-                >
+                    )}>
                     <FiZap className="h-5 w-5" />
                 </div>
                 <div>

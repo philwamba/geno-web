@@ -68,7 +68,7 @@ export function NotificationCenter() {
                                         <div
                                             className={cn(
                                                 active ? 'bg-gray-50' : '',
-                                                'px-4 py-3 border-b border-gray-50 last:border-0 relative group'
+                                                'px-4 py-3 border-b border-gray-50 last:border-0 relative group',
                                             )}>
                                             <div className="flex justify-between items-start">
                                                 <div
@@ -76,28 +76,36 @@ export function NotificationCenter() {
                                                         'flex-1 text-sm',
                                                         !notification.is_read
                                                             ? 'font-medium text-gray-900'
-                                                            : 'text-gray-600'
+                                                            : 'text-gray-600',
                                                     )}>
-                                                    {notification.data?.message || notification.data?.body || 'New Notification'}
+                                                    {notification.data
+                                                        ?.message ||
+                                                        notification.data
+                                                            ?.body ||
+                                                        'New Notification'}
                                                 </div>
                                                 <div className="ml-2 flex flex-col items-end space-y-1">
-                                                     <p className="text-xs text-gray-400 whitespace-nowrap">
+                                                    <p className="text-xs text-gray-400 whitespace-nowrap">
                                                         {formatDistanceToNow(
                                                             new Date(
-                                                                notification.created_at
+                                                                notification.created_at,
                                                             ),
-                                                            { addSuffix: true }
+                                                            { addSuffix: true },
                                                         )}
                                                     </p>
                                                     <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                         {!notification.is_read && (
                                                             <button
-                                                                onClick={async (e) => {
+                                                                onClick={async e => {
                                                                     e.preventDefault()
                                                                     try {
-                                                                        await markAsRead(notification.id)
+                                                                        await markAsRead(
+                                                                            notification.id,
+                                                                        )
                                                                     } catch {
-                                                                        toast.error('Failed to mark as read')
+                                                                        toast.error(
+                                                                            'Failed to mark as read',
+                                                                        )
                                                                     }
                                                                 }}
                                                                 title="Mark as read"
@@ -106,12 +114,16 @@ export function NotificationCenter() {
                                                             </button>
                                                         )}
                                                         <button
-                                                            onClick={async (e) => {
+                                                            onClick={async e => {
                                                                 e.preventDefault()
                                                                 try {
-                                                                    await remove(notification.id)
+                                                                    await remove(
+                                                                        notification.id,
+                                                                    )
                                                                 } catch {
-                                                                    toast.error('Failed to delete notification')
+                                                                    toast.error(
+                                                                        'Failed to delete notification',
+                                                                    )
                                                                 }
                                                             }}
                                                             title="Delete"

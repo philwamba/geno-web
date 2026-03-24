@@ -23,9 +23,13 @@ export default function ProviderProfilePage() {
     const [provider, setProvider] = useState<Provider | null>(null)
     const [services, setServices] = useState<Service[]>([])
     const [reviews, setReviews] = useState<Review[]>([])
-    const [ratingBreakdown, setRatingBreakdown] = useState<Record<number, number>>({})
+    const [ratingBreakdown, setRatingBreakdown] = useState<
+        Record<number, number>
+    >({})
     const [isLoading, setIsLoading] = useState(true)
-    const [activeTab, setActiveTab] = useState<'about' | 'services' | 'reviews'>('about')
+    const [activeTab, setActiveTab] = useState<
+        'about' | 'services' | 'reviews'
+    >('about')
 
     const fetchProviderDetails = useCallback(async () => {
         const idStr = params.id as string
@@ -164,7 +168,7 @@ export default function ProviderProfilePage() {
 
                 {/* Tabs */}
                 <div className="flex gap-2">
-                    {(['about', 'services', 'reviews'] as const).map((tab) => (
+                    {(['about', 'services', 'reviews'] as const).map(tab => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
@@ -173,8 +177,7 @@ export default function ProviderProfilePage() {
                                 activeTab === tab
                                     ? 'bg-primary text-white'
                                     : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
-                            )}
-                        >
+                            )}>
                             {tab}
                         </button>
                     ))}
@@ -201,24 +204,29 @@ export default function ProviderProfilePage() {
                                 <div className="flex items-center gap-3">
                                     <FiClock className="w-5 h-5 text-gray-400" />
                                     <div>
-                                        <p className="text-xs text-gray-400">Timezone</p>
+                                        <p className="text-xs text-gray-400">
+                                            Timezone
+                                        </p>
                                         <p className="text-sm text-gray-900">
                                             {provider.timezone}
                                         </p>
                                     </div>
                                 </div>
                             )}
-                            {provider.languages && provider.languages.length > 0 && (
-                                <div className="flex items-center gap-3">
-                                    <FiGlobe className="w-5 h-5 text-gray-400" />
-                                    <div>
-                                        <p className="text-xs text-gray-400">Languages</p>
-                                        <p className="text-sm text-gray-900">
-                                            {provider.languages.join(', ')}
-                                        </p>
+                            {provider.languages &&
+                                provider.languages.length > 0 && (
+                                    <div className="flex items-center gap-3">
+                                        <FiGlobe className="w-5 h-5 text-gray-400" />
+                                        <div>
+                                            <p className="text-xs text-gray-400">
+                                                Languages
+                                            </p>
+                                            <p className="text-sm text-gray-900">
+                                                {provider.languages.join(', ')}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            )}
+                                )}
                             {provider.specializations &&
                                 provider.specializations.length > 0 && (
                                     <div className="flex items-start gap-3">
@@ -232,8 +240,7 @@ export default function ProviderProfilePage() {
                                                     (spec, i) => (
                                                         <span
                                                             key={i}
-                                                            className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full"
-                                                        >
+                                                            className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">
                                                             {spec}
                                                         </span>
                                                     ),
@@ -252,19 +259,24 @@ export default function ProviderProfilePage() {
                                         Qualifications
                                     </h3>
                                     <div className="space-y-3">
-                                        {provider.qualifications.map((qual, i) => (
-                                            <div key={i} className="flex items-start gap-3">
-                                                <FiAward className="w-5 h-5 text-primary mt-0.5" />
-                                                <div>
-                                                    <p className="text-sm font-medium text-gray-900">
-                                                        {qual.title}
-                                                    </p>
-                                                    <p className="text-xs text-gray-500">
-                                                        {qual.institution} • {qual.year}
-                                                    </p>
+                                        {provider.qualifications.map(
+                                            (qual, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="flex items-start gap-3">
+                                                    <FiAward className="w-5 h-5 text-primary mt-0.5" />
+                                                    <div>
+                                                        <p className="text-sm font-medium text-gray-900">
+                                                            {qual.title}
+                                                        </p>
+                                                        <p className="text-xs text-gray-500">
+                                                            {qual.institution} •{' '}
+                                                            {qual.year}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ),
+                                        )}
                                     </div>
                                 </section>
                             )}
@@ -275,10 +287,12 @@ export default function ProviderProfilePage() {
                     <div className="space-y-3">
                         {services.length === 0 ? (
                             <div className="bg-white rounded-2xl p-8 text-center shadow-sm">
-                                <p className="text-gray-500">No services available</p>
+                                <p className="text-gray-500">
+                                    No services available
+                                </p>
                             </div>
                         ) : (
-                            services.map((service) => (
+                            services.map(service => (
                                 <button
                                     key={service.id}
                                     onClick={() =>
@@ -286,8 +300,7 @@ export default function ProviderProfilePage() {
                                             `/book/${service.id}?provider=${provider.id}`,
                                         )
                                     }
-                                    className="w-full bg-white rounded-2xl p-4 shadow-sm text-left hover:bg-gray-50 transition-colors"
-                                >
+                                    className="w-full bg-white rounded-2xl p-4 shadow-sm text-left hover:bg-gray-50 transition-colors">
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1 min-w-0">
                                             <h4 className="font-medium text-gray-900 truncate">
@@ -302,9 +315,12 @@ export default function ProviderProfilePage() {
                                                         service.base_price || 0,
                                                     )}
                                                 </span>
-                                                <span className="text-gray-400">•</span>
+                                                <span className="text-gray-400">
+                                                    •
+                                                </span>
                                                 <span className="text-gray-500">
-                                                    {service.duration_minutes} min
+                                                    {service.duration_minutes}{' '}
+                                                    min
                                                 </span>
                                             </div>
                                         </div>
@@ -326,12 +342,13 @@ export default function ProviderProfilePage() {
                                         {provider.rating?.toFixed(1) || '0.0'}
                                     </p>
                                     <div className="flex items-center gap-0.5 my-1">
-                                        {[1, 2, 3, 4, 5].map((star) => (
+                                        {[1, 2, 3, 4, 5].map(star => (
                                             <FiStar
                                                 key={star}
                                                 className={cn(
                                                     'w-4 h-4',
-                                                    star <= (provider.rating || 0)
+                                                    star <=
+                                                        (provider.rating || 0)
                                                         ? 'text-yellow-400 fill-current'
                                                         : 'text-gray-200',
                                                 )}
@@ -343,20 +360,22 @@ export default function ProviderProfilePage() {
                                     </p>
                                 </div>
                                 <div className="flex-1 space-y-1">
-                                    {[5, 4, 3, 2, 1].map((rating) => (
+                                    {[5, 4, 3, 2, 1].map(rating => (
                                         <div
                                             key={rating}
-                                            className="flex items-center gap-2 text-sm"
-                                        >
-                                            <span className="w-3">{rating}</span>
+                                            className="flex items-center gap-2 text-sm">
+                                            <span className="w-3">
+                                                {rating}
+                                            </span>
                                             <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
                                                 <div
                                                     className="h-full bg-yellow-400 rounded-full"
                                                     style={{
                                                         width: `${
                                                             provider.total_reviews
-                                                                ? ((ratingBreakdown[rating] ||
-                                                                      0) /
+                                                                ? ((ratingBreakdown[
+                                                                      rating
+                                                                  ] || 0) /
                                                                       provider.total_reviews) *
                                                                   100
                                                                 : 0
@@ -380,11 +399,10 @@ export default function ProviderProfilePage() {
                             </div>
                         ) : (
                             <div className="space-y-3">
-                                {reviews.map((review) => (
+                                {reviews.map(review => (
                                     <div
                                         key={review.id}
-                                        className="bg-white rounded-2xl p-4 shadow-sm"
-                                    >
+                                        className="bg-white rounded-2xl p-4 shadow-sm">
                                         <div className="flex items-start justify-between mb-2">
                                             <div>
                                                 <p className="font-medium text-gray-900">
@@ -393,17 +411,20 @@ export default function ProviderProfilePage() {
                                                         : review.reviewer_name}
                                                 </p>
                                                 <div className="flex items-center gap-1 mt-0.5">
-                                                    {[1, 2, 3, 4, 5].map((star) => (
-                                                        <FiStar
-                                                            key={star}
-                                                            className={cn(
-                                                                'w-3 h-3',
-                                                                star <= review.rating
-                                                                    ? 'text-yellow-400 fill-current'
-                                                                    : 'text-gray-200',
-                                                            )}
-                                                        />
-                                                    ))}
+                                                    {[1, 2, 3, 4, 5].map(
+                                                        star => (
+                                                            <FiStar
+                                                                key={star}
+                                                                className={cn(
+                                                                    'w-3 h-3',
+                                                                    star <=
+                                                                        review.rating
+                                                                        ? 'text-yellow-400 fill-current'
+                                                                        : 'text-gray-200',
+                                                                )}
+                                                            />
+                                                        ),
+                                                    )}
                                                 </div>
                                             </div>
                                             <span className="text-xs text-gray-400">
@@ -444,8 +465,7 @@ export default function ProviderProfilePage() {
                                 )
                             }
                         }}
-                        className="fixed bottom-24 left-4 right-4 py-4 bg-primary text-white rounded-2xl font-medium text-lg shadow-lg z-10 hover:bg-primary/90 transition-colors"
-                    >
+                        className="fixed bottom-24 left-4 right-4 py-4 bg-primary text-white rounded-2xl font-medium text-lg shadow-lg z-10 hover:bg-primary/90 transition-colors">
                         <FiCalendar className="inline-block w-5 h-5 mr-2" />
                         Book Session
                     </button>

@@ -48,7 +48,7 @@ export function MoodPicker({
 
     return (
         <div className="flex flex-wrap justify-center gap-2">
-            {moods.map((mood) => (
+            {moods.map(mood => (
                 <div key={mood} className="flex flex-col items-center">
                     <button
                         type="button"
@@ -62,8 +62,7 @@ export function MoodPicker({
                                 ? 'bg-primary/20 ring-2 ring-primary scale-110 shadow-md'
                                 : 'bg-gray-100 hover:bg-gray-200 hover:scale-105',
                             disabled && 'opacity-50 cursor-not-allowed',
-                        )}
-                    >
+                        )}>
                         {MOOD_EMOJIS[mood]}
                     </button>
                     {showLabels && (
@@ -73,8 +72,7 @@ export function MoodPicker({
                                 selectedMood === mood
                                     ? 'text-primary font-medium'
                                     : 'text-gray-500',
-                            )}
-                        >
+                            )}>
                             {MOOD_LABELS[mood]}
                         </span>
                     )}

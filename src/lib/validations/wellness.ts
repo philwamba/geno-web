@@ -66,13 +66,19 @@ export const goalSchema = z
             .string()
             .max(500, 'Description must be 500 characters or less')
             .optional(),
-        target_value: z.number().positive('Target value must be positive').optional(),
-        unit: z.string().max(20, 'Unit must be 20 characters or less').optional(),
+        target_value: z
+            .number()
+            .positive('Target value must be positive')
+            .optional(),
+        unit: z
+            .string()
+            .max(20, 'Unit must be 20 characters or less')
+            .optional(),
         start_date: z.string().optional(),
         target_date: z.string().optional(),
     })
     .refine(
-        (data) => {
+        data => {
             if (data.start_date && data.target_date) {
                 return new Date(data.start_date) <= new Date(data.target_date)
             }

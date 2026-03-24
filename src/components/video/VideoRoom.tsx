@@ -14,22 +14,16 @@ interface VideoRoomProps {
 }
 
 export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
-    const { 
-        room, 
-        connect, 
-        isConnected, 
-        isConnecting, 
-        error, 
-        disconnect 
-    } = useVideo()
-    
+    const { room, connect, isConnected, isConnecting, error, disconnect } =
+        useVideo()
+
     const [hasJoined, setHasJoined] = React.useState(false)
     const [showNotes, setShowNotes] = React.useState(false)
 
     // Ensure we disconnect when component unmounts
     useEffect(() => {
         return () => {
-             disconnect()
+            disconnect()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -43,7 +37,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
 
     if (!hasJoined) {
         return (
-            <div className={`flex items-center justify-center min-h-[600px] bg-gray-50 ${className}`}>
+            <div
+                className={`flex items-center justify-center min-h-[600px] bg-gray-50 ${className}`}>
                 <PreJoinScreen onJoin={handleJoin} isLoading={isConnecting} />
             </div>
         )
@@ -51,17 +46,19 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
 
     if (error) {
         return (
-            <div className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
+            <div
+                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
                 <div className="text-center">
-                    <h3 className="text-xl font-bold mb-2 text-red-400">Connection Error</h3>
+                    <h3 className="text-xl font-bold mb-2 text-red-400">
+                        Connection Error
+                    </h3>
                     <p className="text-gray-300">{error.message}</p>
-                    <button 
+                    <button
                         onClick={() => {
                             setHasJoined(false)
                             window.location.reload()
                         }}
-                        className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
-                    >
+                        className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
                         Retry
                     </button>
                 </div>
@@ -71,7 +68,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
 
     if (isConnecting || !isConnected) {
         return (
-            <div className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
+            <div
+                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
                     <p className="text-lg">Connecting to secure room...</p>
@@ -81,48 +79,69 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
     }
 
     return (
-        <div className={`relative bg-gray-900 rounded-lg overflow-hidden h-[800px] flex flex-col ${className}`}>
-            <SessionNotes 
-                sessionId={room?.id || 'default'} 
-                isOpen={showNotes} 
-                onClose={() => setShowNotes(false)} 
+        <div
+            className={`relative bg-gray-900 rounded-lg overflow-hidden h-[800px] flex flex-col ${className}`}>
+            <SessionNotes
+                sessionId={room?.id || 'default'}
+                isOpen={showNotes}
+                onClose={() => setShowNotes(false)}
             />
 
             <div className="flex-1 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 auto-rows-fr">
                 {/* Local Participant */}
                 {room?.localParticipant && (
-                    <ParticipantTile participant={room.localParticipant} isLocal={true} />
+                    <ParticipantTile
+                        participant={room.localParticipant}
+                        isLocal={true}
+                    />
                 )}
-                
+
                 {/* Remote Participants */}
                 {room?.remoteParticipants.map(participant => (
-                    <ParticipantTile key={participant.id} participant={participant} isLocal={false} />
+                    <ParticipantTile
+                        key={participant.id}
+                        participant={participant}
+                        isLocal={false}
+                    />
                 ))}
-                
-                {room?.remoteParticipants.length === 0 && !room?.localParticipant && (
-                    <div className="col-span-full flex items-center justify-center text-gray-400">
-                        Waiting for others to join...
-                    </div>
-                )}
+
+                {room?.remoteParticipants.length === 0 &&
+                    !room?.localParticipant && (
+                        <div className="col-span-full flex items-center justify-center text-gray-400">
+                            Waiting for others to join...
+                        </div>
+                    )}
             </div>
 
             <div className="absolute bottom-6 left-0 right-0 flex justify-center z-10 w-full px-4">
-                <VideoControls 
-                    showNotes={showNotes} 
-                    onToggleNotes={() => setShowNotes(!showNotes)} 
+                <VideoControls
+                    showNotes={showNotes}
+                    onToggleNotes={() => setShowNotes(!showNotes)}
                 />
             </div>
         </div>
     )
 }
 
-function ParticipantTile({ participant, isLocal }: { participant: IVideoParticipant, isLocal: boolean }) {
+function ParticipantTile({
+    participant,
+    isLocal,
+}: {
+    participant: IVideoParticipant
+    isLocal: boolean
+}) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const audioRef = useRef<HTMLAudioElement>(null)
 
     useEffect(() => {
-        if (participant.videoTrack && participant.videoTrack.mediaStreamTrack && videoRef.current) {
-            const stream = new MediaStream([participant.videoTrack.mediaStreamTrack])
+        if (
+            participant.videoTrack &&
+            participant.videoTrack.mediaStreamTrack &&
+            videoRef.current
+        ) {
+            const stream = new MediaStream([
+                participant.videoTrack.mediaStreamTrack,
+            ])
             videoRef.current.srcObject = stream
         } else if (videoRef.current) {
             videoRef.current.srcObject = null
@@ -130,25 +149,31 @@ function ParticipantTile({ participant, isLocal }: { participant: IVideoParticip
     }, [participant.videoTrack])
 
     useEffect(() => {
-        if (participant.audioTrack && participant.audioTrack.mediaStreamTrack && audioRef.current) {
-             const stream = new MediaStream([participant.audioTrack.mediaStreamTrack])
-             audioRef.current.srcObject = stream
+        if (
+            participant.audioTrack &&
+            participant.audioTrack.mediaStreamTrack &&
+            audioRef.current
+        ) {
+            const stream = new MediaStream([
+                participant.audioTrack.mediaStreamTrack,
+            ])
+            audioRef.current.srcObject = stream
         } else if (audioRef.current) {
-             audioRef.current.srcObject = null
+            audioRef.current.srcObject = null
         }
     }, [participant.audioTrack])
 
     return (
         <div className="relative bg-gray-800 rounded-xl overflow-hidden aspect-video shadow-lg group">
-             {/* Video Element */}
-             <video 
-                ref={videoRef} 
-                autoPlay 
-                playsInline 
-                muted={isLocal} 
+            {/* Video Element */}
+            <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted={isLocal}
                 className={`w-full h-full object-cover ${isLocal ? 'scale-x-[-1]' : ''}`}
             />
-            
+
             {/* Audio Element (for remote) */}
             {!isLocal && <audio ref={audioRef} autoPlay />}
 
@@ -168,11 +193,15 @@ function ParticipantTile({ participant, isLocal }: { participant: IVideoParticip
 
             {/* Status Icons */}
             <div className="absolute top-2 right-2 flex gap-1">
-                 {participant.hasAudio && !participant.audioTrack?.isMuted ? (
-                    <div className="bg-green-500/80 p-1 rounded-full"><div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" /></div>
-                 ) : (
-                    <div className="bg-red-500/80 p-1 rounded-full"><span className="sr-only">Muted</span></div>
-                 )}
+                {participant.hasAudio && !participant.audioTrack?.isMuted ? (
+                    <div className="bg-green-500/80 p-1 rounded-full">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                    </div>
+                ) : (
+                    <div className="bg-red-500/80 p-1 rounded-full">
+                        <span className="sr-only">Muted</span>
+                    </div>
+                )}
             </div>
         </div>
     )

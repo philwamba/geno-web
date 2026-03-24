@@ -8,13 +8,21 @@ import { GoalCard, GoalCategoryFilter } from '@/components/wellness/goals'
 import { Button } from '@/components/ui/button'
 import type { Goal } from '@/types'
 import { type GoalCategoryValue } from '@/lib/validations/wellness'
-import { FiPlus, FiTarget, FiCheck, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import {
+    FiPlus,
+    FiTarget,
+    FiCheck,
+    FiChevronDown,
+    FiChevronUp,
+} from 'react-icons/fi'
 
 export default function GoalsPage() {
     const router = useRouter()
     const { goals, fetchGoals, isGoalsLoading } = useWellnessStore()
 
-    const [categoryFilter, setCategoryFilter] = useState<GoalCategoryValue | 'all'>('all')
+    const [categoryFilter, setCategoryFilter] = useState<
+        GoalCategoryValue | 'all'
+    >('all')
     const [showCompleted, setShowCompleted] = useState(false)
 
     useEffect(() => {
@@ -35,7 +43,7 @@ export default function GoalsPage() {
             spiritual: 0,
         }
 
-        goals.forEach((goal) => {
+        goals.forEach(goal => {
             const category = goal.category as GoalCategoryValue
             counts.all++
             counts[category]++
@@ -51,11 +59,16 @@ export default function GoalsPage() {
             }
         })
 
-        return { activeGoals: active, completedGoals: completed, categoryCounts: counts }
+        return {
+            activeGoals: active,
+            completedGoals: completed,
+            categoryCounts: counts,
+        }
     }, [goals, categoryFilter])
 
     const handleNewGoal = useCallback(() => {
-        const query = categoryFilter !== 'all' ? `?category=${categoryFilter}` : ''
+        const query =
+            categoryFilter !== 'all' ? `?category=${categoryFilter}` : ''
         router.push(`/wellness/goals/new${query}`)
     }, [router, categoryFilter])
 
@@ -68,8 +81,7 @@ export default function GoalsPage() {
                 rightContent={
                     <button
                         onClick={handleNewGoal}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white"
-                    >
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white">
                         <FiPlus className="h-5 w-5" />
                     </button>
                 }
@@ -84,9 +96,14 @@ export default function GoalsPage() {
                                 <FiTarget className="h-5 w-5 text-blue-500" />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-500">Active Goals</p>
+                                <p className="text-xs text-gray-500">
+                                    Active Goals
+                                </p>
                                 <p className="text-xl font-bold text-gray-900">
-                                    {goals.filter((g) => g.status === 'active').length}
+                                    {
+                                        goals.filter(g => g.status === 'active')
+                                            .length
+                                    }
                                 </p>
                             </div>
                         </div>
@@ -97,9 +114,15 @@ export default function GoalsPage() {
                                 <FiCheck className="h-5 w-5 text-green-500" />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-500">Completed</p>
+                                <p className="text-xs text-gray-500">
+                                    Completed
+                                </p>
                                 <p className="text-xl font-bold text-gray-900">
-                                    {goals.filter((g) => g.status === 'completed').length}
+                                    {
+                                        goals.filter(
+                                            g => g.status === 'completed',
+                                        ).length
+                                    }
                                 </p>
                             </div>
                         </div>
@@ -123,7 +146,7 @@ export default function GoalsPage() {
 
                     {isGoalsLoading ? (
                         <div className="space-y-3">
-                            {[1, 2].map((i) => (
+                            {[1, 2].map(i => (
                                 <div
                                     key={i}
                                     className="h-32 animate-pulse rounded-xl bg-gray-200"
@@ -148,7 +171,7 @@ export default function GoalsPage() {
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {activeGoals.map((goal) => (
+                            {activeGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} />
                             ))}
                         </div>
@@ -160,9 +183,10 @@ export default function GoalsPage() {
                     <section>
                         <button
                             onClick={() => setShowCompleted(!showCompleted)}
-                            className="mb-2 flex w-full items-center justify-between text-sm font-medium text-gray-700"
-                        >
-                            <span>Completed Goals ({completedGoals.length})</span>
+                            className="mb-2 flex w-full items-center justify-between text-sm font-medium text-gray-700">
+                            <span>
+                                Completed Goals ({completedGoals.length})
+                            </span>
                             {showCompleted ? (
                                 <FiChevronUp className="h-4 w-4" />
                             ) : (
@@ -172,8 +196,12 @@ export default function GoalsPage() {
 
                         {showCompleted && (
                             <div className="space-y-3">
-                                {completedGoals.map((goal) => (
-                                    <GoalCard key={goal.id} goal={goal} compact />
+                                {completedGoals.map(goal => (
+                                    <GoalCard
+                                        key={goal.id}
+                                        goal={goal}
+                                        compact
+                                    />
                                 ))}
                             </div>
                         )}

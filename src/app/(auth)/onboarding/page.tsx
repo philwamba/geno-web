@@ -21,7 +21,8 @@ const wellnessDimensions = [
     {
         id: 'mental',
         label: 'Mental & Emotional',
-        description: 'Mood tracking, journaling, mindfulness, and emotional well-being',
+        description:
+            'Mood tracking, journaling, mindfulness, and emotional well-being',
         icon: FiHeart,
         color: 'bg-purple-500',
         bgLight: 'bg-purple-50',
@@ -39,7 +40,8 @@ const wellnessDimensions = [
     {
         id: 'financial',
         label: 'Financial',
-        description: 'Budgeting, savings, financial planning, and money mindset',
+        description:
+            'Budgeting, savings, financial planning, and money mindset',
         icon: FiDollarSign,
         color: 'bg-yellow-500',
         bgLight: 'bg-yellow-50',
@@ -57,7 +59,8 @@ const wellnessDimensions = [
     {
         id: 'occupational',
         label: 'Occupational',
-        description: 'Career growth, work-life balance, and professional development',
+        description:
+            'Career growth, work-life balance, and professional development',
         icon: FiBriefcase,
         color: 'bg-orange-500',
         bgLight: 'bg-orange-50',
@@ -77,15 +80,18 @@ const wellnessDimensions = [
 const onboardingSteps = [
     {
         title: 'Welcome to GENO',
-        description: "Let's personalize your wellness journey. This will only take a moment.",
+        description:
+            "Let's personalize your wellness journey. This will only take a moment.",
     },
     {
         title: 'Your Wellness Focus',
-        description: 'Select the areas of wellness that are most important to you right now.',
+        description:
+            'Select the areas of wellness that are most important to you right now.',
     },
     {
         title: "You're All Set!",
-        description: "Your personalized wellness journey begins now. Let's get started!",
+        description:
+            "Your personalized wellness journey begins now. Let's get started!",
     },
 ]
 
@@ -96,9 +102,9 @@ export default function OnboardingPage() {
     const [isLoading, setIsLoading] = useState(false)
 
     const toggleArea = (areaId: string) => {
-        setSelectedAreas((prev) =>
+        setSelectedAreas(prev =>
             prev.includes(areaId)
-                ? prev.filter((id) => id !== areaId)
+                ? prev.filter(id => id !== areaId)
                 : [...prev, areaId],
         )
     }
@@ -120,7 +126,10 @@ export default function OnboardingPage() {
         try {
             // Save wellness focus preferences to localStorage
             // Backend API integration can be added when available
-            localStorage.setItem('wellness_focus', JSON.stringify(selectedAreas))
+            localStorage.setItem(
+                'wellness_focus',
+                JSON.stringify(selectedAreas),
+            )
             localStorage.setItem('onboarding_completed', 'true')
             toast.success('Welcome to GENO!')
             router.push('/home')
@@ -201,7 +210,7 @@ export default function OnboardingPage() {
                 {step === 1 && (
                     <div className="flex-1">
                         <div className="grid grid-cols-1 gap-3">
-                            {wellnessDimensions.map((dimension) => {
+                            {wellnessDimensions.map(dimension => {
                                 const Icon = dimension.icon
                                 const isSelected = selectedAreas.includes(
                                     dimension.id,
@@ -216,16 +225,14 @@ export default function OnboardingPage() {
                                             isSelected
                                                 ? 'border-primary bg-primary/5'
                                                 : 'border-gray-200 bg-white hover:border-gray-300',
-                                        )}
-                                    >
+                                        )}>
                                         <div
                                             className={cn(
                                                 'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0',
                                                 isSelected
                                                     ? dimension.color
                                                     : dimension.bgLight,
-                                            )}
-                                        >
+                                            )}>
                                             <Icon
                                                 className={cn(
                                                     'w-6 h-6',
@@ -267,9 +274,9 @@ export default function OnboardingPage() {
                             Your Focus Areas
                         </h2>
                         <div className="flex flex-wrap justify-center gap-2 mb-8">
-                            {selectedAreas.map((areaId) => {
+                            {selectedAreas.map(areaId => {
                                 const dimension = wellnessDimensions.find(
-                                    (d) => d.id === areaId,
+                                    d => d.id === areaId,
                                 )
                                 if (!dimension) return null
                                 const Icon = dimension.icon
@@ -279,8 +286,7 @@ export default function OnboardingPage() {
                                         className={cn(
                                             'flex items-center gap-2 px-3 py-2 rounded-full',
                                             dimension.bgLight,
-                                        )}
-                                    >
+                                        )}>
                                         <Icon
                                             className={cn(
                                                 'w-4 h-4',
@@ -291,8 +297,7 @@ export default function OnboardingPage() {
                                             className={cn(
                                                 'text-sm font-medium',
                                                 dimension.textColor,
-                                            )}
-                                        >
+                                            )}>
                                             {dimension.label}
                                         </span>
                                     </div>
@@ -300,8 +305,8 @@ export default function OnboardingPage() {
                             })}
                         </div>
                         <p className="text-sm text-gray-500 text-center max-w-xs">
-                            You can always change these preferences later in your
-                            settings.
+                            You can always change these preferences later in
+                            your settings.
                         </p>
                     </div>
                 )}
@@ -313,8 +318,7 @@ export default function OnboardingPage() {
                     {step > 0 && (
                         <button
                             onClick={handleBack}
-                            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center gap-2"
-                        >
+                            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center gap-2">
                             <FiArrowLeft className="w-5 h-5" />
                             Back
                         </button>
@@ -323,8 +327,7 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleNext}
                             disabled={step === 1 && selectedAreas.length === 0}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
+                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
                             Continue
                             <FiArrowRight className="w-5 h-5" />
                         </button>
@@ -332,8 +335,7 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleComplete}
                             disabled={isLoading}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
-                        >
+                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50">
                             {isLoading ? 'Getting Started...' : "Let's Go!"}
                         </button>
                     )}
@@ -341,8 +343,7 @@ export default function OnboardingPage() {
                 {step === 0 && (
                     <button
                         onClick={() => router.push('/home')}
-                        className="w-full mt-3 py-2 text-gray-500 text-sm"
-                    >
+                        className="w-full mt-3 py-2 text-gray-500 text-sm">
                         Skip for now
                     </button>
                 )}

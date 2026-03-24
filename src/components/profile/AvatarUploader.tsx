@@ -11,10 +11,16 @@ interface AvatarUploaderProps {
     className?: string
 }
 
-export function AvatarUploader({ currentAvatarUrl, onUpload, className }: AvatarUploaderProps) {
+export function AvatarUploader({
+    currentAvatarUrl,
+    onUpload,
+    className,
+}: AvatarUploaderProps) {
     const [isUploading, setIsUploading] = useState(false)
-    const [previewUrl, setPreviewUrl] = useState<string | null>(currentAvatarUrl || null)
-    
+    const [previewUrl, setPreviewUrl] = useState<string | null>(
+        currentAvatarUrl || null,
+    )
+
     const handleFileSelect = async (file: File | null) => {
         if (!file) {
             setPreviewUrl(currentAvatarUrl || null)
@@ -22,7 +28,7 @@ export function AvatarUploader({ currentAvatarUrl, onUpload, className }: Avatar
         }
 
         setIsUploading(true)
-        
+
         // Revoke previous URL if it was a blob
         if (previewUrl && previewUrl.startsWith('blob:')) {
             URL.revokeObjectURL(previewUrl)
@@ -60,22 +66,22 @@ export function AvatarUploader({ currentAvatarUrl, onUpload, className }: Avatar
             <div className="relative group">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg bg-gray-100 flex items-center justify-center">
                     {previewUrl ? (
-                        <img 
-                            src={previewUrl} 
-                            alt="Avatar" 
-                            className="w-full h-full object-cover transition-opacity group-hover:opacity-75" 
+                        <img
+                            src={previewUrl}
+                            alt="Avatar"
+                            className="w-full h-full object-cover transition-opacity group-hover:opacity-75"
                         />
                     ) : (
                         <User className="w-16 h-16 text-gray-400" />
                     )}
-                    
+
                     {isUploading && (
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                             <Loader2 className="w-8 h-8 text-white animate-spin" />
                         </div>
                     )}
                 </div>
-                
+
                 {/* Hidden logic: In a real app we might put an edit button overlay here, 
                     but we'll use the FileUpload component below for the actual action */}
             </div>

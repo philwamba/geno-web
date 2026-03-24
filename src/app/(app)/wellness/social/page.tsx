@@ -6,14 +6,20 @@ import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { AppHeader } from '@/components/layout/app-header'
 import { GoalCard } from '@/components/wellness/goals'
 import { Button } from '@/components/ui/button'
-import { FiUsers, FiTarget, FiPlus, FiMessageCircle, FiUserPlus } from 'react-icons/fi'
+import {
+    FiUsers,
+    FiTarget,
+    FiPlus,
+    FiMessageCircle,
+    FiUserPlus,
+} from 'react-icons/fi'
 
 export default function SocialWellnessPage() {
     const router = useRouter()
     const { goals, fetchGoals } = useWellnessStore()
 
     const socialGoals = goals.filter(
-        (g) => g.category === 'social' && g.status === 'active',
+        g => g.category === 'social' && g.status === 'active',
     )
 
     useEffect(() => {
@@ -36,7 +42,9 @@ export default function SocialWellnessPage() {
                             <FiUsers className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Social Wellness</h1>
+                            <h1 className="text-xl font-bold">
+                                Social Wellness
+                            </h1>
                             <p className="text-sm text-white/80">
                                 Relationships, community & connection
                             </p>
@@ -80,10 +88,11 @@ export default function SocialWellnessPage() {
                         </h2>
                         <button
                             onClick={() =>
-                                router.push('/wellness/goals/new?category=social')
+                                router.push(
+                                    '/wellness/goals/new?category=social',
+                                )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
+                            className="flex items-center gap-1 text-xs text-primary hover:underline">
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -96,21 +105,23 @@ export default function SocialWellnessPage() {
                                 No social goals yet
                             </p>
                             <p className="mb-4 text-xs text-gray-400">
-                                Set goals for relationships, networking, or community involvement
+                                Set goals for relationships, networking, or
+                                community involvement
                             </p>
                             <Button
                                 onClick={() =>
-                                    router.push('/wellness/goals/new?category=social')
+                                    router.push(
+                                        '/wellness/goals/new?category=social',
+                                    )
                                 }
-                                size="sm"
-                            >
+                                size="sm">
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Create Goal
                             </Button>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {socialGoals.map((goal) => (
+                            {socialGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} />
                             ))}
                         </div>
@@ -125,15 +136,22 @@ export default function SocialWellnessPage() {
                     <ul className="space-y-2 text-xs text-blue-700">
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Schedule regular catch-ups with friends and family</span>
+                            <span>
+                                Schedule regular catch-ups with friends and
+                                family
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Join clubs or groups aligned with your interests</span>
+                            <span>
+                                Join clubs or groups aligned with your interests
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Practice active listening to deepen connections</span>
+                            <span>
+                                Practice active listening to deepen connections
+                            </span>
                         </li>
                     </ul>
                 </section>

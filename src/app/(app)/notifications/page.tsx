@@ -13,13 +13,8 @@ import {
 import { toast } from 'sonner'
 
 export default function NotificationsPage() {
-    const { 
-        notifications, 
-        isLoading, 
-        markAsRead, 
-        markAllAsRead, 
-        remove,
-    } = useNotifications()
+    const { notifications, isLoading, markAsRead, markAllAsRead, remove } =
+        useNotifications()
 
     const handleMarkAsRead = async (id: number) => {
         try {
@@ -125,16 +120,38 @@ export default function NotificationsPage() {
                                         'ring-1 ring-primary/20',
                                 )}>
                                 <div
-                                    role={notification.read_at ? undefined : 'button'}
+                                    role={
+                                        notification.read_at
+                                            ? undefined
+                                            : 'button'
+                                    }
                                     tabIndex={notification.read_at ? -1 : 0}
-                                    aria-disabled={notification.read_at ? true : undefined}
-                                    onClick={notification.read_at ? undefined : () => handleMarkAsRead(notification.id)}
-                                    onKeyDown={notification.read_at ? undefined : e => {
-                                        if (e.key === 'Enter' || e.key === ' ') {
-                                            e.preventDefault()
-                                            handleMarkAsRead(notification.id)
-                                        }
-                                    }}
+                                    aria-disabled={
+                                        notification.read_at ? true : undefined
+                                    }
+                                    onClick={
+                                        notification.read_at
+                                            ? undefined
+                                            : () =>
+                                                  handleMarkAsRead(
+                                                      notification.id,
+                                                  )
+                                    }
+                                    onKeyDown={
+                                        notification.read_at
+                                            ? undefined
+                                            : e => {
+                                                  if (
+                                                      e.key === 'Enter' ||
+                                                      e.key === ' '
+                                                  ) {
+                                                      e.preventDefault()
+                                                      handleMarkAsRead(
+                                                          notification.id,
+                                                      )
+                                                  }
+                                              }
+                                    }
                                     className={cn(
                                         'flex gap-3 outline-none rounded-lg',
                                         notification.read_at
@@ -144,19 +161,24 @@ export default function NotificationsPage() {
                                     <div
                                         className={cn(
                                             'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
-                                            notification.data?.type === 'session' &&
-                                                'bg-blue-100',
-                                            notification.data?.type === 'message' &&
-                                                'bg-green-100',
+                                            notification.data?.type ===
+                                                'session' && 'bg-blue-100',
+                                            notification.data?.type ===
+                                                'message' && 'bg-green-100',
                                             notification.data?.type ===
                                                 'achievement' &&
                                                 'bg-yellow-100',
-                                            notification.data?.type === 'reminder' &&
-                                                'bg-purple-100',
-                                            (!notification.data?.type || notification.data?.type === 'general') &&
+                                            notification.data?.type ===
+                                                'reminder' && 'bg-purple-100',
+                                            (!notification.data?.type ||
+                                                notification.data?.type ===
+                                                    'general') &&
                                                 'bg-gray-100',
                                         )}>
-                                        {getNotificationIcon(notification.data?.type || 'general')}
+                                        {getNotificationIcon(
+                                            notification.data?.type ||
+                                                'general',
+                                        )}
                                     </div>
                                     <div className="flex-1 min-w-0 pr-8">
                                         <div className="flex items-start justify-between gap-2">
@@ -166,7 +188,8 @@ export default function NotificationsPage() {
                                                     !notification.read_at &&
                                                         'font-semibold',
                                                 )}>
-                                                {notification.data?.title || 'Notification'}
+                                                {notification.data?.title ||
+                                                    'Notification'}
                                             </h3>
                                             {!notification.read_at && (
                                                 <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-2" />

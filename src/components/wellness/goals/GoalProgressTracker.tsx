@@ -91,14 +91,15 @@ export function GoalProgressTracker({
         ],
     )
 
-    const safeInputValue = Number.isNaN(inputValue) ? 0 : (inputValue || 0)
+    const safeInputValue = Number.isNaN(inputValue) ? 0 : inputValue || 0
     const previewProgress =
         mode === 'add'
             ? currentValue + safeInputValue
             : safeInputValue || currentValue
-    const previewPercentage = targetValue > 0
-        ? Math.min(100, (previewProgress / targetValue) * 100)
-        : 0
+    const previewPercentage =
+        targetValue > 0
+            ? Math.min(100, (previewProgress / targetValue) * 100)
+            : 0
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -112,7 +113,9 @@ export function GoalProgressTracker({
                     {/* Current Progress Display */}
                     <div className="rounded-lg bg-gray-50 p-4">
                         <div className="mb-2 flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Current Progress</span>
+                            <span className="text-gray-600">
+                                Current Progress
+                            </span>
                             <span className="font-medium">
                                 {currentValue} / {targetValue} {goal.unit}
                             </span>
@@ -138,8 +141,7 @@ export function GoalProgressTracker({
                                 mode === 'add'
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-gray-200 text-gray-600 hover:border-gray-300',
-                            )}
-                        >
+                            )}>
                             <FiPlus className="mr-1 inline h-4 w-4" />
                             Add to current
                         </button>
@@ -151,8 +153,7 @@ export function GoalProgressTracker({
                                 mode === 'set'
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-gray-200 text-gray-600 hover:border-gray-300',
-                            )}
-                        >
+                            )}>
                             <FiTrendingUp className="mr-1 inline h-4 w-4" />
                             Set total
                         </button>
@@ -168,8 +169,7 @@ export function GoalProgressTracker({
                                 type="button"
                                 onClick={() => handleQuickAdd(-1)}
                                 disabled={inputValue === 0}
-                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
-                            >
+                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50">
                                 <FiMinus className="h-4 w-4" />
                             </button>
                             <Input
@@ -181,8 +181,7 @@ export function GoalProgressTracker({
                             <button
                                 type="button"
                                 onClick={() => handleQuickAdd(1)}
-                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200"
-                            >
+                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200">
                                 <FiPlus className="h-4 w-4" />
                             </button>
                         </div>
@@ -194,13 +193,12 @@ export function GoalProgressTracker({
                     {/* Quick Add Buttons (for add mode) */}
                     {mode === 'add' && (
                         <div className="flex flex-wrap justify-center gap-2">
-                            {[10, 50, 100, 500, 1000].map((amount) => (
+                            {[10, 50, 100, 500, 1000].map(amount => (
                                 <button
                                     key={amount}
                                     type="button"
                                     onClick={() => handleQuickAdd(amount)}
-                                    className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
-                                >
+                                    className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200">
                                     +{amount}
                                 </button>
                             ))}
@@ -211,9 +209,12 @@ export function GoalProgressTracker({
                     {safeInputValue > 0 && (
                         <div className="rounded-lg bg-primary/5 p-3">
                             <div className="mb-1 flex items-center justify-between text-sm">
-                                <span className="text-gray-600">New Progress</span>
+                                <span className="text-gray-600">
+                                    New Progress
+                                </span>
                                 <span className="font-medium text-primary">
-                                    {previewProgress} / {targetValue} {goal.unit}
+                                    {previewProgress} / {targetValue}{' '}
+                                    {goal.unit}
                                 </span>
                             </div>
                             <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
@@ -226,7 +227,8 @@ export function GoalProgressTracker({
                             </div>
                             <div className="mt-1 text-right text-xs text-primary">
                                 {Math.round(previewPercentage)}%
-                                {previewPercentage >= 100 && ' - Goal Complete!'}
+                                {previewPercentage >= 100 &&
+                                    ' - Goal Complete!'}
                             </div>
                         </div>
                     )}
@@ -238,15 +240,13 @@ export function GoalProgressTracker({
                             variant="outline"
                             onClick={() => onOpenChange(false)}
                             disabled={isGoalsLoading}
-                            className="flex-1"
-                        >
+                            className="flex-1">
                             Cancel
                         </Button>
                         <Button
                             type="submit"
                             disabled={isGoalsLoading || !inputValue}
-                            className="flex-1"
-                        >
+                            className="flex-1">
                             Update Progress
                         </Button>
                     </div>

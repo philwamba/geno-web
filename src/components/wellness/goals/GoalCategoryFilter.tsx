@@ -27,12 +27,28 @@ const CATEGORIES: Array<{
     icon: React.ReactNode
 }> = [
     { value: 'all', label: 'All', icon: null },
-    { value: 'physical', label: 'Physical', icon: <FiActivity className="h-4 w-4" /> },
+    {
+        value: 'physical',
+        label: 'Physical',
+        icon: <FiActivity className="h-4 w-4" />,
+    },
     { value: 'mental', label: 'Mental', icon: <FiHeart className="h-4 w-4" /> },
-    { value: 'financial', label: 'Financial', icon: <FiDollarSign className="h-4 w-4" /> },
+    {
+        value: 'financial',
+        label: 'Financial',
+        icon: <FiDollarSign className="h-4 w-4" />,
+    },
     { value: 'social', label: 'Social', icon: <FiUsers className="h-4 w-4" /> },
-    { value: 'occupational', label: 'Occupational', icon: <FiBriefcase className="h-4 w-4" /> },
-    { value: 'spiritual', label: 'Spiritual', icon: <FiStar className="h-4 w-4" /> },
+    {
+        value: 'occupational',
+        label: 'Occupational',
+        icon: <FiBriefcase className="h-4 w-4" />,
+    },
+    {
+        value: 'spiritual',
+        label: 'Spiritual',
+        icon: <FiStar className="h-4 w-4" />,
+    },
 ]
 
 export function GoalCategoryFilter({
@@ -46,9 +62,8 @@ export function GoalCategoryFilter({
             className={cn(
                 'flex gap-2 overflow-x-auto pb-2 scrollbar-hide',
                 className,
-            )}
-        >
-            {CATEGORIES.map((cat) => {
+            )}>
+            {CATEGORIES.map(cat => {
                 const count = counts?.[cat.value]
                 const isSelected = selected === cat.value
                 const color =
@@ -65,16 +80,14 @@ export function GoalCategoryFilter({
                             isSelected
                                 ? 'bg-primary text-white'
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                        )}
-                    >
+                        )}>
                         {cat.icon && (
                             <span
                                 className={cn(
                                     'flex h-5 w-5 items-center justify-center rounded-full',
                                     isSelected ? 'bg-white/20' : color,
                                     !isSelected && 'text-white',
-                                )}
-                            >
+                                )}>
                                 {cat.icon}
                             </span>
                         )}
@@ -86,8 +99,7 @@ export function GoalCategoryFilter({
                                     isSelected
                                         ? 'bg-white/20 text-white'
                                         : 'bg-gray-200 text-gray-600',
-                                )}
-                            >
+                                )}>
                                 {count}
                             </span>
                         )}

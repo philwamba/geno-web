@@ -23,15 +23,21 @@ const FIREBASE_ERROR_MESSAGES: Record<string, string> = {
     'auth/email-already-in-use': 'This email is already registered.',
     'auth/weak-password': 'Password should be at least 6 characters.',
     'auth/invalid-email': 'Please enter a valid email address.',
-    'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
-    'auth/network-request-failed': 'Network error. Please check your connection.',
+    'auth/too-many-requests':
+        'Too many failed attempts. Please try again later.',
+    'auth/network-request-failed':
+        'Network error. Please check your connection.',
     'auth/popup-closed-by-user': 'Sign in was cancelled.',
     'auth/operation-not-allowed': 'This sign-in method is not enabled.',
     'auth/invalid-api-key': 'Configuration error. Please contact support.',
 }
 
 export function getFirebaseErrorMessage(error: AuthError): string {
-    return FIREBASE_ERROR_MESSAGES[error.code] || error.message || 'An error occurred. Please try again.'
+    return (
+        FIREBASE_ERROR_MESSAGES[error.code] ||
+        error.message ||
+        'An error occurred. Please try again.'
+    )
 }
 
 // Sign in with email and password

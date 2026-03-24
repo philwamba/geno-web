@@ -24,7 +24,7 @@ export default function SpiritualWellnessPage() {
         useWellnessStore()
 
     const spiritualGoals = goals.filter(
-        (g) => g.category === 'spiritual' && g.status === 'active',
+        g => g.category === 'spiritual' && g.status === 'active',
     )
 
     // Meditation timer state
@@ -48,7 +48,7 @@ export default function SpiritualWellnessPage() {
 
         if (isTimerRunning && timerSeconds > 0) {
             interval = setInterval(() => {
-                setTimerSeconds((s) => s - 1)
+                setTimerSeconds(s => s - 1)
             }, 1000)
         } else if (timerSeconds === 0) {
             setIsTimerRunning(false)
@@ -91,7 +91,10 @@ export default function SpiritualWellnessPage() {
         const content = `Today I am grateful for:\n\n1. ${gratitude1 || '-'}\n2. ${gratitude2 || '-'}\n3. ${gratitude3 || '-'}`
 
         try {
-            await createJournalEntry(content, undefined, ['gratitude', 'spiritual'])
+            await createJournalEntry(content, undefined, [
+                'gratitude',
+                'spiritual',
+            ])
             toast.success('Gratitude logged! +3 points')
             setGratitude1('')
             setGratitude2('')
@@ -118,7 +121,9 @@ export default function SpiritualWellnessPage() {
                             <FiStar className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Spiritual Wellness</h1>
+                            <h1 className="text-xl font-bold">
+                                Spiritual Wellness
+                            </h1>
                             <p className="text-sm text-white/80">
                                 Meditation, gratitude & inner peace
                             </p>
@@ -134,7 +139,7 @@ export default function SpiritualWellnessPage() {
 
                     {/* Duration Selection */}
                     <div className="mb-4 flex justify-center gap-2">
-                        {[3, 5, 10, 15, 20].map((mins) => (
+                        {[3, 5, 10, 15, 20].map(mins => (
                             <button
                                 key={mins}
                                 onClick={() => handleDurationChange(mins)}
@@ -143,8 +148,7 @@ export default function SpiritualWellnessPage() {
                                     selectedDuration === mins
                                         ? 'bg-primary text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                                )}
-                            >
+                                )}>
                                 {mins}m
                             </button>
                         ))}
@@ -158,8 +162,7 @@ export default function SpiritualWellnessPage() {
                                 isTimerRunning
                                     ? 'bg-primary/10 ring-4 ring-primary/30'
                                     : 'bg-gray-100',
-                            )}
-                        >
+                            )}>
                             <span className="text-4xl font-bold text-gray-900">
                                 {formatTime(timerSeconds)}
                             </span>
@@ -170,8 +173,7 @@ export default function SpiritualWellnessPage() {
                     <div className="flex justify-center gap-3">
                         <button
                             onClick={handleTimerReset}
-                            className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        >
+                            className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
                             <FiRefreshCw className="h-5 w-5" />
                         </button>
                         <button
@@ -181,8 +183,7 @@ export default function SpiritualWellnessPage() {
                                 isTimerRunning
                                     ? 'bg-red-500 hover:bg-red-600'
                                     : 'bg-primary hover:bg-primary/90',
-                            )}
-                        >
+                            )}>
                             {isTimerRunning ? (
                                 <FiPause className="h-6 w-6" />
                             ) : (
@@ -199,9 +200,10 @@ export default function SpiritualWellnessPage() {
                             Daily Gratitude
                         </h2>
                         <button
-                            onClick={() => setShowGratitudeForm(!showGratitudeForm)}
-                            className="text-xs text-primary hover:underline"
-                        >
+                            onClick={() =>
+                                setShowGratitudeForm(!showGratitudeForm)
+                            }
+                            className="text-xs text-primary hover:underline">
                             {showGratitudeForm ? 'Cancel' : 'Log Today'}
                         </button>
                     </div>
@@ -209,21 +211,26 @@ export default function SpiritualWellnessPage() {
                     {showGratitudeForm ? (
                         <div className="space-y-3">
                             <p className="text-xs text-gray-500">
-                                What are 3 things you&apos;re grateful for today?
+                                What are 3 things you&apos;re grateful for
+                                today?
                             </p>
                             {[
                                 { value: gratitude1, setter: setGratitude1 },
                                 { value: gratitude2, setter: setGratitude2 },
                                 { value: gratitude3, setter: setGratitude3 },
                             ].map((item, index) => (
-                                <div key={index} className="flex items-center gap-2">
+                                <div
+                                    key={index}
+                                    className="flex items-center gap-2">
                                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100">
                                         <FiHeart className="h-3 w-3 text-pink-500" />
                                     </div>
                                     <input
                                         type="text"
                                         value={item.value}
-                                        onChange={(e) => item.setter(e.target.value)}
+                                        onChange={e =>
+                                            item.setter(e.target.value)
+                                        }
                                         placeholder={`Gratitude ${index + 1}`}
                                         className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                                     />
@@ -233,8 +240,7 @@ export default function SpiritualWellnessPage() {
                                 onClick={handleSaveGratitude}
                                 disabled={isJournalLoading}
                                 size="sm"
-                                className="w-full"
-                            >
+                                className="w-full">
                                 Save Gratitude
                             </Button>
                         </div>
@@ -242,8 +248,8 @@ export default function SpiritualWellnessPage() {
                         <div className="flex items-center gap-3 rounded-lg bg-pink-50 p-3">
                             <FiHeart className="h-5 w-5 text-pink-500" />
                             <p className="text-sm text-pink-700">
-                                Practicing gratitude daily improves mental health and
-                                well-being
+                                Practicing gratitude daily improves mental
+                                health and well-being
                             </p>
                         </div>
                     )}
@@ -257,10 +263,11 @@ export default function SpiritualWellnessPage() {
                         </h2>
                         <button
                             onClick={() =>
-                                router.push('/wellness/goals/new?category=spiritual')
+                                router.push(
+                                    '/wellness/goals/new?category=spiritual',
+                                )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
+                            className="flex items-center gap-1 text-xs text-primary hover:underline">
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -269,11 +276,13 @@ export default function SpiritualWellnessPage() {
                     {spiritualGoals.length === 0 ? (
                         <div className="rounded-xl bg-white p-4 text-center shadow-sm">
                             <FiTarget className="mx-auto mb-2 h-8 w-8 text-gray-300" />
-                            <p className="text-sm text-gray-500">No spiritual goals yet</p>
+                            <p className="text-sm text-gray-500">
+                                No spiritual goals yet
+                            </p>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {spiritualGoals.map((goal) => (
+                            {spiritualGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} compact />
                             ))}
                         </div>
@@ -288,15 +297,22 @@ export default function SpiritualWellnessPage() {
                     <ul className="space-y-2 text-xs text-pink-700">
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Start with just 3 minutes of meditation daily</span>
+                            <span>
+                                Start with just 3 minutes of meditation daily
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Keep a gratitude journal to shift your perspective</span>
+                            <span>
+                                Keep a gratitude journal to shift your
+                                perspective
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Spend time in nature to reconnect with yourself</span>
+                            <span>
+                                Spend time in nature to reconnect with yourself
+                            </span>
                         </li>
                     </ul>
                 </section>

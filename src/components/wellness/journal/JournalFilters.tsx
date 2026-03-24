@@ -75,9 +75,10 @@ export function JournalFilters({
                 />
                 {filters.search && (
                     <button
-                        onClick={() => onFiltersChange({ ...filters, search: '' })}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    >
+                        onClick={() =>
+                            onFiltersChange({ ...filters, search: '' })
+                        }
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                         <FiX className="h-4 w-4" />
                     </button>
                 )}
@@ -90,8 +91,7 @@ export function JournalFilters({
                     <Button
                         variant={filters.mood ? 'default' : 'outline'}
                         size="sm"
-                        onClick={() => setShowMoodFilter(!showMoodFilter)}
-                    >
+                        onClick={() => setShowMoodFilter(!showMoodFilter)}>
                         <FiFilter className="mr-1 h-3 w-3" />
                         {filters.mood ? MOOD_EMOJIS[filters.mood] : 'Mood'}
                     </Button>
@@ -99,28 +99,26 @@ export function JournalFilters({
                     {showMoodFilter && (
                         <div className="absolute left-0 top-full z-10 mt-1 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
                             <div className="mb-2 flex flex-wrap gap-1">
-                                {(Object.keys(MOOD_EMOJIS) as MoodTypeValue[]).map(
-                                    (mood) => (
-                                        <button
-                                            key={mood}
-                                            onClick={() => handleMoodSelect(mood)}
-                                            className={cn(
-                                                'flex h-8 w-8 items-center justify-center rounded-full text-lg transition-colors',
-                                                filters.mood === mood
-                                                    ? 'bg-primary/20 ring-2 ring-primary'
-                                                    : 'bg-gray-100 hover:bg-gray-200',
-                                            )}
-                                        >
-                                            {MOOD_EMOJIS[mood]}
-                                        </button>
-                                    ),
-                                )}
+                                {(
+                                    Object.keys(MOOD_EMOJIS) as MoodTypeValue[]
+                                ).map(mood => (
+                                    <button
+                                        key={mood}
+                                        onClick={() => handleMoodSelect(mood)}
+                                        className={cn(
+                                            'flex h-8 w-8 items-center justify-center rounded-full text-lg transition-colors',
+                                            filters.mood === mood
+                                                ? 'bg-primary/20 ring-2 ring-primary'
+                                                : 'bg-gray-100 hover:bg-gray-200',
+                                        )}>
+                                        {MOOD_EMOJIS[mood]}
+                                    </button>
+                                ))}
                             </div>
                             {filters.mood && (
                                 <button
                                     onClick={() => handleMoodSelect(null)}
-                                    className="w-full text-center text-xs text-gray-500 hover:text-gray-700"
-                                >
+                                    className="w-full text-center text-xs text-gray-500 hover:text-gray-700">
                                     Clear mood filter
                                 </button>
                             )}
@@ -130,7 +128,7 @@ export function JournalFilters({
 
                 {/* Date Range Pills */}
                 <div className="flex gap-1">
-                    {DATE_RANGES.map((range) => (
+                    {DATE_RANGES.map(range => (
                         <button
                             key={range.value}
                             onClick={() => handleDateRangeChange(range.value)}
@@ -139,8 +137,7 @@ export function JournalFilters({
                                 filters.dateRange === range.value
                                     ? 'bg-primary text-white'
                                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                            )}
-                        >
+                            )}>
                             {range.label}
                         </button>
                     ))}
@@ -150,8 +147,7 @@ export function JournalFilters({
                 {hasActiveFilters && (
                     <button
                         onClick={handleClearFilters}
-                        className="ml-auto flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700"
-                    >
+                        className="ml-auto flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
                         <FiX className="h-3 w-3" />
                         Clear filters
                     </button>

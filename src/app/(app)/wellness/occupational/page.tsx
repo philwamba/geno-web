@@ -6,14 +6,20 @@ import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { AppHeader } from '@/components/layout/app-header'
 import { GoalCard } from '@/components/wellness/goals'
 import { Button } from '@/components/ui/button'
-import { FiBriefcase, FiTarget, FiPlus, FiBook, FiTrendingUp } from 'react-icons/fi'
+import {
+    FiBriefcase,
+    FiTarget,
+    FiPlus,
+    FiBook,
+    FiTrendingUp,
+} from 'react-icons/fi'
 
 export default function OccupationalWellnessPage() {
     const router = useRouter()
     const { goals, fetchGoals } = useWellnessStore()
 
     const occupationalGoals = goals.filter(
-        (g) => g.category === 'occupational' && g.status === 'active',
+        g => g.category === 'occupational' && g.status === 'active',
     )
 
     useEffect(() => {
@@ -36,7 +42,9 @@ export default function OccupationalWellnessPage() {
                             <FiBriefcase className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Occupational Wellness</h1>
+                            <h1 className="text-xl font-bold">
+                                Occupational Wellness
+                            </h1>
                             <p className="text-sm text-white/80">
                                 Career growth & work-life balance
                             </p>
@@ -55,7 +63,9 @@ export default function OccupationalWellnessPage() {
                                 <p className="text-sm font-medium text-gray-900">
                                     Skills
                                 </p>
-                                <p className="text-xs text-gray-500">Track learning</p>
+                                <p className="text-xs text-gray-500">
+                                    Track learning
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -68,7 +78,9 @@ export default function OccupationalWellnessPage() {
                                 <p className="text-sm font-medium text-gray-900">
                                     Career
                                 </p>
-                                <p className="text-xs text-gray-500">Set milestones</p>
+                                <p className="text-xs text-gray-500">
+                                    Set milestones
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -82,10 +94,11 @@ export default function OccupationalWellnessPage() {
                         </h2>
                         <button
                             onClick={() =>
-                                router.push('/wellness/goals/new?category=occupational')
+                                router.push(
+                                    '/wellness/goals/new?category=occupational',
+                                )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
+                            className="flex items-center gap-1 text-xs text-primary hover:underline">
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -98,21 +111,23 @@ export default function OccupationalWellnessPage() {
                                 No occupational goals yet
                             </p>
                             <p className="mb-4 text-xs text-gray-400">
-                                Set career goals, skill targets, or work-life balance objectives
+                                Set career goals, skill targets, or work-life
+                                balance objectives
                             </p>
                             <Button
                                 onClick={() =>
-                                    router.push('/wellness/goals/new?category=occupational')
+                                    router.push(
+                                        '/wellness/goals/new?category=occupational',
+                                    )
                                 }
-                                size="sm"
-                            >
+                                size="sm">
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Create Goal
                             </Button>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {occupationalGoals.map((goal) => (
+                            {occupationalGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} />
                             ))}
                         </div>
@@ -127,15 +142,23 @@ export default function OccupationalWellnessPage() {
                     <ul className="space-y-2 text-xs text-orange-700">
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Set clear boundaries between work and personal time</span>
+                            <span>
+                                Set clear boundaries between work and personal
+                                time
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Dedicate time weekly to learning new skills</span>
+                            <span>
+                                Dedicate time weekly to learning new skills
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Network with professionals in your field regularly</span>
+                            <span>
+                                Network with professionals in your field
+                                regularly
+                            </span>
                         </li>
                     </ul>
                 </section>

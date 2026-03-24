@@ -2,7 +2,16 @@
 
 import React, { useState } from 'react'
 import { useVideo } from '@/lib/video/context'
-import { FiMic, FiMicOff, FiVideo, FiVideoOff, FiPhoneOff, FiMonitor, FiFileText, FiSettings } from 'react-icons/fi'
+import {
+    FiMic,
+    FiMicOff,
+    FiVideo,
+    FiVideoOff,
+    FiPhoneOff,
+    FiMonitor,
+    FiFileText,
+    FiSettings,
+} from 'react-icons/fi'
 import { toast } from 'sonner'
 
 interface VideoControlsProps {
@@ -11,7 +20,11 @@ interface VideoControlsProps {
     onToggleNotes?: () => void
 }
 
-export function VideoControls({ className = '', showNotes, onToggleNotes }: VideoControlsProps) {
+export function VideoControls({
+    className = '',
+    showNotes,
+    onToggleNotes,
+}: VideoControlsProps) {
     const { room, isConnected, disconnect } = useVideo()
     const [isMuted, setIsMuted] = useState(false)
     const [isVideoOff, setIsVideoOff] = useState(false)
@@ -53,34 +66,46 @@ export function VideoControls({ className = '', showNotes, onToggleNotes }: Vide
     if (!isConnected) return null
 
     return (
-        <div className={`flex items-center gap-4 bg-gray-900/90 px-6 py-4 rounded-full backdrop-blur-sm ${className}`}>
+        <div
+            className={`flex items-center gap-4 bg-gray-900/90 px-6 py-4 rounded-full backdrop-blur-sm ${className}`}>
             <button
                 onClick={toggleMute}
                 className={`p-4 rounded-full transition-colors ${
-                    isMuted ? 'bg-red-500 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
+                    isMuted
+                        ? 'bg-red-500 text-white'
+                        : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title={isMuted ? 'Unmute' : 'Mute'}
-            >
-                {isMuted ? <FiMicOff className="w-6 h-6" /> : <FiMic className="w-6 h-6" />}
+                title={isMuted ? 'Unmute' : 'Mute'}>
+                {isMuted ? (
+                    <FiMicOff className="w-6 h-6" />
+                ) : (
+                    <FiMic className="w-6 h-6" />
+                )}
             </button>
-            
+
             <button
                 onClick={toggleVideo}
                 className={`p-4 rounded-full transition-colors ${
-                    isVideoOff ? 'bg-red-500 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
+                    isVideoOff
+                        ? 'bg-red-500 text-white'
+                        : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title={isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}
-            >
-                {isVideoOff ? <FiVideoOff className="w-6 h-6" /> : <FiVideo className="w-6 h-6" />}
+                title={isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}>
+                {isVideoOff ? (
+                    <FiVideoOff className="w-6 h-6" />
+                ) : (
+                    <FiVideo className="w-6 h-6" />
+                )}
             </button>
 
             <button
                 onClick={toggleScreenShare}
                 className={`p-4 rounded-full transition-colors ${
-                    isScreenSharing ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
+                    isScreenSharing
+                        ? 'bg-indigo-600 text-white'
+                        : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title="Share Screen"
-            >
+                title="Share Screen">
                 <FiMonitor className="w-6 h-6" />
             </button>
 
@@ -88,10 +113,11 @@ export function VideoControls({ className = '', showNotes, onToggleNotes }: Vide
                 <button
                     onClick={onToggleNotes}
                     className={`p-4 rounded-full transition-colors ${
-                        showNotes ? 'bg-indigo-600 text-white' : 'bg-gray-700 text-white hover:bg-gray-600'
+                        showNotes
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-gray-700 text-white hover:bg-gray-600'
                     }`}
-                    title="Session Notes"
-                >
+                    title="Session Notes">
                     <FiFileText className="w-6 h-6" />
                 </button>
             )}
@@ -99,8 +125,7 @@ export function VideoControls({ className = '', showNotes, onToggleNotes }: Vide
             <button
                 className="p-4 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors"
                 title="Settings"
-                onClick={() => toast.info('Settings coming soon')}
-            >
+                onClick={() => toast.info('Settings coming soon')}>
                 <FiSettings className="w-6 h-6" />
             </button>
 
@@ -109,12 +134,9 @@ export function VideoControls({ className = '', showNotes, onToggleNotes }: Vide
             <button
                 onClick={disconnect}
                 className="p-4 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
-                title="Leave Call"
-            >
+                title="Leave Call">
                 <FiPhoneOff className="w-6 h-6" />
             </button>
         </div>
     )
 }
-
-

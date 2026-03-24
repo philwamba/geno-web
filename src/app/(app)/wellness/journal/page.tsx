@@ -35,9 +35,9 @@ export default function JournalPage() {
         if (filters.search) {
             const searchLower = filters.search.toLowerCase()
             filtered = filtered.filter(
-                (entry) =>
+                entry =>
                     entry.content.toLowerCase().includes(searchLower) ||
-                    entry.tags?.some((tag) =>
+                    entry.tags?.some(tag =>
                         tag.toLowerCase().includes(searchLower),
                     ),
             )
@@ -45,7 +45,7 @@ export default function JournalPage() {
 
         // Mood filter
         if (filters.mood) {
-            filtered = filtered.filter((entry) => entry.mood === filters.mood)
+            filtered = filtered.filter(entry => entry.mood === filters.mood)
         }
 
         // Date filter
@@ -53,20 +53,20 @@ export default function JournalPage() {
         if (filters.dateRange === 'today') {
             const today = now.toISOString().split('T')[0]
             filtered = filtered.filter(
-                (entry) =>
+                entry =>
                     entry.logged_date === today ||
                     entry.logged_at?.startsWith(today),
             )
         } else if (filters.dateRange === 'week') {
             const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
             filtered = filtered.filter(
-                (entry) =>
+                entry =>
                     new Date(entry.logged_at || entry.created_at) >= weekAgo,
             )
         } else if (filters.dateRange === 'month') {
             const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
             filtered = filtered.filter(
-                (entry) =>
+                entry =>
                     new Date(entry.logged_at || entry.created_at) >= monthAgo,
             )
         }
@@ -87,8 +87,7 @@ export default function JournalPage() {
                 rightContent={
                     <button
                         onClick={handleNewEntry}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white"
-                    >
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white">
                         <FiPlus className="h-5 w-5" />
                     </button>
                 }
@@ -103,7 +102,9 @@ export default function JournalPage() {
                                 <FiBook className="h-5 w-5 text-blue-500" />
                             </div>
                             <div>
-                                <p className="text-xs text-gray-500">Total Entries</p>
+                                <p className="text-xs text-gray-500">
+                                    Total Entries
+                                </p>
                                 <p className="text-xl font-bold text-gray-900">
                                     {journalEntries.length}
                                 </p>
@@ -112,8 +113,7 @@ export default function JournalPage() {
                     </div>
                     <div
                         onClick={handleNewEntry}
-                        className="cursor-pointer rounded-xl bg-primary/5 p-4 shadow-sm transition-all hover:bg-primary/10"
-                    >
+                        className="cursor-pointer rounded-xl bg-primary/5 p-4 shadow-sm transition-all hover:bg-primary/10">
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
                                 <FiEdit3 className="h-5 w-5 text-white" />
@@ -132,7 +132,10 @@ export default function JournalPage() {
 
                 {/* Filters */}
                 <section>
-                    <JournalFilters filters={filters} onFiltersChange={setFilters} />
+                    <JournalFilters
+                        filters={filters}
+                        onFiltersChange={setFilters}
+                    />
                 </section>
 
                 {/* Entries List */}
@@ -143,7 +146,7 @@ export default function JournalPage() {
 
                     {isJournalLoading ? (
                         <div className="space-y-3">
-                            {[1, 2, 3].map((i) => (
+                            {[1, 2, 3].map(i => (
                                 <div
                                     key={i}
                                     className="h-24 animate-pulse rounded-xl bg-gray-200"
@@ -172,7 +175,7 @@ export default function JournalPage() {
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {filteredEntries.map((entry) => (
+                            {filteredEntries.map(entry => (
                                 <JournalEntryCard
                                     key={entry.id}
                                     entry={entry}

@@ -17,12 +17,16 @@ interface ParticipantManagerProps {
     maxParticipants?: number
 }
 
-export function ParticipantManager({ participants, onChange, maxParticipants = 10 }: ParticipantManagerProps) {
+export function ParticipantManager({
+    participants,
+    onChange,
+    maxParticipants = 10,
+}: ParticipantManagerProps) {
     const [inputValue, setInputValue] = useState('')
 
     const handleAdd = (e?: React.FormEvent) => {
         if (e) e.preventDefault()
-        
+
         const email = inputValue.trim().toLowerCase()
         if (!email) return
 
@@ -44,7 +48,7 @@ export function ParticipantManager({ participants, onChange, maxParticipants = 1
         const newParticipant: Participant = {
             id: crypto.randomUUID(),
             email,
-            role: 'guest'
+            role: 'guest',
         }
 
         onChange([...participants, newParticipant])
@@ -70,7 +74,7 @@ export function ParticipantManager({ participants, onChange, maxParticipants = 1
                     <input
                         type="email"
                         value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
+                        onChange={e => setInputValue(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Enter participant email"
                         aria-label="Participant email address"
@@ -80,8 +84,7 @@ export function ParticipantManager({ participants, onChange, maxParticipants = 1
                 <button
                     type="button"
                     onClick={() => handleAdd()}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
-                >
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2">
                     <Plus className="w-4 h-4" />
                     Add
                 </button>
@@ -94,26 +97,28 @@ export function ParticipantManager({ participants, onChange, maxParticipants = 1
                     </div>
                 ) : (
                     <div className="grid gap-2">
-                        {participants.map((participant) => (
+                        {participants.map(participant => (
                             <div
                                 key={participant.id}
-                                className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg shadow-sm"
-                            >
+                                className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600">
                                         <User className="w-4 h-4" />
                                     </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">{participant.email}</p>
-                                        <p className="text-xs text-gray-500 capitalize">{participant.role}</p>
+                                        <p className="text-sm font-medium text-gray-900">
+                                            {participant.email}
+                                        </p>
+                                        <p className="text-xs text-gray-500 capitalize">
+                                            {participant.role}
+                                        </p>
                                     </div>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={() => handleRemove(participant.id)}
                                     className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-colors"
-                                    aria-label={`Remove ${participant.email}`}
-                                >
+                                    aria-label={`Remove ${participant.email}`}>
                                     <X className="w-4 h-4" />
                                 </button>
                             </div>
@@ -121,7 +126,7 @@ export function ParticipantManager({ participants, onChange, maxParticipants = 1
                     </div>
                 )}
             </div>
-            
+
             <p className="text-xs text-gray-500 text-right">
                 {participants.length} / {maxParticipants} participants
             </p>

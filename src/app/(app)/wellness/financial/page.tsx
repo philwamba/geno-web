@@ -6,14 +6,20 @@ import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { AppHeader } from '@/components/layout/app-header'
 import { GoalCard } from '@/components/wellness/goals'
 import { Button } from '@/components/ui/button'
-import { FiDollarSign, FiTarget, FiPlus, FiTrendingUp, FiPieChart } from 'react-icons/fi'
+import {
+    FiDollarSign,
+    FiTarget,
+    FiPlus,
+    FiTrendingUp,
+    FiPieChart,
+} from 'react-icons/fi'
 
 export default function FinancialWellnessPage() {
     const router = useRouter()
     const { goals, fetchGoals } = useWellnessStore()
 
     const financialGoals = goals.filter(
-        (g) => g.category === 'financial' && g.status === 'active',
+        g => g.category === 'financial' && g.status === 'active',
     )
 
     useEffect(() => {
@@ -36,7 +42,9 @@ export default function FinancialWellnessPage() {
                             <FiDollarSign className="h-6 w-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">Financial Wellness</h1>
+                            <h1 className="text-xl font-bold">
+                                Financial Wellness
+                            </h1>
                             <p className="text-sm text-white/80">
                                 Track savings, budgets & goals
                             </p>
@@ -80,10 +88,11 @@ export default function FinancialWellnessPage() {
                         </h2>
                         <button
                             onClick={() =>
-                                router.push('/wellness/goals/new?category=financial')
+                                router.push(
+                                    '/wellness/goals/new?category=financial',
+                                )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                        >
+                            className="flex items-center gap-1 text-xs text-primary hover:underline">
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -96,21 +105,23 @@ export default function FinancialWellnessPage() {
                                 No financial goals yet
                             </p>
                             <p className="mb-4 text-xs text-gray-400">
-                                Set savings targets, budget limits, or income goals
+                                Set savings targets, budget limits, or income
+                                goals
                             </p>
                             <Button
                                 onClick={() =>
-                                    router.push('/wellness/goals/new?category=financial')
+                                    router.push(
+                                        '/wellness/goals/new?category=financial',
+                                    )
                                 }
-                                size="sm"
-                            >
+                                size="sm">
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Create Goal
                             </Button>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            {financialGoals.map((goal) => (
+                            {financialGoals.map(goal => (
                                 <GoalCard key={goal.id} goal={goal} />
                             ))}
                         </div>
@@ -125,15 +136,24 @@ export default function FinancialWellnessPage() {
                     <ul className="space-y-2 text-xs text-amber-700">
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Track your daily spending to understand your habits</span>
+                            <span>
+                                Track your daily spending to understand your
+                                habits
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Set aside 20% of income for savings and investments</span>
+                            <span>
+                                Set aside 20% of income for savings and
+                                investments
+                            </span>
                         </li>
                         <li className="flex items-start gap-2">
                             <span className="mt-0.5">•</span>
-                            <span>Build an emergency fund covering 3-6 months of expenses</span>
+                            <span>
+                                Build an emergency fund covering 3-6 months of
+                                expenses
+                            </span>
                         </li>
                     </ul>
                 </section>

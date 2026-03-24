@@ -21,8 +21,7 @@ export function PointsDisplay({
                 className={cn(
                     'animate-pulse rounded-xl bg-gray-100 p-4',
                     className,
-                )}
-            >
+                )}>
                 <div className="h-6 w-24 rounded bg-gray-200" />
             </div>
         )
@@ -31,8 +30,12 @@ export function PointsDisplay({
     const { total_points, level, points_to_next_level } = stats
     // Assuming each level requires 100 points
     const pointsPerLevel = 100
-    const pointsEarnedInLevel = Math.max(0, pointsPerLevel - points_to_next_level)
-    const rawProgress = points_to_next_level > 0
+    const pointsEarnedInLevel = Math.max(
+        0,
+        pointsPerLevel - points_to_next_level,
+    )
+    const rawProgress =
+        points_to_next_level > 0
             ? (pointsEarnedInLevel / pointsPerLevel) * 100
             : 100
     const progressToNextLevel = Math.min(100, Math.max(0, rawProgress))
@@ -43,8 +46,7 @@ export function PointsDisplay({
                 className={cn(
                     'flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5',
                     className,
-                )}
-            >
+                )}>
                 <FiStar className="h-4 w-4 text-amber-500" />
                 <span className="text-sm font-bold text-amber-700">
                     {total_points.toLocaleString()}
@@ -59,12 +61,13 @@ export function PointsDisplay({
                 className={cn(
                     'rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 p-6 text-white shadow-lg',
                     className,
-                )}
-            >
+                )}>
                 <div className="mb-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <FiZap className="h-6 w-6" />
-                        <span className="text-lg font-medium">Wellness Points</span>
+                        <span className="text-lg font-medium">
+                            Wellness Points
+                        </span>
                     </div>
                     <div className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
                         Level {level}
@@ -77,7 +80,9 @@ export function PointsDisplay({
 
                 <div>
                     <div className="mb-1 flex items-center justify-between text-sm">
-                        <span className="opacity-80">Progress to Level {level + 1}</span>
+                        <span className="opacity-80">
+                            Progress to Level {level + 1}
+                        </span>
                         <span className="font-medium">
                             {points_to_next_level} points to go
                         </span>
@@ -95,12 +100,7 @@ export function PointsDisplay({
 
     // Default variant
     return (
-        <div
-            className={cn(
-                'rounded-xl bg-white p-4 shadow-sm',
-                className,
-            )}
-        >
+        <div className={cn('rounded-xl bg-white p-4 shadow-sm', className)}>
             <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">

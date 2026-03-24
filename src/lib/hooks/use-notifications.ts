@@ -6,14 +6,18 @@ export function useNotifications() {
     const { data, error, mutate, isLoading } = useSWR<{
         notifications: Notification[]
         meta: PaginatedResponse<Notification>['meta']
-    }>('/notifications', () => notificationsApi.list().then(res => ({
-        notifications: res.notifications,
-        meta: res.meta
-    })))
+    }>('/notifications', () =>
+        notificationsApi.list().then(res => ({
+            notifications: res.notifications,
+            meta: res.meta,
+        })),
+    )
 
     const { data: unreadCountData, mutate: mutateUnreadCount } = useSWR<{
         count: number
-    }>('/notifications/unread-count', () => notificationsApi.unreadCount().then(res => res))
+    }>('/notifications/unread-count', () =>
+        notificationsApi.unreadCount().then(res => res),
+    )
 
     const markAsRead = async (id: number) => {
         try {

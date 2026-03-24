@@ -86,8 +86,12 @@ class ApiClient {
             ...options.headers,
         }
 
-        if (!(fetchOptions.body instanceof FormData) && !(headers as Record<string, string>)['Content-Type']) {
-            (headers as Record<string, string>)['Content-Type'] = 'application/json'
+        if (
+            !(fetchOptions.body instanceof FormData) &&
+            !(headers as Record<string, string>)['Content-Type']
+        ) {
+            ;(headers as Record<string, string>)['Content-Type'] =
+                'application/json'
         }
 
         const token = this.getToken()
@@ -103,21 +107,21 @@ class ApiClient {
 
         if (!response.ok) {
             const rawText = await response.text().catch(() => '')
-            let errorData: { message?: string; errors?: Record<string, string[]> } = {}
+            let errorData: {
+                message?: string
+                errors?: Record<string, string[]>
+            } = {}
             try {
                 errorData = rawText ? JSON.parse(rawText) : {}
             } catch {
                 // Non-JSON response, use raw text as message
             }
-            const errorMessage = errorData.message || rawText || 'An error occurred'
+            const errorMessage =
+                errorData.message || rawText || 'An error occurred'
             if (response.status === 401) {
                 throw new AuthenticationError(errorMessage)
             }
-            throw new ApiError(
-                errorMessage,
-                response.status,
-                errorData.errors,
-            )
+            throw new ApiError(errorMessage, response.status, errorData.errors)
         }
 
         return response.json()
@@ -130,20 +134,36 @@ class ApiClient {
         return this.request<T>(endpoint, { method: 'GET', params })
     }
 
-    async post<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
+    async post<T>(
+        endpoint: string,
+        data?: unknown,
+        options?: RequestInit,
+    ): Promise<T> {
         const isFormData = data instanceof FormData
         return this.request<T>(endpoint, {
             method: 'POST',
-            body: isFormData ? (data as BodyInit) : (data ? JSON.stringify(data) : undefined),
+            body: isFormData
+                ? (data as BodyInit)
+                : data
+                  ? JSON.stringify(data)
+                  : undefined,
             ...options,
         })
     }
 
-    async put<T>(endpoint: string, data?: unknown, options?: RequestInit): Promise<T> {
+    async put<T>(
+        endpoint: string,
+        data?: unknown,
+        options?: RequestInit,
+    ): Promise<T> {
         const isFormData = data instanceof FormData
         return this.request<T>(endpoint, {
             method: 'PUT',
-            body: isFormData ? (data as BodyInit) : (data ? JSON.stringify(data) : undefined),
+            body: isFormData
+                ? (data as BodyInit)
+                : data
+                  ? JSON.stringify(data)
+                  : undefined,
             ...options,
         })
     }
@@ -217,9 +237,8 @@ export const authApi = {
 
     getUser: () => api.get<{ user: unknown }>('/auth/user'),
 
-    updateProfile: (
-        data: Partial<User & ProviderProfile>,
-    ) => api.put<{ message: string; user: unknown }>('/auth/user', data),
+    updateProfile: (data: Partial<User & ProviderProfile>) =>
+        api.put<{ message: string; user: unknown }>('/auth/user', data),
 
     forgotPassword: (email: string) =>
         api.post<{ message: string }>('/auth/forgot-password', { email }),
@@ -268,7 +287,8 @@ export const authApi = {
         language?: string
         wellness_focus?: string | null
         preferences?: Record<string, unknown> | null
-    }) => api.put<{ message: string; settings: unknown }>('/auth/settings', data),
+    }) =>
+        api.put<{ message: string; settings: unknown }>('/auth/settings', data),
 }
 
 // Services API
@@ -304,9 +324,12 @@ export const servicesApi = {
         ),
 
     availableSlots: (providerId: string, date: string) =>
-        api.get<{ slots: TimeSlot[] }>(`/providers/${providerId}/availability`, {
-            date,
-        }),
+        api.get<{ slots: TimeSlot[] }>(
+            `/providers/${providerId}/availability`,
+            {
+                date,
+            },
+        ),
 }
 
 // Providers API
@@ -388,11 +411,20 @@ export const bookingsApi = {
 // Sessions API - Backend returns paginated responses with 'data' property
 export const sessionsApi = {
     list: (params?: { per_page?: number; page?: number }) =>
-        api.get<{ data: unknown[]; meta?: unknown; sessions?: unknown[] }>('/sessions', params),
+        api.get<{ data: unknown[]; meta?: unknown; sessions?: unknown[] }>(
+            '/sessions',
+            params,
+        ),
 
-    global: () => api.get<{ data?: unknown[]; sessions?: unknown[]; message?: string }>('/sessions/global'),
+    global: () =>
+        api.get<{ data?: unknown[]; sessions?: unknown[]; message?: string }>(
+            '/sessions/global',
+        ),
 
-    upcoming: () => api.get<{ data: unknown[]; meta?: unknown; sessions?: unknown[] }>('/sessions/upcoming'),
+    upcoming: () =>
+        api.get<{ data: unknown[]; meta?: unknown; sessions?: unknown[] }>(
+            '/sessions/upcoming',
+        ),
 
     past: (params?: { per_page?: number; page?: number }) =>
         api.get<{ data: unknown[]; meta?: unknown; sessions?: unknown[] }>(
@@ -573,10 +605,10 @@ export const contentApi = {
 // Notifications API
 export const notificationsApi = {
     list: (params?: { per_page?: number; page?: number }) =>
-        api.get<{ notifications: Notification[]; meta: PaginatedResponse<Notification>['meta'] }>(
-            '/notifications',
-            params,
-        ),
+        api.get<{
+            notifications: Notification[]
+            meta: PaginatedResponse<Notification>['meta']
+        }>('/notifications', params),
 
     unreadCount: () =>
         api.get<{ count: number }>('/notifications/unread-count'),
@@ -626,28 +658,49 @@ export const paymentsApi = {
 
 // Provider Dashboard API
 export const providerDashboardApi = {
-    getDashboard: () => api.get<{ stats: ProviderDashboardStats; upcoming_sessions: Session[] }>('/provider/dashboard'),
+    getDashboard: () =>
+        api.get<{
+            stats: ProviderDashboardStats
+            upcoming_sessions: Session[]
+        }>('/provider/dashboard'),
 
     // Availability
-    getAvailability: () => api.get<{ time_slots: TimeSlot[]; blocked_dates: string[]; timezone: string }>('/provider/availability'),
-    updateAvailability: (schedule: WeeklySchedule) => api.put('/provider/availability', { schedule }),
-    getBlockedDates: () => api.get<{ data: { id: number; blocked_date: string; reason: string }[] }>('/provider/blocked-dates'),
-    blockDate: (date: string, reason?: string) => api.post('/provider/blocked-dates', { date, reason }),
+    getAvailability: () =>
+        api.get<{
+            time_slots: TimeSlot[]
+            blocked_dates: string[]
+            timezone: string
+        }>('/provider/availability'),
+    updateAvailability: (schedule: WeeklySchedule) =>
+        api.put('/provider/availability', { schedule }),
+    getBlockedDates: () =>
+        api.get<{
+            data: { id: number; blocked_date: string; reason: string }[]
+        }>('/provider/blocked-dates'),
+    blockDate: (date: string, reason?: string) =>
+        api.post('/provider/blocked-dates', { date, reason }),
     unblockDate: (id: number) => api.delete(`/provider/blocked-dates/${id}`),
 
     // Profile
     getProfile: () => api.get<{ data: ProviderProfile }>('/provider/profile'),
-    updateProfile: (data: Partial<ProviderProfile>) => api.put<{ data: ProviderProfile }>('/provider/profile', data),
+    updateProfile: (data: Partial<ProviderProfile>) =>
+        api.put<{ data: ProviderProfile }>('/provider/profile', data),
     updateAvatar: (file: File) => {
         const formData = new FormData()
         formData.append('avatar', file)
-        return api.post<{ avatar_url: string }>('/provider/profile/avatar', formData)
+        return api.post<{ avatar_url: string }>(
+            '/provider/profile/avatar',
+            formData,
+        )
     },
 
     // Analytics
-    getAnalyticsOverview: () => api.get<{ overview: AnalyticsOverview }>('/provider/analytics'),
-    getSessionsAnalytics: () => api.get<{ data: ChartDataItem[] }>('/provider/analytics/sessions'),
-    getRevenueAnalytics: () => api.get<{ data: ChartDataItem[] }>('/provider/analytics/revenue'),
+    getAnalyticsOverview: () =>
+        api.get<{ overview: AnalyticsOverview }>('/provider/analytics'),
+    getSessionsAnalytics: () =>
+        api.get<{ data: ChartDataItem[] }>('/provider/analytics/sessions'),
+    getRevenueAnalytics: () =>
+        api.get<{ data: ChartDataItem[] }>('/provider/analytics/revenue'),
 }
 
 // Search API

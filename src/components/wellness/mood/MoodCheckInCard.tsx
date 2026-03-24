@@ -8,7 +8,12 @@ import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { toast } from 'sonner'
 import { MoodPicker } from './MoodPicker'
 import { Button } from '@/components/ui/button'
-import { moodLogSchema, type MoodLogInput, type MoodTypeValue, MOOD_EMOJIS } from '@/lib/validations/wellness'
+import {
+    moodLogSchema,
+    type MoodLogInput,
+    type MoodTypeValue,
+    MOOD_EMOJIS,
+} from '@/lib/validations/wellness'
 import { FiMessageCircle, FiCheck, FiX } from 'react-icons/fi'
 
 interface MoodCheckInCardProps {
@@ -17,7 +22,11 @@ interface MoodCheckInCardProps {
     onSuccess?: (pointsEarned: number) => void
 }
 
-export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodCheckInCardProps) {
+export function MoodCheckInCard({
+    className,
+    compact = false,
+    onSuccess,
+}: MoodCheckInCardProps) {
     const { todayMood, logMood, isMoodLoading } = useWellnessStore()
     const [showNoteInput, setShowNoteInput] = useState(false)
     const [selectedMood, setSelectedMood] = useState<MoodTypeValue | null>(null)
@@ -77,16 +86,24 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
             <div className={cn('rounded-xl bg-white p-4 shadow-sm', className)}>
                 <div className="flex items-center justify-between">
                     <div>
-                        <h3 className="text-sm font-medium text-gray-700">Today&apos;s Mood</h3>
-                        <p className="text-xs text-gray-500">Already checked in today</p>
+                        <h3 className="text-sm font-medium text-gray-700">
+                            Today&apos;s Mood
+                        </h3>
+                        <p className="text-xs text-gray-500">
+                            Already checked in today
+                        </p>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-3xl">{MOOD_EMOJIS[todayMood.mood as MoodTypeValue]}</span>
+                        <span className="text-3xl">
+                            {MOOD_EMOJIS[todayMood.mood as MoodTypeValue]}
+                        </span>
                         <FiCheck className="h-4 w-4 text-green-500" />
                     </div>
                 </div>
                 {todayMood.note && (
-                    <p className="mt-2 text-sm text-gray-600 italic">&quot;{todayMood.note}&quot;</p>
+                    <p className="mt-2 text-sm text-gray-600 italic">
+                        &quot;{todayMood.note}&quot;
+                    </p>
                 )}
             </div>
         )
@@ -95,9 +112,13 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
     return (
         <div className={cn('rounded-xl bg-white p-4 shadow-sm', className)}>
             <div className="mb-3">
-                <h3 className="text-sm font-medium text-gray-700">How are you feeling?</h3>
+                <h3 className="text-sm font-medium text-gray-700">
+                    How are you feeling?
+                </h3>
                 {!compact && (
-                    <p className="text-xs text-gray-500">Tap an emoji to log your mood</p>
+                    <p className="text-xs text-gray-500">
+                        Tap an emoji to log your mood
+                    </p>
                 )}
             </div>
 
@@ -111,7 +132,9 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
                     <div className="flex items-center justify-center gap-2 py-2">
-                        <span className="text-4xl">{MOOD_EMOJIS[selectedMood!]}</span>
+                        <span className="text-4xl">
+                            {MOOD_EMOJIS[selectedMood!]}
+                        </span>
                     </div>
 
                     <div>
@@ -130,7 +153,9 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
                             />
                         </div>
                         {errors.note && (
-                            <p className="mt-1 text-xs text-red-500">{errors.note.message}</p>
+                            <p className="mt-1 text-xs text-red-500">
+                                {errors.note.message}
+                            </p>
                         )}
                     </div>
 
@@ -141,8 +166,7 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
                             size="sm"
                             onClick={handleCancel}
                             disabled={isMoodLoading}
-                            className="flex-1"
-                        >
+                            className="flex-1">
                             <FiX className="mr-1 h-4 w-4" />
                             Cancel
                         </Button>
@@ -152,16 +176,14 @@ export function MoodCheckInCard({ className, compact = false, onSuccess }: MoodC
                             size="sm"
                             onClick={handleQuickSubmit}
                             disabled={isMoodLoading}
-                            className="flex-1"
-                        >
+                            className="flex-1">
                             Skip Note
                         </Button>
                         <Button
                             type="submit"
                             size="sm"
                             disabled={isMoodLoading}
-                            className="flex-1"
-                        >
+                            className="flex-1">
                             <FiCheck className="mr-1 h-4 w-4" />
                             Save
                         </Button>

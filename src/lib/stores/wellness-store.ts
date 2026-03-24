@@ -28,7 +28,11 @@ interface WellnessState {
     fetchTodayMood: () => Promise<void>
     logMood: (mood: string, note?: string) => Promise<{ points_earned: number }>
     fetchMoodTrends: (days?: number) => Promise<void>
-    fetchMoodHistory: (params?: { start_date?: string; end_date?: string; per_page?: number }) => Promise<void>
+    fetchMoodHistory: (params?: {
+        start_date?: string
+        end_date?: string
+        per_page?: number
+    }) => Promise<void>
 
     fetchJournalEntries: () => Promise<void>
     createJournalEntry: (
@@ -103,7 +107,11 @@ export const useWellnessStore = create<WellnessState>((set, _get) => ({
         }
     },
 
-    fetchMoodHistory: async (params?: { start_date?: string; end_date?: string; per_page?: number }) => {
+    fetchMoodHistory: async (params?: {
+        start_date?: string
+        end_date?: string
+        per_page?: number
+    }) => {
         set({ isMoodLoading: true })
         try {
             const response = await wellnessApi.getMoods(params)

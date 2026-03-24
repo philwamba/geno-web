@@ -27,7 +27,7 @@ export function NotificationsProvider({
 }: {
     children: React.ReactNode
 }) {
-    const user = useAuthStore((state) => state.user)
+    const user = useAuthStore(state => state.user)
     const { mutate, mutateUnreadCount } = useNotifications()
 
     useEffect(() => {
@@ -35,9 +35,11 @@ export function NotificationsProvider({
 
         const reverbKey = process.env.NEXT_PUBLIC_REVERB_APP_KEY
         const reverbHost = process.env.NEXT_PUBLIC_REVERB_HOST
-        
+
         if (!reverbKey || !reverbHost) {
-            console.warn('Reverb configuration missing, skipping Echo initialization')
+            console.warn(
+                'Reverb configuration missing, skipping Echo initialization',
+            )
             return
         }
 
@@ -48,38 +50,47 @@ export function NotificationsProvider({
             wsHost: reverbHost,
             wsPort: parseInt(process.env.NEXT_PUBLIC_REVERB_PORT || '8080'),
             wssPort: parseInt(process.env.NEXT_PUBLIC_REVERB_PORT || '8080'),
-            forceTLS: (process.env.NEXT_PUBLIC_REVERB_SCHEME ?? 'https') === 'https',
+            forceTLS:
+                (process.env.NEXT_PUBLIC_REVERB_SCHEME ?? 'https') === 'https',
             enabledTransports: ['ws', 'wss'],
             authEndpoint: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'}/broadcasting/auth`,
             auth: {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`, 
+                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
                 },
             },
         })
 
         // 2. Listen for Notifications
         console.log(`Listening to App.Models.User.${user.id}`)
-        echoInstance.private(`App.Models.User.${user.id}`).notification((notification: { title: string; body?: string; message?: string }) => {
-            console.log('New notification:', notification)
-            mutate()
-            mutateUnreadCount()
-            toast.info(notification.title || 'New Notification', {
-                description: notification.body || notification.message,
-            })
-        })
+        echoInstance
+            .private(`App.Models.User.${user.id}`)
+            .notification(
+                (notification: {
+                    title: string
+                    body?: string
+                    message?: string
+                }) => {
+                    console.log('New notification:', notification)
+                    mutate()
+                    mutateUnreadCount()
+                    toast.info(notification.title || 'New Notification', {
+                        description: notification.body || notification.message,
+                    })
+                },
+            )
 
         // 3. Request FCM Token
         const requestPermission = async () => {
             try {
                 const permission = await Notification.requestPermission()
                 if (permission === 'granted') {
-                    if (!messaging) return;
-                    
+                    if (!messaging) return
+
                     const token = await getToken(messaging, {
                         vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
                     })
-                    
+
                     if (token) {
                         try {
                             await notificationsApi.saveFcmToken(token)
@@ -89,7 +100,10 @@ export function NotificationsProvider({
                     }
                 }
             } catch (error) {
-                console.error('Error requesting notification permission:', error)
+                console.error(
+                    'Error requesting notification permission:',
+                    error,
+                )
             }
         }
 
@@ -98,7 +112,7 @@ export function NotificationsProvider({
         // 4. Listen for foreground messages
         let unsubscribe: (() => void) | undefined
         if (messaging) {
-            unsubscribe = onMessage(messaging, (payload) => {
+            unsubscribe = onMessage(messaging, payload => {
                 console.log('Foreground message:', payload)
                 mutate()
                 mutateUnreadCount()

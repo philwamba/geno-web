@@ -27,23 +27,29 @@ export default function SessionsPage() {
             if (activeTab === 'upcoming') {
                 const response = await sessionsApi.upcoming()
                 // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions = (response as { sessions?: unknown[]; data?: unknown[] }).sessions
-                    ?? (response as { data?: unknown[] }).data
-                    ?? []
+                const sessions =
+                    (response as { sessions?: unknown[]; data?: unknown[] })
+                        .sessions ??
+                    (response as { data?: unknown[] }).data ??
+                    []
                 setUpcomingSessions(sessions as Session[])
             } else if (activeTab === 'explore') {
                 const response = await sessionsApi.global()
                 // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions = (response as { sessions?: unknown[]; data?: unknown[] }).sessions
-                    ?? (response as { data?: unknown[] }).data
-                    ?? []
+                const sessions =
+                    (response as { sessions?: unknown[]; data?: unknown[] })
+                        .sessions ??
+                    (response as { data?: unknown[] }).data ??
+                    []
                 setGlobalSessions(sessions as Session[])
             } else {
                 const response = await sessionsApi.past()
                 // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions = (response as { sessions?: unknown[]; data?: unknown[] }).sessions
-                    ?? (response as { data?: unknown[] }).data
-                    ?? []
+                const sessions =
+                    (response as { sessions?: unknown[]; data?: unknown[] })
+                        .sessions ??
+                    (response as { data?: unknown[] }).data ??
+                    []
                 setPastSessions(sessions as Session[])
             }
         } catch (error) {
@@ -112,7 +118,11 @@ export default function SessionsPage() {
         e.preventDefault()
         e.stopPropagation()
         if (session.meeting_url) {
-            const newWindow = window.open(session.meeting_url, '_blank', 'noopener,noreferrer')
+            const newWindow = window.open(
+                session.meeting_url,
+                '_blank',
+                'noopener,noreferrer',
+            )
             if (newWindow) newWindow.opener = null
         } else {
             router.push(`/sessions/${session.uuid}`)
@@ -123,7 +133,11 @@ export default function SessionsPage() {
         e.preventDefault()
         e.stopPropagation()
         if (session.recording_url) {
-            const newWindow = window.open(session.recording_url, '_blank', 'noopener,noreferrer')
+            const newWindow = window.open(
+                session.recording_url,
+                '_blank',
+                'noopener,noreferrer',
+            )
             if (newWindow) newWindow.opener = null
         } else {
             router.push(`/sessions/${session.uuid}`)
@@ -189,14 +203,22 @@ export default function SessionsPage() {
                                         <div className="relative w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
                                             {session.provider.avatar ? (
                                                 <Image
-                                                    src={session.provider.avatar}
-                                                    alt={session.provider.name || 'Provider'}
+                                                    src={
+                                                        session.provider.avatar
+                                                    }
+                                                    alt={
+                                                        session.provider.name ||
+                                                        'Provider'
+                                                    }
                                                     fill
                                                     className="object-cover"
                                                 />
                                             ) : (
                                                 <span className="flex h-full w-full items-center justify-center text-xs font-medium text-primary">
-                                                    {getInitials(session.provider.name || 'P')}
+                                                    {getInitials(
+                                                        session.provider.name ||
+                                                            'P',
+                                                    )}
                                                 </span>
                                             )}
                                         </div>
@@ -224,7 +246,9 @@ export default function SessionsPage() {
 
                                 {session.can_join && (
                                     <button
-                                        onClick={(e) => handleJoinSession(e, session)}
+                                        onClick={e =>
+                                            handleJoinSession(e, session)
+                                        }
                                         className="w-full mt-4 py-2.5 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2">
                                         <FiVideo className="w-4 h-4" />
                                         Join Now
@@ -234,7 +258,9 @@ export default function SessionsPage() {
                                 {session.has_recording &&
                                     activeTab === 'past' && (
                                         <button
-                                            onClick={(e) => handleWatchRecording(e, session)}
+                                            onClick={e =>
+                                                handleWatchRecording(e, session)
+                                            }
                                             className="w-full mt-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center justify-center gap-2">
                                             <FiPlay className="w-4 h-4" />
                                             Watch Recording

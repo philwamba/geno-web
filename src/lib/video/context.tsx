@@ -1,6 +1,12 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import React, {
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+    ReactNode,
+} from 'react'
 import { IVideoProvider, IVideoRoom } from './interfaces'
 
 interface VideoContextValue {
@@ -10,7 +16,7 @@ interface VideoContextValue {
     isConnecting: boolean
     error: Error | null
     activeProviderName: 'daily' | 'livekit' | null
-    
+
     setProvider: (provider: IVideoProvider) => void
     connect: (token: string, options?: Record<string, unknown>) => Promise<void>
     disconnect: () => Promise<void>
@@ -31,9 +37,16 @@ interface VideoProviderProps {
     initialProvider?: IVideoProvider
 }
 
-export function VideoProvider({ children, initialProvider }: VideoProviderProps) {
-    const [provider, setProviderInstance] = useState<IVideoProvider | null>(initialProvider || null)
-    const [room, setRoom] = useState<IVideoRoom | null>(initialProvider?.createRoom() || null)
+export function VideoProvider({
+    children,
+    initialProvider,
+}: VideoProviderProps) {
+    const [provider, setProviderInstance] = useState<IVideoProvider | null>(
+        initialProvider || null,
+    )
+    const [room, setRoom] = useState<IVideoRoom | null>(
+        initialProvider?.createRoom() || null,
+    )
     const [isConnected, setIsConnected] = useState(false)
     const [isConnecting, setIsConnecting] = useState(false)
     const [error, setError] = useState<Error | null>(null)
@@ -45,8 +58,8 @@ export function VideoProvider({ children, initialProvider }: VideoProviderProps)
             setRoom(newRoom)
             setIsConnected(false)
             setError(null)
-            
-            // Cleanup old room listeners if needed? 
+
+            // Cleanup old room listeners if needed?
             // Ideally we should disconnect old room before switching, handled below
         } else {
             setRoom(null)
@@ -90,7 +103,10 @@ export function VideoProvider({ children, initialProvider }: VideoProviderProps)
         setProviderInstance(newProvider)
     }
 
-    const connect = async (token: string, options?: Record<string, unknown>) => {
+    const connect = async (
+        token: string,
+        options?: Record<string, unknown>,
+    ) => {
         if (!room) {
             setError(new Error('No video provider configured'))
             return
@@ -101,7 +117,11 @@ export function VideoProvider({ children, initialProvider }: VideoProviderProps)
             setError(null)
             await room.join(token, options)
         } catch (err) {
-            setError(err instanceof Error ? err : new Error('Unknown error connecting'))
+            setError(
+                err instanceof Error
+                    ? err
+                    : new Error('Unknown error connecting'),
+            )
             setIsConnecting(false)
         }
     }
@@ -125,12 +145,10 @@ export function VideoProvider({ children, initialProvider }: VideoProviderProps)
         activeProviderName: provider?.name || null,
         setProvider,
         connect,
-        disconnect
+        disconnect,
     }
 
     return (
-        <VideoContext.Provider value={value}>
-            {children}
-        </VideoContext.Provider>
+        <VideoContext.Provider value={value}>{children}</VideoContext.Provider>
     )
 }

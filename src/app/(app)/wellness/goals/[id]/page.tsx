@@ -24,12 +24,7 @@ import {
     type GoalStatusValue,
 } from '@/lib/validations/wellness'
 import type { Goal } from '@/types'
-import {
-    FiCalendar,
-    FiTrendingUp,
-    FiCheck,
-    FiTarget,
-} from 'react-icons/fi'
+import { FiCalendar, FiTrendingUp, FiCheck, FiTarget } from 'react-icons/fi'
 
 const CATEGORY_LABELS: Record<GoalCategoryValue, string> = {
     physical: 'Physical',
@@ -50,7 +45,8 @@ const STATUS_LABELS: Record<GoalStatusValue, string> = {
 export default function GoalDetailPage() {
     const router = useRouter()
     const params = useParams()
-    const { goals, fetchGoals, completeGoal, isGoalsLoading } = useWellnessStore()
+    const { goals, fetchGoals, completeGoal, isGoalsLoading } =
+        useWellnessStore()
 
     const goalId = Number(params.id)
 
@@ -65,7 +61,7 @@ export default function GoalDetailPage() {
     }, [goals.length, fetchGoals])
 
     useEffect(() => {
-        const found = goals.find((g) => g.id === goalId)
+        const found = goals.find(g => g.id === goalId)
         setGoal(found || null)
     }, [goals, goalId])
 
@@ -135,8 +131,7 @@ export default function GoalDetailPage() {
                             className={cn(
                                 'flex h-10 w-10 items-center justify-center rounded-full text-white',
                                 GOAL_CATEGORY_COLORS[category],
-                            )}
-                        >
+                            )}>
                             <FiTarget className="h-5 w-5" />
                         </div>
                         <div>
@@ -146,12 +141,15 @@ export default function GoalDetailPage() {
                             <span
                                 className={cn(
                                     'ml-2 rounded-full px-2 py-0.5 text-xs font-medium',
-                                    status === 'active' && 'bg-blue-100 text-blue-700',
-                                    status === 'completed' && 'bg-green-100 text-green-700',
-                                    status === 'paused' && 'bg-yellow-100 text-yellow-700',
-                                    status === 'cancelled' && 'bg-gray-100 text-gray-700',
-                                )}
-                            >
+                                    status === 'active' &&
+                                        'bg-blue-100 text-blue-700',
+                                    status === 'completed' &&
+                                        'bg-green-100 text-green-700',
+                                    status === 'paused' &&
+                                        'bg-yellow-100 text-yellow-700',
+                                    status === 'cancelled' &&
+                                        'bg-gray-100 text-gray-700',
+                                )}>
                                 {STATUS_LABELS[status]}
                             </span>
                         </div>
@@ -172,7 +170,9 @@ export default function GoalDetailPage() {
                         {goal.start_date && (
                             <div className="flex items-center gap-1">
                                 <FiCalendar className="h-4 w-4" />
-                                <span>Started: {formatDate(goal.start_date)}</span>
+                                <span>
+                                    Started: {formatDate(goal.start_date)}
+                                </span>
                             </div>
                         )}
                         {goal.target_date && (
@@ -180,8 +180,7 @@ export default function GoalDetailPage() {
                                 className={cn(
                                     'flex items-center gap-1',
                                     isOverdue && 'text-red-500',
-                                )}
-                            >
+                                )}>
                                 <FiCalendar className="h-4 w-4" />
                                 <span>
                                     {isOverdue ? 'Overdue: ' : 'Due: '}
@@ -218,8 +217,7 @@ export default function GoalDetailPage() {
                                             : isOverdue
                                               ? 'text-red-500'
                                               : 'text-primary',
-                                    )}
-                                >
+                                    )}>
                                     {Math.round(progress)}%
                                 </span>
                             </div>
@@ -234,7 +232,9 @@ export default function GoalDetailPage() {
                                               ? 'bg-red-500'
                                               : 'bg-primary',
                                     )}
-                                    style={{ width: `${Math.min(progress, 100)}%` }}
+                                    style={{
+                                        width: `${Math.min(progress, 100)}%`,
+                                    }}
                                 />
                             </div>
                         </div>
@@ -242,8 +242,7 @@ export default function GoalDetailPage() {
                         {isActive && (
                             <Button
                                 onClick={() => setShowProgressTracker(true)}
-                                className="w-full"
-                            >
+                                className="w-full">
                                 <FiTrendingUp className="mr-2 h-4 w-4" />
                                 Update Progress
                             </Button>
@@ -257,8 +256,7 @@ export default function GoalDetailPage() {
                         <Button
                             onClick={() => setShowCompleteDialog(true)}
                             variant="outline"
-                            className="flex-1 text-green-600 hover:bg-green-50"
-                        >
+                            className="flex-1 text-green-600 hover:bg-green-50">
                             <FiCheck className="mr-2 h-4 w-4" />
                             Complete
                         </Button>
@@ -296,13 +294,15 @@ export default function GoalDetailPage() {
             )}
 
             {/* Complete Confirmation */}
-            <AlertDialog open={showCompleteDialog} onOpenChange={setShowCompleteDialog}>
+            <AlertDialog
+                open={showCompleteDialog}
+                onOpenChange={setShowCompleteDialog}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Complete Goal</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Mark &quot;{goal.title}&quot; as completed? This will record
-                            your achievement.
+                            Mark &quot;{goal.title}&quot; as completed? This
+                            will record your achievement.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -310,8 +310,7 @@ export default function GoalDetailPage() {
                         <AlertDialogAction
                             onClick={handleComplete}
                             disabled={isGoalsLoading}
-                            className="bg-green-600 hover:bg-green-700"
-                        >
+                            className="bg-green-600 hover:bg-green-700">
                             <FiCheck className="mr-2 h-4 w-4" />
                             Complete Goal
                         </AlertDialogAction>

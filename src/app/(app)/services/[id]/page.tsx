@@ -156,13 +156,17 @@ export default function ServiceDetailPage() {
                                         {provider.avatar ? (
                                             <Image
                                                 src={provider.avatar}
-                                                alt={provider.name || 'Provider'}
+                                                alt={
+                                                    provider.name || 'Provider'
+                                                }
                                                 fill
                                                 className="object-cover"
                                             />
                                         ) : (
                                             <span className="flex h-full w-full items-center justify-center text-sm font-medium text-primary">
-                                                {getInitials(provider.name || 'P')}
+                                                {getInitials(
+                                                    provider.name || 'P',
+                                                )}
                                             </span>
                                         )}
                                     </div>
@@ -200,7 +204,9 @@ export default function ServiceDetailPage() {
 
                 {/* Book Now Button */}
                 <button
-                    onClick={() => router.push(`/book/${service.slug || service.id}`)}
+                    onClick={() =>
+                        router.push(`/book/${service.slug || service.id}`)
+                    }
                     className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg">
                     Book Now
                 </button>

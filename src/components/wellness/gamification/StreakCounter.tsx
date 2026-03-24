@@ -21,8 +21,7 @@ export function StreakCounter({
                 className={cn(
                     'animate-pulse rounded-xl bg-gray-100 p-4',
                     className,
-                )}
-            >
+                )}>
                 <div className="h-6 w-16 rounded bg-gray-200" />
             </div>
         )
@@ -39,8 +38,7 @@ export function StreakCounter({
                     'flex items-center gap-1.5 rounded-full px-3 py-1.5',
                     isOnFire ? 'bg-orange-100' : 'bg-blue-100',
                     className,
-                )}
-            >
+                )}>
                 <FiZap
                     className={cn(
                         'h-4 w-4',
@@ -51,8 +49,7 @@ export function StreakCounter({
                     className={cn(
                         'text-sm font-bold',
                         isOnFire ? 'text-orange-700' : 'text-blue-700',
-                    )}
-                >
+                    )}>
                     {current_streak} day{current_streak !== 1 ? 's' : ''}
                 </span>
             </div>
@@ -68,16 +65,14 @@ export function StreakCounter({
                         ? 'bg-gradient-to-br from-orange-500 to-red-500 text-white'
                         : 'bg-white',
                     className,
-                )}
-            >
+                )}>
                 <div className="mb-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <div
                             className={cn(
                                 'flex h-10 w-10 items-center justify-center rounded-full',
                                 isOnFire ? 'bg-white/20' : 'bg-orange-100',
-                            )}
-                        >
+                            )}>
                             <FiZap
                                 className={cn(
                                     'h-5 w-5',
@@ -89,18 +84,19 @@ export function StreakCounter({
                             <p
                                 className={cn(
                                     'text-xs',
-                                    isOnFire ? 'text-white/80' : 'text-gray-500',
-                                )}
-                            >
+                                    isOnFire
+                                        ? 'text-white/80'
+                                        : 'text-gray-500',
+                                )}>
                                 Current Streak
                             </p>
                             <p
                                 className={cn(
                                     'text-xl font-bold',
                                     isOnFire ? 'text-white' : 'text-gray-900',
-                                )}
-                            >
-                                {current_streak} day{current_streak !== 1 ? 's' : ''}
+                                )}>
+                                {current_streak} day
+                                {current_streak !== 1 ? 's' : ''}
                             </p>
                         </div>
                     </div>
@@ -111,8 +107,7 @@ export function StreakCounter({
                                 isOnFire
                                     ? 'bg-white/20 text-white'
                                     : 'bg-primary/10 text-primary',
-                            )}
-                        >
+                            )}>
                             <FiAward className="h-3 w-3" />
                             New Record!
                         </div>
@@ -123,14 +118,15 @@ export function StreakCounter({
                     className={cn(
                         'flex items-center justify-between text-sm',
                         isOnFire ? 'text-white/80' : 'text-gray-500',
-                    )}
-                >
+                    )}>
                     <div className="flex items-center gap-1">
                         <FiTrendingUp className="h-4 w-4" />
                         <span>Longest: {longest_streak} days</span>
                     </div>
                     {isOnFire && (
-                        <span className="font-medium">You&apos;re on fire!</span>
+                        <span className="font-medium">
+                            You&apos;re on fire!
+                        </span>
                     )}
                 </div>
             </div>
@@ -146,8 +142,7 @@ export function StreakCounter({
                     isOnFire
                         ? 'bg-gradient-to-br from-orange-500 to-red-500'
                         : 'bg-blue-100',
-                )}
-            >
+                )}>
                 <FiZap
                     className={cn(
                         'h-6 w-6',

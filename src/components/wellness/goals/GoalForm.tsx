@@ -129,15 +129,14 @@ export function GoalForm({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className={cn('space-y-6', className)}
-        >
+            className={cn('space-y-6', className)}>
             {/* Category Selection */}
             <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
                     Category
                 </label>
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                    {CATEGORIES.map((cat) => (
+                    {CATEGORIES.map(cat => (
                         <button
                             key={cat.value}
                             type="button"
@@ -147,17 +146,17 @@ export function GoalForm({
                                 selectedCategory === cat.value
                                     ? 'border-primary bg-primary/5'
                                     : 'border-gray-200 hover:border-gray-300',
-                            )}
-                        >
+                            )}>
                             <div
                                 className={cn(
                                     'flex h-10 w-10 items-center justify-center rounded-full text-white',
                                     GOAL_CATEGORY_COLORS[cat.value],
-                                )}
-                            >
+                                )}>
                                 {cat.icon}
                             </div>
-                            <span className="text-sm font-medium">{cat.label}</span>
+                            <span className="text-sm font-medium">
+                                {cat.label}
+                            </span>
                             <span className="text-xs text-gray-500 text-center">
                                 {cat.description}
                             </span>
@@ -165,7 +164,9 @@ export function GoalForm({
                     ))}
                 </div>
                 {errors.category && (
-                    <p className="mt-1 text-xs text-red-500">{errors.category.message}</p>
+                    <p className="mt-1 text-xs text-red-500">
+                        {errors.category.message}
+                    </p>
                 )}
             </div>
 
@@ -265,12 +266,14 @@ export function GoalForm({
                         variant="outline"
                         onClick={onCancel}
                         disabled={isGoalsLoading}
-                        className="flex-1"
-                    >
+                        className="flex-1">
                         Cancel
                     </Button>
                 )}
-                <Button type="submit" disabled={isGoalsLoading} className="flex-1">
+                <Button
+                    type="submit"
+                    disabled={isGoalsLoading}
+                    className="flex-1">
                     <FiSave className="mr-2 h-4 w-4" />
                     Create Goal
                 </Button>
