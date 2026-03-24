@@ -42,7 +42,8 @@ export function AppHeader({
                         {showBack && (
                             <button
                                 onClick={handleBack}
-                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+                            >
                                 <FiArrowLeft className="w-5 h-5" />
                             </button>
                         )}
@@ -62,7 +63,8 @@ export function AppHeader({
                         ) : (
                             <Link
                                 href="/home"
-                                className="flex items-center gap-2">
+                                className="flex items-center gap-2"
+                            >
                                 <Image
                                     src="/logo.png"
                                     alt="GENO"

@@ -188,7 +188,8 @@ export default function HomePage() {
                                         : 'hover:bg-gray-100',
                                     isMoodLoading &&
                                         'opacity-50 cursor-not-allowed',
-                                )}>
+                                )}
+                            >
                                 {mood.emoji}
                             </button>
                         ))}
@@ -218,7 +219,8 @@ export default function HomePage() {
                         </h2>
                         <Link
                             href="/services"
-                            className="text-primary text-sm flex items-center">
+                            className="text-primary text-sm flex items-center"
+                        >
                             See all <FiChevronRight className="ml-1" />
                         </Link>
                     </div>
@@ -229,12 +231,14 @@ export default function HomePage() {
                                 <Link
                                     key={category.id}
                                     href={`/wellness/${category.id}`}
-                                    className="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+                                    className="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow"
+                                >
                                     <div
                                         className={cn(
                                             'w-10 h-10 rounded-full mx-auto flex items-center justify-center mb-2',
                                             category.color,
-                                        )}>
+                                        )}
+                                    >
                                         <Icon className="w-5 h-5" />
                                     </div>
                                     <p className="text-xs font-medium text-gray-700">
@@ -254,7 +258,8 @@ export default function HomePage() {
                         </h2>
                         <Link
                             href="/services"
-                            className="text-primary text-sm font-medium flex items-center hover:underline">
+                            className="text-primary text-sm font-medium flex items-center hover:underline"
+                        >
                             See all <FiChevronRight className="ml-1" />
                         </Link>
                     </div>
@@ -268,7 +273,8 @@ export default function HomePage() {
                                 <Link
                                     key={service.id}
                                     href={`/services/${service.slug}`}
-                                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                                >
                                     <div className="relative h-28 sm:h-32 bg-gray-200">
                                         {imageSrc && (
                                             <Image
@@ -306,7 +312,8 @@ export default function HomePage() {
                                 <Link
                                     key={article.id}
                                     href={`/articles/${article.slug}`}
-                                    className="flex gap-3 bg-white rounded-xl p-3 shadow-sm">
+                                    className="flex gap-3 bg-white rounded-xl p-3 shadow-sm"
+                                >
                                     <div className="relative w-20 h-20 rounded-lg bg-gray-200 flex-shrink-0 overflow-hidden">
                                         {article.featured_image && (
                                             <Image

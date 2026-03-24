@@ -69,7 +69,8 @@ export default function MoodPage() {
                     </div>
                     <div
                         className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
-                        onClick={() => router.push('/wellness/mood/history')}>
+                        onClick={() => router.push('/wellness/mood/history')}
+                    >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
@@ -103,7 +104,8 @@ export default function MoodPage() {
                                     viewMode === 'chart'
                                         ? 'bg-white text-gray-900 shadow-sm'
                                         : 'text-gray-500 hover:text-gray-700',
-                                )}>
+                                )}
+                            >
                                 <FiBarChart2 className="h-3 w-3" />
                                 Chart
                             </button>
@@ -114,7 +116,8 @@ export default function MoodPage() {
                                     viewMode === 'calendar'
                                         ? 'bg-white text-gray-900 shadow-sm'
                                         : 'text-gray-500 hover:text-gray-700',
-                                )}>
+                                )}
+                            >
                                 <FiCalendar className="h-3 w-3" />
                                 Calendar
                             </button>
@@ -135,7 +138,8 @@ export default function MoodPage() {
                                         chartDays === days
                                             ? 'bg-primary text-white'
                                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                                    )}>
+                                    )}
+                                >
                                     {days} Days
                                 </button>
                             ))}
@@ -164,7 +168,8 @@ export default function MoodPage() {
                             onClick={() =>
                                 router.push('/wellness/mood/history')
                             }
-                            className="text-xs text-primary hover:underline">
+                            className="text-xs text-primary hover:underline"
+                        >
                             View All
                         </button>
                     </div>

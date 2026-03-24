@@ -185,7 +185,8 @@ export default function BookingPage() {
                                             ].indexOf(step)
                                           ? 'bg-green-500 text-white'
                                           : 'bg-gray-200 text-gray-500',
-                                )}>
+                                )}
+                            >
                                 {index <
                                 ['provider', 'date', 'time', 'confirm'].indexOf(
                                     step,
@@ -225,7 +226,8 @@ export default function BookingPage() {
                             <button
                                 key={provider.id}
                                 onClick={() => handleProviderSelect(provider)}
-                                className="w-full flex items-center gap-3 p-4 bg-white rounded-2xl shadow-sm text-left hover:bg-gray-50 transition-colors">
+                                className="w-full flex items-center gap-3 p-4 bg-white rounded-2xl shadow-sm text-left hover:bg-gray-50 transition-colors"
+                            >
                                 <div className="relative w-14 h-14 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                     {provider.avatar ? (
                                         <Image
@@ -270,7 +272,8 @@ export default function BookingPage() {
                             </h2>
                             <button
                                 onClick={() => setStep('provider')}
-                                className="text-sm text-primary">
+                                className="text-sm text-primary"
+                            >
                                 Change Provider
                             </button>
                         </div>
@@ -317,7 +320,8 @@ export default function BookingPage() {
                                         selectedDate === date.value
                                             ? 'bg-primary text-white'
                                             : 'bg-white shadow-sm hover:bg-gray-50',
-                                    )}>
+                                    )}
+                                >
                                     <p className="text-xs">{date.day}</p>
                                     <p className="text-lg font-bold">
                                         {date.date}
@@ -338,7 +342,8 @@ export default function BookingPage() {
                             </h2>
                             <button
                                 onClick={() => setStep('date')}
-                                className="text-sm text-primary">
+                                className="text-sm text-primary"
+                            >
                                 Change Date
                             </button>
                         </div>
@@ -356,7 +361,8 @@ export default function BookingPage() {
                                 </p>
                                 <button
                                     onClick={() => setStep('date')}
-                                    className="mt-4 text-primary font-medium">
+                                    className="mt-4 text-primary font-medium"
+                                >
                                     Choose another date
                                 </button>
                             </div>
@@ -374,7 +380,8 @@ export default function BookingPage() {
                                                 : slot.is_available
                                                   ? 'bg-white shadow-sm hover:bg-gray-50'
                                                   : 'bg-gray-100 text-gray-400 cursor-not-allowed',
-                                        )}>
+                                        )}
+                                    >
                                         {slot.start_time}
                                     </button>
                                 ))}
@@ -450,7 +457,8 @@ export default function BookingPage() {
                         <button
                             onClick={handleSubmitBooking}
                             disabled={isSubmitting}
-                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg disabled:opacity-50">
+                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg disabled:opacity-50"
+                        >
                             {isSubmitting ? 'Confirming...' : 'Confirm Booking'}
                         </button>
                     </section>

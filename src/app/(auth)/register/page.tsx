@@ -65,12 +65,13 @@ export default function RegisterPage() {
         <div className="min-h-screen flex items-center justify-center px-6 py-12">
             <div className="w-full max-w-md flex flex-col">
                 {/* Back to Home */}
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start">
+                <a
+                    href="https://genoessence.com"
+                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start"
+                >
                     <FiArrowLeft className="w-4 h-4" />
                     Back to Home
-                </Link>
+                </a>
 
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -149,7 +150,8 @@ export default function RegisterPage() {
                                         ? 'Hide password'
                                         : 'Show password'
                                 }
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-inactive hover:text-title">
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-inactive hover:text-title"
+                            >
                                 {showPassword ? (
                                     <FiEyeOff className="w-5 h-5" />
                                 ) : (
@@ -182,7 +184,8 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                    >
                         {isLoading ? 'Creating account...' : 'Create Account'}
                     </button>
 
@@ -203,7 +206,8 @@ export default function RegisterPage() {
                         type="button"
                         onClick={handleGoogleLogin}
                         disabled={isLoading}
-                        className="w-full py-3 border border-divider rounded-xl font-medium text-title flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors disabled:opacity-50">
+                        className="w-full py-3 border border-divider rounded-xl font-medium text-title flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                    >
                         <FcGoogle className="w-5 h-5" />
                         Continue with Google
                     </button>
@@ -215,7 +219,8 @@ export default function RegisterPage() {
                         Already have an account?{' '}
                         <Link
                             href="/login"
-                            className="text-primary font-medium">
+                            className="text-primary font-medium"
+                        >
                             Sign In
                         </Link>
                     </p>

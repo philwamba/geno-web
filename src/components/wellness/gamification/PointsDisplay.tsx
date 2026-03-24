@@ -21,7 +21,8 @@ export function PointsDisplay({
                 className={cn(
                     'animate-pulse rounded-xl bg-gray-100 p-4',
                     className,
-                )}>
+                )}
+            >
                 <div className="h-6 w-24 rounded bg-gray-200" />
             </div>
         )
@@ -46,7 +47,8 @@ export function PointsDisplay({
                 className={cn(
                     'flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1.5',
                     className,
-                )}>
+                )}
+            >
                 <FiStar className="h-4 w-4 text-amber-500" />
                 <span className="text-sm font-bold text-amber-700">
                     {total_points.toLocaleString()}
@@ -61,7 +63,8 @@ export function PointsDisplay({
                 className={cn(
                     'rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 p-6 text-white shadow-lg',
                     className,
-                )}>
+                )}
+            >
                 <div className="mb-4 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <FiZap className="h-6 w-6" />

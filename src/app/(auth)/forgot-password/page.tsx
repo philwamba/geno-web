@@ -52,7 +52,8 @@ export default function ForgotPasswordPage() {
                     </p>
                     <Link
                         href="/login"
-                        className="inline-flex items-center gap-2 text-primary font-medium">
+                        className="inline-flex items-center gap-2 text-primary font-medium"
+                    >
                         <FiArrowLeft className="w-4 h-4" />
                         Back to Sign In
                     </Link>
@@ -67,7 +68,8 @@ export default function ForgotPasswordPage() {
                 {/* Back to Login */}
                 <Link
                     href="/login"
-                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start">
+                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start"
+                >
                     <FiArrowLeft className="w-4 h-4" />
                     Back to Login
                 </Link>
@@ -118,7 +120,8 @@ export default function ForgotPasswordPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                    >
                         {isLoading ? 'Sending...' : 'Send Reset Link'}
                     </button>
                 </form>
@@ -129,7 +132,8 @@ export default function ForgotPasswordPage() {
                         Remember your password?{' '}
                         <Link
                             href="/login"
-                            className="text-primary font-medium">
+                            className="text-primary font-medium"
+                        >
                             Sign In
                         </Link>
                     </p>

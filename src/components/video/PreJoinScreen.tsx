@@ -132,7 +132,8 @@ export function PreJoinScreen({
                             isAudioEnabled
                                 ? 'bg-white/10 hover:bg-white/20 text-white'
                                 : 'bg-red-500 text-white',
-                        )}>
+                        )}
+                    >
                         {isAudioEnabled ? (
                             <Mic className="w-5 h-5" />
                         ) : (
@@ -146,7 +147,8 @@ export function PreJoinScreen({
                             isVideoEnabled
                                 ? 'bg-white/10 hover:bg-white/20 text-white'
                                 : 'bg-red-500 text-white',
-                        )}>
+                        )}
+                    >
                         {isVideoEnabled ? (
                             <Video className="w-5 h-5" />
                         ) : (
@@ -185,7 +187,8 @@ export function PreJoinScreen({
                             onJoin()
                         }}
                         disabled={isLoading || hasPermission === null}
-                        className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                        className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
                         {isLoading ? <>Connecting...</> : <>Join Meeting Now</>}
                     </button>
                 </div>

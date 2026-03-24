@@ -62,7 +62,8 @@ export function MoodPicker({
                                 ? 'bg-primary/20 ring-2 ring-primary scale-110 shadow-md'
                                 : 'bg-gray-100 hover:bg-gray-200 hover:scale-105',
                             disabled && 'opacity-50 cursor-not-allowed',
-                        )}>
+                        )}
+                    >
                         {MOOD_EMOJIS[mood]}
                     </button>
                     {showLabels && (
@@ -72,7 +73,8 @@ export function MoodPicker({
                                 selectedMood === mood
                                     ? 'text-primary font-medium'
                                     : 'text-gray-500',
-                            )}>
+                            )}
+                        >
                             {MOOD_LABELS[mood]}
                         </span>
                     )}

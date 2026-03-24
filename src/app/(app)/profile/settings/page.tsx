@@ -187,7 +187,8 @@ export default function ProfileSettingsPage() {
                     <button
                         type="button"
                         onClick={() => router.push('/profile/change-password')}
-                        className="w-full flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm">
+                        className="w-full flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm"
+                    >
                         <div className="flex items-center gap-3">
                             <FiLock className="w-5 h-5 text-gray-500" />
                             <span className="text-gray-900">
@@ -203,7 +204,8 @@ export default function ProfileSettingsPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2 disabled:opacity-50">
+                        className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
                         {isLoading ? (
                             'Saving...'
                         ) : (

@@ -144,7 +144,8 @@ export function FileUpload({
                     disabled
                         ? 'opacity-60 cursor-not-allowed hover:border-gray-300'
                         : '',
-                )}>
+                )}
+            >
                 <input {...getInputProps()} />
 
                 {hasFile ? (
@@ -177,7 +178,8 @@ export function FileUpload({
                             <button
                                 type="button"
                                 onClick={handleRemove}
-                                className="p-1 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-red-500">
+                                className="p-1 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-red-500"
+                            >
                                 <X className="w-5 h-5" />
                             </button>
                         )}

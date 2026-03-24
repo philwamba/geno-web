@@ -158,7 +158,8 @@ export default function SearchPage() {
                             type="button"
                             aria-label="Clear search"
                             onClick={() => setQuery('')}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
                             <FiX className="w-5 h-5" aria-hidden="true" />
                         </button>
                     )}
@@ -181,7 +182,8 @@ export default function SearchPage() {
                                     category === cat.id
                                         ? 'bg-primary text-white'
                                         : 'bg-white text-gray-700 hover:bg-gray-100',
-                                )}>
+                                )}
+                            >
                                 {cat.label}
                             </button>
                         ))}
@@ -197,7 +199,8 @@ export default function SearchPage() {
                             </h2>
                             <button
                                 onClick={clearRecentSearches}
-                                className="text-sm text-primary">
+                                className="text-sm text-primary"
+                            >
                                 Clear
                             </button>
                         </div>
@@ -206,7 +209,8 @@ export default function SearchPage() {
                                 <button
                                     key={i}
                                     onClick={() => handleRecentSearch(term)}
-                                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg text-sm text-gray-700 hover:bg-gray-50">
+                                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg text-sm text-gray-700 hover:bg-gray-50"
+                                >
                                     <FiClock className="w-4 h-4 text-gray-400" />
                                     {term}
                                 </button>
@@ -221,7 +225,8 @@ export default function SearchPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse">
+                                className="bg-white rounded-2xl p-4 animate-pulse"
+                            >
                                 <div className="flex gap-4">
                                     <div className="w-16 h-16 bg-gray-200 rounded-xl" />
                                     <div className="flex-1 space-y-2">
@@ -253,7 +258,8 @@ export default function SearchPage() {
                                         <Link
                                             key={service.id}
                                             href={`/services/${service.slug}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
+                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                        >
                                             <div className="relative w-14 h-14 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {service.image_path && (
                                                     <Image
@@ -290,7 +296,8 @@ export default function SearchPage() {
                                         <Link
                                             key={provider.id}
                                             href={`/providers/${provider.id}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
+                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                        >
                                             <div className="relative w-14 h-14 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {provider.avatar ? (
                                                     <Image
@@ -352,7 +359,8 @@ export default function SearchPage() {
                                         <Link
                                             key={article.id}
                                             href={`/articles/${article.slug}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
+                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                        >
                                             <div className="relative w-14 h-14 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {article.featured_image && (
                                                     <Image
@@ -419,7 +427,8 @@ export default function SearchPage() {
                                 <button
                                     key={term}
                                     onClick={() => handleRecentSearch(term)}
-                                    className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors">
+                                    className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium hover:bg-primary/20 transition-colors"
+                                >
                                     {term}
                                 </button>
                             ))}

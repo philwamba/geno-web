@@ -194,7 +194,8 @@ export default function ProfilePage() {
                                     todayMood?.mood === mood.id
                                         ? 'bg-primary/20 ring-2 ring-primary scale-110'
                                         : 'bg-gray-100 hover:bg-gray-200',
-                                )}>
+                                )}
+                            >
                                 {mood.emoji}
                             </button>
                         ))}
@@ -213,7 +214,8 @@ export default function ProfilePage() {
                                 <Link
                                     key={dimension.id}
                                     href={`/wellness?area=${dimension.id}`}
-                                    className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                                    className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                                >
                                     <div className="flex items-center gap-3">
                                         <Icon
                                             className={cn(
@@ -244,7 +246,8 @@ export default function ProfilePage() {
                                     'flex items-center justify-between p-4 hover:bg-gray-50 transition-colors',
                                     index < menuItems.length - 1 &&
                                         'border-b border-gray-100',
-                                )}>
+                                )}
+                            >
                                 <div className="flex items-center gap-3">
                                     <Icon className="w-5 h-5 text-gray-500" />
                                     <span className="text-gray-900">
@@ -260,7 +263,8 @@ export default function ProfilePage() {
                 {/* Logout */}
                 <button
                     onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 p-4 bg-red-50 text-red-600 rounded-2xl font-medium hover:bg-red-100 transition-colors">
+                    className="w-full flex items-center justify-center gap-2 p-4 bg-red-50 text-red-600 rounded-2xl font-medium hover:bg-red-100 transition-colors"
+                >
                     <FiLogOut className="w-5 h-5" />
                     Logout
                 </button>

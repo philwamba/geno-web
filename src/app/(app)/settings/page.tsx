@@ -210,7 +210,8 @@ export default function SettingsPage() {
                                 activeTab === tab.id
                                     ? 'bg-primary text-white font-medium'
                                     : 'bg-white text-gray-600 hover:bg-gray-100',
-                            )}>
+                            )}
+                        >
                             <tab.icon className="w-4 h-4" />
                             {tab.label}
                         </button>
@@ -222,7 +223,8 @@ export default function SettingsPage() {
                     {activeTab === 'profile' && (
                         <form
                             onSubmit={handleUpdateProfile}
-                            className="space-y-6">
+                            className="space-y-6"
+                        >
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Full Name
@@ -259,7 +261,8 @@ export default function SettingsPage() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                                className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                            >
                                 {isLoading ? 'Saving...' : 'Save Changes'}
                             </button>
                         </form>
@@ -269,7 +272,8 @@ export default function SettingsPage() {
                         <div className="space-y-8">
                             <form
                                 onSubmit={handleChangePassword}
-                                className="space-y-6">
+                                className="space-y-6"
+                            >
                                 <h3 className="font-medium text-gray-900 border-b pb-2">
                                     Change Password
                                 </h3>
@@ -322,7 +326,8 @@ export default function SettingsPage() {
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                                    className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                                >
                                     {isLoading
                                         ? 'Updating...'
                                         : 'Update Password'}
@@ -335,7 +340,8 @@ export default function SettingsPage() {
                                 </h3>
                                 <button
                                     onClick={handleDeleteAccount}
-                                    className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium">
+                                    className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium"
+                                >
                                     <FiTrash2 />
                                     Delete Account
                                 </button>

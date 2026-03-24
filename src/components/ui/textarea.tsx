@@ -17,7 +17,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 {label && (
                     <label
                         htmlFor={textareaId}
-                        className="mb-1.5 block text-sm font-medium text-gray-700">
+                        className="mb-1.5 block text-sm font-medium text-gray-700"
+                    >
                         {label}
                     </label>
                 )}

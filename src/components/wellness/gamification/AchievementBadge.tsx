@@ -116,7 +116,8 @@ export function AchievementBadge({
                 theme.bg,
                 theme.text,
                 theme.ring,
-            )}>
+            )}
+        >
             <span className={sizeClass.icon}>{icon}</span>
         </div>
     )
@@ -134,7 +135,8 @@ export function AchievementBadge({
             className={cn(
                 'flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm',
                 className,
-            )}>
+            )}
+        >
             {BadgeIcon}
             <div className="text-center">
                 <p className="font-medium text-gray-900">{badge.name}</p>
@@ -183,7 +185,8 @@ export function BadgeGrid({
                     className={cn(
                         'flex items-center justify-center rounded-full bg-gray-100 text-xs font-medium text-gray-500',
                         SIZE_CLASSES[size].container,
-                    )}>
+                    )}
+                >
                     +{remaining}
                 </div>
             )}

@@ -62,7 +62,8 @@ export function GoalCategoryFilter({
             className={cn(
                 'flex gap-2 overflow-x-auto pb-2 scrollbar-hide',
                 className,
-            )}>
+            )}
+        >
             {CATEGORIES.map(cat => {
                 const count = counts?.[cat.value]
                 const isSelected = selected === cat.value
@@ -80,14 +81,16 @@ export function GoalCategoryFilter({
                             isSelected
                                 ? 'bg-primary text-white'
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                        )}>
+                        )}
+                    >
                         {cat.icon && (
                             <span
                                 className={cn(
                                     'flex h-5 w-5 items-center justify-center rounded-full',
                                     isSelected ? 'bg-white/20' : color,
                                     !isSelected && 'text-white',
-                                )}>
+                                )}
+                            >
                                 {cat.icon}
                             </span>
                         )}
@@ -99,7 +102,8 @@ export function GoalCategoryFilter({
                                     isSelected
                                         ? 'bg-white/20 text-white'
                                         : 'bg-gray-200 text-gray-600',
-                                )}>
+                                )}
+                            >
                                 {count}
                             </span>
                         )}

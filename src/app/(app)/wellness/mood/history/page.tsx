@@ -111,7 +111,8 @@ export default function MoodHistoryPage() {
                                         innerRadius={50}
                                         outerRadius={70}
                                         paddingAngle={2}
-                                        dataKey="value">
+                                        dataKey="value"
+                                    >
                                         {moodDistribution.map(
                                             (entry, index) => (
                                                 <Cell
@@ -152,7 +153,8 @@ export default function MoodHistoryPage() {
                             {moodDistribution.map(item => (
                                 <div
                                     key={item.mood}
-                                    className="flex items-center gap-1 text-xs">
+                                    className="flex items-center gap-1 text-xs"
+                                >
                                     <div
                                         className="h-3 w-3 rounded-full"
                                         style={{
@@ -180,7 +182,8 @@ export default function MoodHistoryPage() {
                         {hasFilters && (
                             <button
                                 onClick={clearFilters}
-                                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700">
+                                className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700"
+                            >
                                 <FiX className="h-3 w-3" />
                                 Clear
                             </button>
@@ -203,7 +206,8 @@ export default function MoodHistoryPage() {
                                         moodFilter === mood
                                             ? 'bg-primary/20 ring-2 ring-primary scale-110'
                                             : 'bg-gray-100 hover:bg-gray-200',
-                                    )}>
+                                    )}
+                                >
                                     {MOOD_EMOJIS[mood]}
                                 </button>
                             ),
@@ -228,7 +232,8 @@ export default function MoodHistoryPage() {
                                     dateFilter === option.value
                                         ? 'bg-primary text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                                )}>
+                                )}
+                            >
                                 {option.label}
                             </button>
                         ))}

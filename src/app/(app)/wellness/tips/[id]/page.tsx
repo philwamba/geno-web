@@ -109,14 +109,16 @@ export default function WellnessTipDetailPage() {
                     <div className="flex items-center gap-2">
                         <button
                             onClick={handleBookmark}
-                            className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        >
                             <FiBookmark
                                 className={`w-5 h-5 ${isBookmarked ? 'fill-primary text-primary' : 'text-gray-600'}`}
                             />
                         </button>
                         <button
                             onClick={handleShare}
-                            className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        >
                             <FiShare2 className="w-5 h-5 text-gray-600" />
                         </button>
                     </div>
@@ -163,7 +165,8 @@ export default function WellnessTipDetailPage() {
                             isLiked
                                 ? 'bg-primary/10 text-primary'
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}>
+                        }`}
+                    >
                         <FiThumbsUp
                             className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`}
                         />
@@ -188,7 +191,8 @@ export default function WellnessTipDetailPage() {
                                 <a
                                     key={relatedTip.id}
                                     href={`/wellness/tips/${relatedTip.id}`}
-                                    className="block p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                    className="block p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+                                >
                                     <h4 className="font-medium text-gray-900">
                                         {relatedTip.title}
                                     </h4>

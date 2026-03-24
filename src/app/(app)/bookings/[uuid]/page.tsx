@@ -111,7 +111,8 @@ export default function BookingDetailPage() {
                 className={cn(
                     'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium',
                     config.className,
-                )}>
+                )}
+            >
                 {config.icon}
                 {config.label}
             </span>
@@ -140,7 +141,8 @@ export default function BookingDetailPage() {
                     <p className="text-gray-500 mb-4">Booking not found</p>
                     <Link
                         href="/bookings"
-                        className="text-primary font-medium hover:underline">
+                        className="text-primary font-medium hover:underline"
+                    >
                         Back to Bookings
                     </Link>
                 </div>
@@ -168,7 +170,8 @@ export default function BookingDetailPage() {
                     {booking.provider && (
                         <Link
                             href={`/providers/${booking.provider.id}`}
-                            className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                        >
                             <div className="relative w-12 h-12 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                 {booking.provider.avatar ? (
                                     <Image
@@ -374,7 +377,8 @@ export default function BookingDetailPage() {
                     {booking.session && (
                         <Link
                             href={`/sessions/${booking.session.uuid}`}
-                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2">
+                            className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2"
+                        >
                             <FiVideo className="w-5 h-5" />
                             View Session
                         </Link>
@@ -387,7 +391,8 @@ export default function BookingDetailPage() {
                                     `/bookings/${booking.uuid}/reschedule`,
                                 )
                             }
-                            className="w-full py-3 bg-blue-50 text-blue-600 rounded-2xl font-medium flex items-center justify-center gap-2">
+                            className="w-full py-3 bg-blue-50 text-blue-600 rounded-2xl font-medium flex items-center justify-center gap-2"
+                        >
                             <FiRefreshCw className="w-5 h-5" />
                             Reschedule
                         </button>
@@ -396,7 +401,8 @@ export default function BookingDetailPage() {
                     {booking.can_cancel && (
                         <button
                             onClick={() => setShowCancelModal(true)}
-                            className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium">
+                            className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium"
+                        >
                             Cancel Booking
                         </button>
                     )}
@@ -406,7 +412,8 @@ export default function BookingDetailPage() {
                             onClick={() =>
                                 router.push(`/messages/${booking.provider?.id}`)
                             }
-                            className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2">
+                            className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2"
+                        >
                             <FiMessageSquare className="w-5 h-5" />
                             Message Provider
                         </button>
@@ -423,10 +430,12 @@ export default function BookingDetailPage() {
                         setCancelReason('')
                     }}
                     role="dialog"
-                    aria-modal="true">
+                    aria-modal="true"
+                >
                     <div
                         className="bg-white rounded-2xl p-6 w-full max-w-sm"
-                        onClick={e => e.stopPropagation()}>
+                        onClick={e => e.stopPropagation()}
+                    >
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg font-semibold text-gray-900">
                                 Cancel Booking
@@ -436,7 +445,8 @@ export default function BookingDetailPage() {
                                     setShowCancelModal(false)
                                     setCancelReason('')
                                 }}
-                                className="p-2 hover:bg-gray-100 rounded-full">
+                                className="p-2 hover:bg-gray-100 rounded-full"
+                            >
                                 <FiX className="w-5 h-5" />
                             </button>
                         </div>
@@ -459,13 +469,15 @@ export default function BookingDetailPage() {
                                     setCancelReason('')
                                 }}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium">
+                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium"
+                            >
                                 Keep Booking
                             </button>
                             <button
                                 onClick={handleCancel}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50">
+                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50"
+                            >
                                 {isCancelling
                                     ? 'Cancelling...'
                                     : 'Cancel Booking'}

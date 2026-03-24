@@ -166,7 +166,8 @@ export function MoodTrendChart({
                     .map(([mood, emoji]) => (
                         <div
                             key={mood}
-                            className="flex items-center gap-1 text-xs text-gray-600">
+                            className="flex items-center gap-1 text-xs text-gray-600"
+                        >
                             <span>{emoji}</span>
                             <span className="capitalize">
                                 {mood.replace('_', ' ')}

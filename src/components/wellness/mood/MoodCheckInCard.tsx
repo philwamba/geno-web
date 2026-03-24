@@ -166,7 +166,8 @@ export function MoodCheckInCard({
                             size="sm"
                             onClick={handleCancel}
                             disabled={isMoodLoading}
-                            className="flex-1">
+                            className="flex-1"
+                        >
                             <FiX className="mr-1 h-4 w-4" />
                             Cancel
                         </Button>
@@ -176,14 +177,16 @@ export function MoodCheckInCard({
                             size="sm"
                             onClick={handleQuickSubmit}
                             disabled={isMoodLoading}
-                            className="flex-1">
+                            className="flex-1"
+                        >
                             Skip Note
                         </Button>
                         <Button
                             type="submit"
                             size="sm"
                             disabled={isMoodLoading}
-                            className="flex-1">
+                            className="flex-1"
+                        >
                             <FiCheck className="mr-1 h-4 w-4" />
                             Save
                         </Button>

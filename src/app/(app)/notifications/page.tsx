@@ -80,7 +80,8 @@ export default function NotificationsPage() {
                     unreadCount > 0 && (
                         <button
                             onClick={handleMarkAllAsRead}
-                            className="text-sm text-primary font-medium">
+                            className="text-sm text-primary font-medium"
+                        >
                             Mark all read
                         </button>
                     )
@@ -93,7 +94,8 @@ export default function NotificationsPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse">
+                                className="bg-white rounded-2xl p-4 animate-pulse"
+                            >
                                 <div className="flex gap-3">
                                     <div className="w-10 h-10 bg-gray-200 rounded-full" />
                                     <div className="flex-1 space-y-2">
@@ -118,7 +120,8 @@ export default function NotificationsPage() {
                                     'bg-white rounded-2xl p-4 shadow-sm relative',
                                     !notification.read_at &&
                                         'ring-1 ring-primary/20',
-                                )}>
+                                )}
+                            >
                                 <div
                                     role={
                                         notification.read_at
@@ -157,7 +160,8 @@ export default function NotificationsPage() {
                                         notification.read_at
                                             ? 'cursor-default'
                                             : 'cursor-pointer focus:ring-2 focus:ring-primary',
-                                    )}>
+                                    )}
+                                >
                                     <div
                                         className={cn(
                                             'w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0',
@@ -174,7 +178,8 @@ export default function NotificationsPage() {
                                                 notification.data?.type ===
                                                     'general') &&
                                                 'bg-gray-100',
-                                        )}>
+                                        )}
+                                    >
                                         {getNotificationIcon(
                                             notification.data?.type ||
                                                 'general',
@@ -187,7 +192,8 @@ export default function NotificationsPage() {
                                                     'font-medium text-gray-900',
                                                     !notification.read_at &&
                                                         'font-semibold',
-                                                )}>
+                                                )}
+                                            >
                                                 {notification.data?.title ||
                                                     'Notification'}
                                             </h3>
@@ -210,7 +216,8 @@ export default function NotificationsPage() {
                                         e.stopPropagation()
                                         handleDelete(notification.id)
                                     }}
-                                    className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-500 transition-colors z-10">
+                                    className="absolute top-4 right-4 p-2 text-gray-400 hover:text-red-500 transition-colors z-10"
+                                >
                                     <FiTrash2 className="w-4 h-4" />
                                 </button>
                             </div>

@@ -135,7 +135,8 @@ export default function WellnessPage() {
                 <section className="grid grid-cols-3 gap-3">
                     <Link
                         href="/wellness/mood"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                    >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100">
                             <FiSmile className="h-5 w-5 text-purple-500" />
                         </div>
@@ -145,7 +146,8 @@ export default function WellnessPage() {
                     </Link>
                     <Link
                         href="/wellness/journal"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                    >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                             <FiBook className="h-5 w-5 text-blue-500" />
                         </div>
@@ -155,7 +157,8 @@ export default function WellnessPage() {
                     </Link>
                     <Link
                         href="/wellness/goals"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                    >
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
                             <FiTarget className="h-5 w-5 text-green-500" />
                         </div>
@@ -190,7 +193,8 @@ export default function WellnessPage() {
                                         activeArea === dimension.id
                                             ? `${dimension.color} text-white`
                                             : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
-                                    )}>
+                                    )}
+                                >
                                     <Icon className="h-4 w-4" />
                                     <span className="text-sm font-medium">
                                         {dimension.label}
@@ -207,14 +211,16 @@ export default function WellnessPage() {
                     className={cn(
                         'cursor-pointer rounded-2xl p-5 transition-all hover:shadow-md',
                         activeDimension.bgLight,
-                    )}>
+                    )}
+                >
                     <div className="mb-3 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div
                                 className={cn(
                                     'flex h-12 w-12 items-center justify-center rounded-xl',
                                     activeDimension.color,
-                                )}>
+                                )}
+                            >
                                 <ActiveIcon className="h-6 w-6 text-white" />
                             </div>
                             <div>
@@ -245,12 +251,14 @@ export default function WellnessPage() {
                                 <Link
                                     key={dimension.id}
                                     href={`/wellness/${dimension.id}`}
-                                    className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md">
+                                    className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md"
+                                >
                                     <div
                                         className={cn(
                                             'flex h-10 w-10 items-center justify-center rounded-lg',
                                             dimension.color,
-                                        )}>
+                                        )}
+                                    >
                                         <Icon className="h-5 w-5 text-white" />
                                     </div>
                                     <div className="min-w-0 flex-1">
@@ -290,7 +298,8 @@ export default function WellnessPage() {
                                 <Link
                                     key={tip.id}
                                     href={`/wellness/tips/${tip.id}`}
-                                    className="block rounded-lg bg-gray-50 p-3 transition-colors hover:bg-gray-100">
+                                    className="block rounded-lg bg-gray-50 p-3 transition-colors hover:bg-gray-100"
+                                >
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="flex-1">
                                             <p className="line-clamp-2 text-sm text-gray-900">

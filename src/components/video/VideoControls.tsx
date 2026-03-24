@@ -67,7 +67,8 @@ export function VideoControls({
 
     return (
         <div
-            className={`flex items-center gap-4 bg-gray-900/90 px-6 py-4 rounded-full backdrop-blur-sm ${className}`}>
+            className={`flex items-center gap-4 bg-gray-900/90 px-6 py-4 rounded-full backdrop-blur-sm ${className}`}
+        >
             <button
                 onClick={toggleMute}
                 className={`p-4 rounded-full transition-colors ${
@@ -75,7 +76,8 @@ export function VideoControls({
                         ? 'bg-red-500 text-white'
                         : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title={isMuted ? 'Unmute' : 'Mute'}>
+                title={isMuted ? 'Unmute' : 'Mute'}
+            >
                 {isMuted ? (
                     <FiMicOff className="w-6 h-6" />
                 ) : (
@@ -90,7 +92,8 @@ export function VideoControls({
                         ? 'bg-red-500 text-white'
                         : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title={isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}>
+                title={isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}
+            >
                 {isVideoOff ? (
                     <FiVideoOff className="w-6 h-6" />
                 ) : (
@@ -105,7 +108,8 @@ export function VideoControls({
                         ? 'bg-indigo-600 text-white'
                         : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
-                title="Share Screen">
+                title="Share Screen"
+            >
                 <FiMonitor className="w-6 h-6" />
             </button>
 
@@ -117,7 +121,8 @@ export function VideoControls({
                             ? 'bg-indigo-600 text-white'
                             : 'bg-gray-700 text-white hover:bg-gray-600'
                     }`}
-                    title="Session Notes">
+                    title="Session Notes"
+                >
                     <FiFileText className="w-6 h-6" />
                 </button>
             )}
@@ -125,7 +130,8 @@ export function VideoControls({
             <button
                 className="p-4 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors"
                 title="Settings"
-                onClick={() => toast.info('Settings coming soon')}>
+                onClick={() => toast.info('Settings coming soon')}
+            >
                 <FiSettings className="w-6 h-6" />
             </button>
 
@@ -134,7 +140,8 @@ export function VideoControls({
             <button
                 onClick={disconnect}
                 className="p-4 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
-                title="Leave Call">
+                title="Leave Call"
+            >
                 <FiPhoneOff className="w-6 h-6" />
             </button>
         </div>

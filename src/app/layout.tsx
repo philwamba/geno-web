@@ -31,7 +31,8 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${domine.variable} ${outfit.variable} antialiased`}>
+                className={`${domine.variable} ${outfit.variable} antialiased`}
+            >
                 <QueryProvider>
                     <NotificationsProvider>
                         {children}

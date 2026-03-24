@@ -121,7 +121,8 @@ export default function ServiceDetailPage() {
                             {service.features.map((feature, index) => (
                                 <li
                                     key={index}
-                                    className="flex items-start gap-2">
+                                    className="flex items-start gap-2"
+                                >
                                     <FiCheck className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                                     <span className="text-gray-600">
                                         {feature}
@@ -151,7 +152,8 @@ export default function ServiceDetailPage() {
                                             `/book/${service.slug || service.id}?provider=${provider.id}`,
                                         )
                                     }
-                                    className="w-full flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors text-left">
+                                    className="w-full flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors text-left"
+                                >
                                     <div className="relative w-12 h-12 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                         {provider.avatar ? (
                                             <Image
@@ -207,7 +209,8 @@ export default function ServiceDetailPage() {
                     onClick={() =>
                         router.push(`/book/${service.slug || service.id}`)
                     }
-                    className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg">
+                    className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg"
+                >
                     Book Now
                 </button>
             </main>

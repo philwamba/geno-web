@@ -19,7 +19,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 {label && (
                     <label
                         htmlFor={selectId}
-                        className="mb-1.5 block text-sm font-medium text-gray-700">
+                        className="mb-1.5 block text-sm font-medium text-gray-700"
+                    >
                         {label}
                     </label>
                 )}
@@ -41,7 +42,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                                 'border-red-300 focus:border-red-400 focus:ring-red-200',
                             className,
                         )}
-                        {...props}>
+                        {...props}
+                    >
                         {children}
                     </select>
                     <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
@@ -49,7 +51,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                             className="h-4 w-4 text-gray-400"
                             fill="none"
                             stroke="currentColor"
-                            viewBox="0 0 24 24">
+                            viewBox="0 0 24 24"
+                        >
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"

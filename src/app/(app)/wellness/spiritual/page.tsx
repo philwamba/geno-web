@@ -148,7 +148,8 @@ export default function SpiritualWellnessPage() {
                                     selectedDuration === mins
                                         ? 'bg-primary text-white'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                                )}>
+                                )}
+                            >
                                 {mins}m
                             </button>
                         ))}
@@ -162,7 +163,8 @@ export default function SpiritualWellnessPage() {
                                 isTimerRunning
                                     ? 'bg-primary/10 ring-4 ring-primary/30'
                                     : 'bg-gray-100',
-                            )}>
+                            )}
+                        >
                             <span className="text-4xl font-bold text-gray-900">
                                 {formatTime(timerSeconds)}
                             </span>
@@ -173,7 +175,8 @@ export default function SpiritualWellnessPage() {
                     <div className="flex justify-center gap-3">
                         <button
                             onClick={handleTimerReset}
-                            className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
+                            className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        >
                             <FiRefreshCw className="h-5 w-5" />
                         </button>
                         <button
@@ -183,7 +186,8 @@ export default function SpiritualWellnessPage() {
                                 isTimerRunning
                                     ? 'bg-red-500 hover:bg-red-600'
                                     : 'bg-primary hover:bg-primary/90',
-                            )}>
+                            )}
+                        >
                             {isTimerRunning ? (
                                 <FiPause className="h-6 w-6" />
                             ) : (
@@ -203,7 +207,8 @@ export default function SpiritualWellnessPage() {
                             onClick={() =>
                                 setShowGratitudeForm(!showGratitudeForm)
                             }
-                            className="text-xs text-primary hover:underline">
+                            className="text-xs text-primary hover:underline"
+                        >
                             {showGratitudeForm ? 'Cancel' : 'Log Today'}
                         </button>
                     </div>
@@ -221,7 +226,8 @@ export default function SpiritualWellnessPage() {
                             ].map((item, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-center gap-2">
+                                    className="flex items-center gap-2"
+                                >
                                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100">
                                         <FiHeart className="h-3 w-3 text-pink-500" />
                                     </div>
@@ -240,7 +246,8 @@ export default function SpiritualWellnessPage() {
                                 onClick={handleSaveGratitude}
                                 disabled={isJournalLoading}
                                 size="sm"
-                                className="w-full">
+                                className="w-full"
+                            >
                                 Save Gratitude
                             </Button>
                         </div>
@@ -267,7 +274,8 @@ export default function SpiritualWellnessPage() {
                                     '/wellness/goals/new?category=spiritual',
                                 )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline">
+                            className="flex items-center gap-1 text-xs text-primary hover:underline"
+                        >
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>

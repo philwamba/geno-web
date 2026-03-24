@@ -149,7 +149,8 @@ export default function AnalyticsPage() {
                         ? [1, 2, 3, 4].map(i => (
                               <div
                                   key={i}
-                                  className="bg-white p-4 rounded-2xl shadow-sm animate-pulse">
+                                  className="bg-white p-4 rounded-2xl shadow-sm animate-pulse"
+                              >
                                   <div className="flex justify-between mb-3">
                                       <div className="w-10 h-10 bg-gray-200 rounded-full" />
                                   </div>
@@ -160,10 +161,12 @@ export default function AnalyticsPage() {
                         : stats.map((stat, index) => (
                               <div
                                   key={index}
-                                  className="bg-white p-4 rounded-2xl shadow-sm">
+                                  className="bg-white p-4 rounded-2xl shadow-sm"
+                              >
                                   <div className="flex items-center justify-between mb-3">
                                       <div
-                                          className={`w-10 h-10 ${stat.bg} rounded-full flex items-center justify-center`}>
+                                          className={`w-10 h-10 ${stat.bg} rounded-full flex items-center justify-center`}
+                                      >
                                           <stat.icon
                                               className={`w-5 h-5 ${stat.color}`}
                                           />
@@ -196,7 +199,8 @@ export default function AnalyticsPage() {
                                             x1="0"
                                             y1="0"
                                             x2="0"
-                                            y2="1">
+                                            y2="1"
+                                        >
                                             <stop
                                                 offset="5%"
                                                 stopColor="#10b981"

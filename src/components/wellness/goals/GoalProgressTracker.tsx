@@ -141,7 +141,8 @@ export function GoalProgressTracker({
                                 mode === 'add'
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-gray-200 text-gray-600 hover:border-gray-300',
-                            )}>
+                            )}
+                        >
                             <FiPlus className="mr-1 inline h-4 w-4" />
                             Add to current
                         </button>
@@ -153,7 +154,8 @@ export function GoalProgressTracker({
                                 mode === 'set'
                                     ? 'border-primary bg-primary/5 text-primary'
                                     : 'border-gray-200 text-gray-600 hover:border-gray-300',
-                            )}>
+                            )}
+                        >
                             <FiTrendingUp className="mr-1 inline h-4 w-4" />
                             Set total
                         </button>
@@ -169,7 +171,8 @@ export function GoalProgressTracker({
                                 type="button"
                                 onClick={() => handleQuickAdd(-1)}
                                 disabled={inputValue === 0}
-                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50">
+                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-50"
+                            >
                                 <FiMinus className="h-4 w-4" />
                             </button>
                             <Input
@@ -181,7 +184,8 @@ export function GoalProgressTracker({
                             <button
                                 type="button"
                                 onClick={() => handleQuickAdd(1)}
-                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200"
+                            >
                                 <FiPlus className="h-4 w-4" />
                             </button>
                         </div>
@@ -198,7 +202,8 @@ export function GoalProgressTracker({
                                     key={amount}
                                     type="button"
                                     onClick={() => handleQuickAdd(amount)}
-                                    className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200">
+                                    className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
+                                >
                                     +{amount}
                                 </button>
                             ))}
@@ -240,13 +245,15 @@ export function GoalProgressTracker({
                             variant="outline"
                             onClick={() => onOpenChange(false)}
                             disabled={isGoalsLoading}
-                            className="flex-1">
+                            className="flex-1"
+                        >
                             Cancel
                         </Button>
                         <Button
                             type="submit"
                             disabled={isGoalsLoading || !inputValue}
-                            className="flex-1">
+                            className="flex-1"
+                        >
                             Update Progress
                         </Button>
                     </div>

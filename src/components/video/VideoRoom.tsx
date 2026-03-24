@@ -38,7 +38,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
     if (!hasJoined) {
         return (
             <div
-                className={`flex items-center justify-center min-h-[600px] bg-gray-50 ${className}`}>
+                className={`flex items-center justify-center min-h-[600px] bg-gray-50 ${className}`}
+            >
                 <PreJoinScreen onJoin={handleJoin} isLoading={isConnecting} />
             </div>
         )
@@ -47,7 +48,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
     if (error) {
         return (
             <div
-                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
+                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}
+            >
                 <div className="text-center">
                     <h3 className="text-xl font-bold mb-2 text-red-400">
                         Connection Error
@@ -58,7 +60,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
                             setHasJoined(false)
                             window.location.reload()
                         }}
-                        className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
+                        className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+                    >
                         Retry
                     </button>
                 </div>
@@ -69,7 +72,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
     if (isConnecting || !isConnected) {
         return (
             <div
-                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}>
+                className={`flex items-center justify-center h-[600px] bg-gray-900 text-white p-6 rounded-lg ${className}`}
+            >
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
                     <p className="text-lg">Connecting to secure room...</p>
@@ -80,7 +84,8 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
 
     return (
         <div
-            className={`relative bg-gray-900 rounded-lg overflow-hidden h-[800px] flex flex-col ${className}`}>
+            className={`relative bg-gray-900 rounded-lg overflow-hidden h-[800px] flex flex-col ${className}`}
+        >
             <SessionNotes
                 sessionId={room?.id || 'default'}
                 isOpen={showNotes}

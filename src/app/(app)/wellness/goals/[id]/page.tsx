@@ -131,7 +131,8 @@ export default function GoalDetailPage() {
                             className={cn(
                                 'flex h-10 w-10 items-center justify-center rounded-full text-white',
                                 GOAL_CATEGORY_COLORS[category],
-                            )}>
+                            )}
+                        >
                             <FiTarget className="h-5 w-5" />
                         </div>
                         <div>
@@ -149,7 +150,8 @@ export default function GoalDetailPage() {
                                         'bg-yellow-100 text-yellow-700',
                                     status === 'cancelled' &&
                                         'bg-gray-100 text-gray-700',
-                                )}>
+                                )}
+                            >
                                 {STATUS_LABELS[status]}
                             </span>
                         </div>
@@ -180,7 +182,8 @@ export default function GoalDetailPage() {
                                 className={cn(
                                     'flex items-center gap-1',
                                     isOverdue && 'text-red-500',
-                                )}>
+                                )}
+                            >
                                 <FiCalendar className="h-4 w-4" />
                                 <span>
                                     {isOverdue ? 'Overdue: ' : 'Due: '}
@@ -217,7 +220,8 @@ export default function GoalDetailPage() {
                                             : isOverdue
                                               ? 'text-red-500'
                                               : 'text-primary',
-                                    )}>
+                                    )}
+                                >
                                     {Math.round(progress)}%
                                 </span>
                             </div>
@@ -242,7 +246,8 @@ export default function GoalDetailPage() {
                         {isActive && (
                             <Button
                                 onClick={() => setShowProgressTracker(true)}
-                                className="w-full">
+                                className="w-full"
+                            >
                                 <FiTrendingUp className="mr-2 h-4 w-4" />
                                 Update Progress
                             </Button>
@@ -256,7 +261,8 @@ export default function GoalDetailPage() {
                         <Button
                             onClick={() => setShowCompleteDialog(true)}
                             variant="outline"
-                            className="flex-1 text-green-600 hover:bg-green-50">
+                            className="flex-1 text-green-600 hover:bg-green-50"
+                        >
                             <FiCheck className="mr-2 h-4 w-4" />
                             Complete
                         </Button>
@@ -296,7 +302,8 @@ export default function GoalDetailPage() {
             {/* Complete Confirmation */}
             <AlertDialog
                 open={showCompleteDialog}
-                onOpenChange={setShowCompleteDialog}>
+                onOpenChange={setShowCompleteDialog}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Complete Goal</AlertDialogTitle>
@@ -310,7 +317,8 @@ export default function GoalDetailPage() {
                         <AlertDialogAction
                             onClick={handleComplete}
                             disabled={isGoalsLoading}
-                            className="bg-green-600 hover:bg-green-700">
+                            className="bg-green-600 hover:bg-green-700"
+                        >
                             <FiCheck className="mr-2 h-4 w-4" />
                             Complete Goal
                         </AlertDialogAction>

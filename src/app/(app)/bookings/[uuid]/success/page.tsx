@@ -107,12 +107,14 @@ export default function BookingSuccessPage() {
             <div className="mt-8 space-y-3 w-full max-w-sm">
                 <Link
                     href="/sessions"
-                    className="block w-full py-3 bg-primary text-white rounded-xl font-medium text-center">
+                    className="block w-full py-3 bg-primary text-white rounded-xl font-medium text-center"
+                >
                     View My Sessions
                 </Link>
                 <Link
                     href="/home"
-                    className="block w-full py-3 bg-gray-100 text-gray-700 rounded-xl font-medium text-center">
+                    className="block w-full py-3 bg-gray-100 text-gray-700 rounded-xl font-medium text-center"
+                >
                     Back to Home
                 </Link>
             </div>

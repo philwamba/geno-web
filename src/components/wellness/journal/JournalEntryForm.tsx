@@ -121,7 +121,8 @@ export function JournalEntryForm({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className={cn('space-y-4', className)}>
+            className={cn('space-y-4', className)}
+        >
             {/* Content */}
             <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -160,7 +161,8 @@ export function JournalEntryForm({
                     <button
                         type="button"
                         onClick={() => setSelectedMood(null)}
-                        className="mt-2 text-xs text-gray-500 hover:text-gray-700">
+                        className="mt-2 text-xs text-gray-500 hover:text-gray-700"
+                    >
                         Clear mood selection
                     </button>
                 )}
@@ -185,7 +187,8 @@ export function JournalEntryForm({
                         variant="outline"
                         size="sm"
                         onClick={handleAddTag}
-                        disabled={!tagInput.trim() || tags.length >= 10}>
+                        disabled={!tagInput.trim() || tags.length >= 10}
+                    >
                         <FiPlus className="h-4 w-4" />
                     </Button>
                 </div>
@@ -194,12 +197,14 @@ export function JournalEntryForm({
                         {tags.map(tag => (
                             <span
                                 key={tag}
-                                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-1 text-xs text-primary">
+                                className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-1 text-xs text-primary"
+                            >
                                 #{tag}
                                 <button
                                     type="button"
                                     onClick={() => handleRemoveTag(tag)}
-                                    className="hover:text-primary/70">
+                                    className="hover:text-primary/70"
+                                >
                                     <FiX className="h-3 w-3" />
                                 </button>
                             </span>
@@ -219,14 +224,16 @@ export function JournalEntryForm({
                         variant="outline"
                         onClick={onCancel}
                         disabled={isJournalLoading}
-                        className="flex-1">
+                        className="flex-1"
+                    >
                         Cancel
                     </Button>
                 )}
                 <Button
                     type="submit"
                     disabled={isJournalLoading}
-                    className="flex-1">
+                    className="flex-1"
+                >
                     <FiSave className="mr-2 h-4 w-4" />
                     {isEditing ? 'Update Entry' : 'Save Entry'}
                 </Button>

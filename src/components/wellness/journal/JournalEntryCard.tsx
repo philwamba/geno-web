@@ -72,7 +72,8 @@ export function JournalEntryCard({
                     onClick || !compact ? 'cursor-pointer' : '',
                     className,
                 )}
-                onClick={handleClick}>
+                onClick={handleClick}
+            >
                 {/* Header */}
                 <div className="mb-2 flex items-start justify-between">
                     <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -92,7 +93,8 @@ export function JournalEntryCard({
                                     e.stopPropagation()
                                     setShowMenu(!showMenu)
                                 }}
-                                className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+                                className="rounded p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                            >
                                 <FiMoreVertical className="h-4 w-4" />
                             </button>
 
@@ -104,7 +106,8 @@ export function JournalEntryCard({
                                             handleEdit()
                                             setShowMenu(false)
                                         }}
-                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >
                                         <FiEdit2 className="h-4 w-4" />
                                         Edit
                                     </button>
@@ -114,7 +117,8 @@ export function JournalEntryCard({
                                             setShowDeleteDialog(true)
                                             setShowMenu(false)
                                         }}
-                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50">
+                                        className="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                                    >
                                         <FiTrash2 className="h-4 w-4" />
                                         Delete
                                     </button>
@@ -129,7 +133,8 @@ export function JournalEntryCard({
                     className={cn(
                         'text-sm text-gray-700',
                         compact ? 'line-clamp-2' : 'line-clamp-4',
-                    )}>
+                    )}
+                >
                     {entry.preview || entry.content}
                 </p>
 
@@ -139,7 +144,8 @@ export function JournalEntryCard({
                         {entry.tags.slice(0, compact ? 3 : 10).map(tag => (
                             <span
                                 key={tag}
-                                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+                                className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
+                            >
                                 #{tag}
                             </span>
                         ))}
@@ -155,7 +161,8 @@ export function JournalEntryCard({
             {/* Delete Confirmation Dialog */}
             <AlertDialog
                 open={showDeleteDialog}
-                onOpenChange={setShowDeleteDialog}>
+                onOpenChange={setShowDeleteDialog}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
@@ -171,7 +178,8 @@ export function JournalEntryCard({
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={isJournalLoading}
-                            className="bg-red-600 hover:bg-red-700">
+                            className="bg-red-600 hover:bg-red-700"
+                        >
                             Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>

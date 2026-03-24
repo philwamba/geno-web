@@ -109,7 +109,8 @@ export function MoodCalendar({
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
                     <div
                         key={day}
-                        className="text-xs font-medium text-gray-500">
+                        className="text-xs font-medium text-gray-500"
+                    >
                         {day}
                     </div>
                 ))}
@@ -141,7 +142,8 @@ export function MoodCalendar({
                                     dayData.mood
                                         ? `${dayData.mood.mood.replace('_', ' ')}${dayData.mood.note ? `: ${dayData.mood.note}` : ''}`
                                         : undefined
-                                }>
+                                }
+                            >
                                 {dayData.mood ? (
                                     <span className="text-base">
                                         {
@@ -168,7 +170,8 @@ export function MoodCalendar({
                         className={cn(
                             'flex items-center gap-1 rounded-full px-2 py-0.5',
                             MOOD_BG_COLORS[mood as MoodTypeValue],
-                        )}>
+                        )}
+                    >
                         <span className="text-sm">{emoji}</span>
                     </div>
                 ))}

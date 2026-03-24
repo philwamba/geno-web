@@ -37,7 +37,8 @@ function getStatusBadge(status: string) {
             className={cn(
                 'px-2 py-0.5 rounded-full text-xs font-medium',
                 config.className,
-            )}>
+            )}
+        >
             {config.label}
         </span>
     )
@@ -132,7 +133,8 @@ export default function BookingsPage() {
                                 activeTab === tab.id
                                     ? 'bg-primary text-white'
                                     : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
-                            )}>
+                            )}
+                        >
                             {tab.label}
                         </button>
                     ))}
@@ -144,7 +146,8 @@ export default function BookingsPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse">
+                                className="bg-white rounded-2xl p-4 animate-pulse"
+                            >
                                 <div className="space-y-3">
                                     <div className="h-5 bg-gray-200 rounded w-3/4" />
                                     <div className="h-4 bg-gray-200 rounded w-1/2" />
@@ -161,7 +164,8 @@ export default function BookingsPage() {
                         {bookings.map(booking => (
                             <div
                                 key={booking.id}
-                                className="bg-white rounded-2xl p-4 shadow-sm">
+                                className="bg-white rounded-2xl p-4 shadow-sm"
+                            >
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="flex-1">
                                         <h3 className="font-semibold text-gray-900">
@@ -231,7 +235,8 @@ export default function BookingsPage() {
                                                         `/bookings/${booking.uuid}/reschedule`,
                                                     )
                                                 }
-                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                                            >
                                                 <FiRefreshCw className="w-4 h-4" />
                                                 Reschedule
                                             </button>
@@ -243,14 +248,16 @@ export default function BookingsPage() {
                                                         booking.uuid,
                                                     )
                                                 }
-                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                            >
                                                 <FiX className="w-4 h-4" />
                                                 Cancel
                                             </button>
                                         )}
                                         <Link
                                             href={`/bookings/${booking.uuid}`}
-                                            className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-50 rounded-lg transition-colors">
+                                            className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-50 rounded-lg transition-colors"
+                                        >
                                             Details
                                             <FiChevronRight className="w-4 h-4" />
                                         </Link>
@@ -272,7 +279,8 @@ export default function BookingsPage() {
                         <p className="text-gray-500 mb-6">{error}</p>
                         <button
                             onClick={fetchBookings}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition-colors">
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition-colors"
+                        >
                             <FiRefreshCw className="w-4 h-4" />
                             Try Again
                         </button>
@@ -292,7 +300,8 @@ export default function BookingsPage() {
                         {activeTab === 'upcoming' && (
                             <Link
                                 href="/services"
-                                className="inline-block px-6 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                                className="inline-block px-6 py-2 bg-primary text-white rounded-full text-sm font-medium"
+                            >
                                 Book a Service
                             </Link>
                         )}
@@ -310,13 +319,16 @@ export default function BookingsPage() {
                     }}
                     role="dialog"
                     aria-modal="true"
-                    aria-labelledby="modal-title">
+                    aria-labelledby="modal-title"
+                >
                     <div
                         className="bg-white rounded-2xl p-6 w-full max-w-md"
-                        onClick={e => e.stopPropagation()}>
+                        onClick={e => e.stopPropagation()}
+                    >
                         <h3
                             id="modal-title"
-                            className="text-lg font-semibold text-gray-900 mb-4">
+                            className="text-lg font-semibold text-gray-900 mb-4"
+                        >
                             Cancel Booking
                         </h3>
                         <p className="text-sm text-gray-500 mb-4">
@@ -338,13 +350,15 @@ export default function BookingsPage() {
                                     setCancelReason('')
                                 }}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium">
+                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium"
+                            >
                                 Keep Booking
                             </button>
                             <button
                                 onClick={handleCancelBooking}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50">
+                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50"
+                            >
                                 {isCancelling
                                     ? 'Cancelling...'
                                     : 'Cancel Booking'}

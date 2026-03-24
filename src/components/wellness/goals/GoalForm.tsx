@@ -129,7 +129,8 @@ export function GoalForm({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className={cn('space-y-6', className)}>
+            className={cn('space-y-6', className)}
+        >
             {/* Category Selection */}
             <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -146,12 +147,14 @@ export function GoalForm({
                                 selectedCategory === cat.value
                                     ? 'border-primary bg-primary/5'
                                     : 'border-gray-200 hover:border-gray-300',
-                            )}>
+                            )}
+                        >
                             <div
                                 className={cn(
                                     'flex h-10 w-10 items-center justify-center rounded-full text-white',
                                     GOAL_CATEGORY_COLORS[cat.value],
-                                )}>
+                                )}
+                            >
                                 {cat.icon}
                             </div>
                             <span className="text-sm font-medium">
@@ -266,14 +269,16 @@ export function GoalForm({
                         variant="outline"
                         onClick={onCancel}
                         disabled={isGoalsLoading}
-                        className="flex-1">
+                        className="flex-1"
+                    >
                         Cancel
                     </Button>
                 )}
                 <Button
                     type="submit"
                     disabled={isGoalsLoading}
-                    className="flex-1">
+                    className="flex-1"
+                >
                     <FiSave className="mr-2 h-4 w-4" />
                     Create Goal
                 </Button>

@@ -76,7 +76,8 @@ function PointHistoryItem({ point }: { point: WellnessPoint }) {
                     className={cn(
                         'flex h-10 w-10 items-center justify-center rounded-full',
                         colorClass,
-                    )}>
+                    )}
+                >
                     <FiZap className="h-5 w-5" />
                 </div>
                 <div>

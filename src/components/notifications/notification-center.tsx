@@ -38,7 +38,8 @@ export function NotificationCenter() {
                 enterTo="transform opacity-100 scale-100"
                 leave="transition ease-in duration-75"
                 leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95">
+                leaveTo="transform opacity-0 scale-95"
+            >
                 <Menu.Items className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-96">
                     <div className="flex items-center justify-between px-4 py-2 border-b border-gray-100">
                         <h3 className="text-sm font-semibold text-gray-900">
@@ -47,7 +48,8 @@ export function NotificationCenter() {
                         {unreadCount > 0 && (
                             <button
                                 onClick={() => markAllAsRead()}
-                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium">
+                                className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+                            >
                                 Mark all as read
                             </button>
                         )}
@@ -69,7 +71,8 @@ export function NotificationCenter() {
                                             className={cn(
                                                 active ? 'bg-gray-50' : '',
                                                 'px-4 py-3 border-b border-gray-50 last:border-0 relative group',
-                                            )}>
+                                            )}
+                                        >
                                             <div className="flex justify-between items-start">
                                                 <div
                                                     className={cn(
@@ -77,7 +80,8 @@ export function NotificationCenter() {
                                                         !notification.is_read
                                                             ? 'font-medium text-gray-900'
                                                             : 'text-gray-600',
-                                                    )}>
+                                                    )}
+                                                >
                                                     {notification.data
                                                         ?.message ||
                                                         notification.data
@@ -109,7 +113,8 @@ export function NotificationCenter() {
                                                                     }
                                                                 }}
                                                                 title="Mark as read"
-                                                                className="text-emerald-500 hover:text-emerald-700">
+                                                                className="text-emerald-500 hover:text-emerald-700"
+                                                            >
                                                                 <Check className="h-4 w-4" />
                                                             </button>
                                                         )}
@@ -127,7 +132,8 @@ export function NotificationCenter() {
                                                                 }
                                                             }}
                                                             title="Delete"
-                                                            className="text-red-400 hover:text-red-600">
+                                                            className="text-red-400 hover:text-red-600"
+                                                        >
                                                             <Trash2 className="h-4 w-4" />
                                                         </button>
                                                     </div>
@@ -142,7 +148,8 @@ export function NotificationCenter() {
                     <div className="border-t border-gray-100 bg-gray-50 px-4 py-2 text-center">
                         <Link
                             href="/notifications"
-                            className="text-xs font-medium text-gray-500 hover:text-gray-700">
+                            className="text-xs font-medium text-gray-500 hover:text-gray-700"
+                        >
                             View all notifications
                         </Link>
                     </div>

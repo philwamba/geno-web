@@ -86,7 +86,8 @@ export default function ProviderProfilePage() {
                     <Button
                         variant="outline"
                         className="mt-4"
-                        onClick={() => router.back()}>
+                        onClick={() => router.back()}
+                    >
                         Go Back
                     </Button>
                 </div>
@@ -197,7 +198,8 @@ export default function ProviderProfilePage() {
                                 <Button
                                     type="button"
                                     variant="outline"
-                                    onClick={handleAddSpec}>
+                                    onClick={handleAddSpec}
+                                >
                                     Add
                                 </Button>
                             </div>
@@ -205,12 +207,14 @@ export default function ProviderProfilePage() {
                                 {formData.specializations.map(spec => (
                                     <span
                                         key={spec}
-                                        className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
+                                        className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-sm text-primary"
+                                    >
                                         {spec}
                                         <button
                                             type="button"
                                             onClick={() => removeSpec(spec)}
-                                            className="hover:text-primary/70 ml-1">
+                                            className="hover:text-primary/70 ml-1"
+                                        >
                                             &times;
                                         </button>
                                     </span>
@@ -222,7 +226,8 @@ export default function ProviderProfilePage() {
                     <Button
                         type="submit"
                         className="w-full h-12 text-lg"
-                        disabled={isLoading}>
+                        disabled={isLoading}
+                    >
                         {isLoading ? (
                             'Saving...'
                         ) : (

@@ -177,7 +177,8 @@ export default function ProviderProfilePage() {
                                 activeTab === tab
                                     ? 'bg-primary text-white'
                                     : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
-                            )}>
+                            )}
+                        >
                             {tab}
                         </button>
                     ))}
@@ -240,7 +241,8 @@ export default function ProviderProfilePage() {
                                                     (spec, i) => (
                                                         <span
                                                             key={i}
-                                                            className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full">
+                                                            className="px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full"
+                                                        >
                                                             {spec}
                                                         </span>
                                                     ),
@@ -263,7 +265,8 @@ export default function ProviderProfilePage() {
                                             (qual, i) => (
                                                 <div
                                                     key={i}
-                                                    className="flex items-start gap-3">
+                                                    className="flex items-start gap-3"
+                                                >
                                                     <FiAward className="w-5 h-5 text-primary mt-0.5" />
                                                     <div>
                                                         <p className="text-sm font-medium text-gray-900">
@@ -300,7 +303,8 @@ export default function ProviderProfilePage() {
                                             `/book/${service.id}?provider=${provider.id}`,
                                         )
                                     }
-                                    className="w-full bg-white rounded-2xl p-4 shadow-sm text-left hover:bg-gray-50 transition-colors">
+                                    className="w-full bg-white rounded-2xl p-4 shadow-sm text-left hover:bg-gray-50 transition-colors"
+                                >
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1 min-w-0">
                                             <h4 className="font-medium text-gray-900 truncate">
@@ -363,7 +367,8 @@ export default function ProviderProfilePage() {
                                     {[5, 4, 3, 2, 1].map(rating => (
                                         <div
                                             key={rating}
-                                            className="flex items-center gap-2 text-sm">
+                                            className="flex items-center gap-2 text-sm"
+                                        >
                                             <span className="w-3">
                                                 {rating}
                                             </span>
@@ -402,7 +407,8 @@ export default function ProviderProfilePage() {
                                 {reviews.map(review => (
                                     <div
                                         key={review.id}
-                                        className="bg-white rounded-2xl p-4 shadow-sm">
+                                        className="bg-white rounded-2xl p-4 shadow-sm"
+                                    >
                                         <div className="flex items-start justify-between mb-2">
                                             <div>
                                                 <p className="font-medium text-gray-900">
@@ -465,7 +471,8 @@ export default function ProviderProfilePage() {
                                 )
                             }
                         }}
-                        className="fixed bottom-24 left-4 right-4 py-4 bg-primary text-white rounded-2xl font-medium text-lg shadow-lg z-10 hover:bg-primary/90 transition-colors">
+                        className="fixed bottom-24 left-4 right-4 py-4 bg-primary text-white rounded-2xl font-medium text-lg shadow-lg z-10 hover:bg-primary/90 transition-colors"
+                    >
                         <FiCalendar className="inline-block w-5 h-5 mr-2" />
                         Book Session
                     </button>

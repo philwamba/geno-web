@@ -98,7 +98,8 @@ export default function OccupationalWellnessPage() {
                                     '/wellness/goals/new?category=occupational',
                                 )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline">
+                            className="flex items-center gap-1 text-xs text-primary hover:underline"
+                        >
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>
@@ -120,7 +121,8 @@ export default function OccupationalWellnessPage() {
                                         '/wellness/goals/new?category=occupational',
                                     )
                                 }
-                                size="sm">
+                                size="sm"
+                            >
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Create Goal
                             </Button>

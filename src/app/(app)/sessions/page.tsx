@@ -108,7 +108,8 @@ export default function SessionsPage() {
                 className={cn(
                     'px-2 py-0.5 rounded-full text-xs font-medium',
                     config.className,
-                )}>
+                )}
+            >
                 {config.label}
             </span>
         )
@@ -160,7 +161,8 @@ export default function SessionsPage() {
                                 activeTab === tab.id
                                     ? 'bg-primary text-white'
                                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
-                            )}>
+                            )}
+                        >
                             {tab.label}
                         </button>
                     ))}
@@ -172,7 +174,8 @@ export default function SessionsPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse">
+                                className="bg-white rounded-2xl p-4 animate-pulse"
+                            >
                                 <div className="space-y-3">
                                     <div className="h-5 bg-gray-200 rounded w-3/4" />
                                     <div className="h-4 bg-gray-200 rounded w-1/2" />
@@ -190,7 +193,8 @@ export default function SessionsPage() {
                             <Link
                                 key={session.id}
                                 href={`/sessions/${session.uuid}`}
-                                className="block bg-white rounded-2xl p-4 shadow-sm">
+                                className="block bg-white rounded-2xl p-4 shadow-sm"
+                            >
                                 <div className="flex items-start justify-between mb-2">
                                     <h3 className="font-semibold text-gray-900 flex-1 pr-2">
                                         {session.title}
@@ -249,7 +253,8 @@ export default function SessionsPage() {
                                         onClick={e =>
                                             handleJoinSession(e, session)
                                         }
-                                        className="w-full mt-4 py-2.5 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2">
+                                        className="w-full mt-4 py-2.5 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2"
+                                    >
                                         <FiVideo className="w-4 h-4" />
                                         Join Now
                                     </button>
@@ -261,7 +266,8 @@ export default function SessionsPage() {
                                             onClick={e =>
                                                 handleWatchRecording(e, session)
                                             }
-                                            className="w-full mt-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center justify-center gap-2">
+                                            className="w-full mt-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center justify-center gap-2"
+                                        >
                                             <FiPlay className="w-4 h-4" />
                                             Watch Recording
                                         </button>
@@ -284,7 +290,8 @@ export default function SessionsPage() {
                         {activeTab === 'upcoming' && (
                             <Link
                                 href="/services"
-                                className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                                className="inline-block mt-4 px-6 py-2 bg-primary text-white rounded-full text-sm font-medium"
+                            >
                                 Book a Session
                             </Link>
                         )}

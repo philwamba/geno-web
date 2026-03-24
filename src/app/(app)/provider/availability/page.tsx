@@ -170,7 +170,8 @@ export default function AvailabilityPage() {
                                     'p-6 transition-colors',
                                     schedule[day.id].length === 0 &&
                                         'bg-gray-50/50',
-                                )}>
+                                )}
+                            >
                                 <div className="flex flex-col md:flex-row md:items-start gap-4">
                                     <div className="w-32 pt-2">
                                         <span className="font-medium text-gray-900">
@@ -188,7 +189,8 @@ export default function AvailabilityPage() {
                                                 (slot, index) => (
                                                     <div
                                                         key={index}
-                                                        className="flex items-center gap-3">
+                                                        className="flex items-center gap-3"
+                                                    >
                                                         <input
                                                             type="time"
                                                             value={slot.start}
@@ -228,7 +230,8 @@ export default function AvailabilityPage() {
                                                                 )
                                                             }
                                                             className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                                                            aria-label="Remove slot">
+                                                            aria-label="Remove slot"
+                                                        >
                                                             <FiTrash2 className="w-4 h-4" />
                                                         </button>
                                                     </div>
@@ -237,7 +240,8 @@ export default function AvailabilityPage() {
                                         )}
                                         <button
                                             onClick={() => addSlot(day.id)}
-                                            className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1">
+                                            className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1"
+                                        >
                                             <FiPlus className="w-4 h-4" />
                                             Add Time Slot
                                         </button>
@@ -251,7 +255,8 @@ export default function AvailabilityPage() {
                         <button
                             onClick={handleSave}
                             disabled={isLoading}
-                            className="px-6 py-2 bg-primary text-white rounded-xl font-medium flex items-center gap-2 hover:bg-primary/90 disabled:opacity-50 transition-colors">
+                            className="px-6 py-2 bg-primary text-white rounded-xl font-medium flex items-center gap-2 hover:bg-primary/90 disabled:opacity-50 transition-colors"
+                        >
                             {isLoading ? (
                                 'Saving...'
                             ) : (

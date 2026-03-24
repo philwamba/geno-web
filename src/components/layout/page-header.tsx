@@ -34,7 +34,8 @@ export function PageHeader({
                         {showBack && (
                             <button
                                 onClick={handleBack}
-                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+                            >
                                 <FiArrowLeft className="w-5 h-5" />
                             </button>
                         )}

@@ -85,7 +85,8 @@ export function CreateSessionForm() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-8 max-w-2xl mx-auto p-6">
+            className="space-y-8 max-w-2xl mx-auto p-6"
+        >
             <div className="space-y-2">
                 <h1 className="text-2xl font-bold text-gray-900">
                     Schedule New Session
@@ -108,7 +109,8 @@ export function CreateSessionForm() {
                                 sessionType === 'one_on_one'
                                     ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
                                     : 'border-gray-200 hover:border-gray-300 text-gray-600',
-                            )}>
+                            )}
+                        >
                             <input
                                 type="radio"
                                 value="one_on_one"
@@ -125,7 +127,8 @@ export function CreateSessionForm() {
                                 sessionType === 'group'
                                     ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
                                     : 'border-gray-200 hover:border-gray-300 text-gray-600',
-                            )}>
+                            )}
+                        >
                             <input
                                 type="radio"
                                 value="group"
@@ -142,7 +145,8 @@ export function CreateSessionForm() {
                 <div className="space-y-2">
                     <label
                         htmlFor="title"
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Session Title
                     </label>
                     <input
@@ -164,7 +168,8 @@ export function CreateSessionForm() {
                     <div className="space-y-2">
                         <label
                             htmlFor="date"
-                            className="block text-sm font-medium text-gray-700">
+                            className="block text-sm font-medium text-gray-700"
+                        >
                             Date
                         </label>
                         <div className="relative">
@@ -186,7 +191,8 @@ export function CreateSessionForm() {
                     <div className="space-y-2">
                         <label
                             htmlFor="time"
-                            className="block text-sm font-medium text-gray-700">
+                            className="block text-sm font-medium text-gray-700"
+                        >
                             Start Time
                         </label>
                         <div className="relative">
@@ -210,13 +216,15 @@ export function CreateSessionForm() {
                 <div className="space-y-2">
                     <label
                         htmlFor="duration"
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Duration
                     </label>
                     <select
                         id="duration"
                         {...register('duration')}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white">
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white"
+                    >
                         <option value="15">15 minutes</option>
                         <option value="30">30 minutes</option>
                         <option value="45">45 minutes</option>
@@ -230,7 +238,8 @@ export function CreateSessionForm() {
                 <div className="space-y-2">
                     <label
                         htmlFor="description"
-                        className="block text-sm font-medium text-gray-700">
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Description (Optional)
                     </label>
                     <textarea
@@ -270,13 +279,15 @@ export function CreateSessionForm() {
                 <button
                     type="button"
                     onClick={() => router.back()}
-                    className="px-6 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium">
+                    className="px-6 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors font-medium"
+                >
                     Cancel
                 </button>
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
                     {isSubmitting ? (
                         <>Processing...</>
                     ) : (

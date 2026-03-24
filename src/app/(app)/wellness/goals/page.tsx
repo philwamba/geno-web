@@ -81,7 +81,8 @@ export default function GoalsPage() {
                 rightContent={
                     <button
                         onClick={handleNewGoal}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white">
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white"
+                    >
                         <FiPlus className="h-5 w-5" />
                     </button>
                 }
@@ -183,7 +184,8 @@ export default function GoalsPage() {
                     <section>
                         <button
                             onClick={() => setShowCompleted(!showCompleted)}
-                            className="mb-2 flex w-full items-center justify-between text-sm font-medium text-gray-700">
+                            className="mb-2 flex w-full items-center justify-between text-sm font-medium text-gray-700"
+                        >
                             <span>
                                 Completed Goals ({completedGoals.length})
                             </span>

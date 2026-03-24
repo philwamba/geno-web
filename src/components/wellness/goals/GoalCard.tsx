@@ -83,7 +83,8 @@ export function GoalCard({
                 'cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
                 isOverdue && status === 'active' && 'ring-2 ring-red-200',
                 className,
-            )}>
+            )}
+        >
             {/* Header */}
             <div className="mb-3 flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -100,7 +101,8 @@ export function GoalCard({
                         'rounded-full px-2 py-0.5 text-xs font-medium',
                         statusStyle.bg,
                         statusStyle.text,
-                    )}>
+                    )}
+                >
                     {statusStyle.label}
                 </span>
             </div>
@@ -151,7 +153,8 @@ export function GoalCard({
                         className={cn(
                             'flex items-center gap-1',
                             isOverdue && status === 'active' && 'text-red-500',
-                        )}>
+                        )}
+                    >
                         <FiCalendar className="h-3 w-3" />
                         <span>
                             {isOverdue ? 'Overdue: ' : 'Due: '}

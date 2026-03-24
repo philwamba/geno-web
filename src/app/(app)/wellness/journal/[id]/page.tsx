@@ -191,7 +191,8 @@ export default function JournalEntryDetailPage() {
                                     {entry.tags.map(tag => (
                                         <span
                                             key={tag}
-                                            className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
+                                            className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600"
+                                        >
                                             #{tag}
                                         </span>
                                     ))}
@@ -204,14 +205,16 @@ export default function JournalEntryDetailPage() {
                             <Button
                                 variant="outline"
                                 onClick={() => setIsEditing(true)}
-                                className="flex-1">
+                                className="flex-1"
+                            >
                                 <FiEdit2 className="mr-2 h-4 w-4" />
                                 Edit
                             </Button>
                             <Button
                                 variant="outline"
                                 onClick={() => setShowDeleteDialog(true)}
-                                className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700">
+                                className="flex-1 text-red-600 hover:bg-red-50 hover:text-red-700"
+                            >
                                 <FiTrash2 className="mr-2 h-4 w-4" />
                                 Delete
                             </Button>
@@ -223,7 +226,8 @@ export default function JournalEntryDetailPage() {
             {/* Delete Confirmation */}
             <AlertDialog
                 open={showDeleteDialog}
-                onOpenChange={setShowDeleteDialog}>
+                onOpenChange={setShowDeleteDialog}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>
@@ -239,7 +243,8 @@ export default function JournalEntryDetailPage() {
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={isJournalLoading}
-                            className="bg-red-600 hover:bg-red-700">
+                            className="bg-red-600 hover:bg-red-700"
+                        >
                             Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>

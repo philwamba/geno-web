@@ -127,7 +127,8 @@ export default function ProviderDashboardPage() {
                     <div className="grid grid-cols-2 gap-4">
                         <Link
                             href="/provider/availability"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors">
+                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                        >
                             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
                                 <FiClock className="w-6 h-6" />
                             </div>
@@ -137,7 +138,8 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/provider/profile"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors">
+                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                        >
                             <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
                                 <FiUser className="w-6 h-6" />
                             </div>
@@ -147,7 +149,8 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/provider/analytics"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors">
+                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                        >
                             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
                                 <FiTrendingUp className="w-6 h-6" />
                             </div>
@@ -157,7 +160,8 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/profile/settings"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors">
+                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                        >
                             <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
                                 <FiSettings className="w-6 h-6" />
                             </div>
@@ -176,7 +180,8 @@ export default function ProviderDashboardPage() {
                         </h2>
                         <Link
                             href="/bookings"
-                            className="text-sm font-medium text-primary hover:text-primary/80">
+                            className="text-sm font-medium text-primary hover:text-primary/80"
+                        >
                             View All
                         </Link>
                     </div>
@@ -195,7 +200,8 @@ export default function ProviderDashboardPage() {
                                 <Link
                                     key={session.id}
                                     href={`/sessions/${session.uuid}`}
-                                    className="block bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                                    className="block bg-white p-4 rounded-2xl shadow-sm border border-gray-100"
+                                >
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <h3 className="font-semibold text-gray-900">
@@ -212,7 +218,8 @@ export default function ProviderDashboardPage() {
                                                 session.status === 'confirmed'
                                                     ? 'bg-green-100 text-green-700'
                                                     : 'bg-yellow-100 text-yellow-700'
-                                            }`}>
+                                            }`}
+                                        >
                                             {session.status}
                                         </span>
                                     </div>

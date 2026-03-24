@@ -71,7 +71,8 @@ export default function MentalWellnessPage() {
                         type="button"
                         onClick={() => router.push('/wellness/mood')}
                         aria-label="Open Mood tracker"
-                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left">
+                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left"
+                    >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100">
@@ -93,7 +94,8 @@ export default function MentalWellnessPage() {
                         type="button"
                         onClick={() => router.push('/wellness/journal')}
                         aria-label="Open Journal"
-                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left">
+                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left"
+                    >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
@@ -135,7 +137,8 @@ export default function MentalWellnessPage() {
                             </h2>
                             <button
                                 onClick={() => router.push('/wellness/mood')}
-                                className="text-xs text-primary hover:underline">
+                                className="text-xs text-primary hover:underline"
+                            >
                                 View More
                             </button>
                         </div>
@@ -155,7 +158,8 @@ export default function MentalWellnessPage() {
                                     '/wellness/goals/new?category=mental',
                                 )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline">
+                            className="flex items-center gap-1 text-xs text-primary hover:underline"
+                        >
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>

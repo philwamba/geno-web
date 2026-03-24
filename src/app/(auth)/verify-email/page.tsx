@@ -114,7 +114,8 @@ export default function VerifyEmailPage() {
                             </p>
                             <Link
                                 href="/login"
-                                className="inline-block px-6 py-3 bg-primary text-white rounded-xl font-medium">
+                                className="inline-block px-6 py-3 bg-primary text-white rounded-xl font-medium"
+                            >
                                 Go to Login
                             </Link>
                         </>
@@ -134,7 +135,8 @@ export default function VerifyEmailPage() {
                             <button
                                 onClick={handleResendVerification}
                                 disabled={isResending}
-                                className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50">
+                                className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
+                            >
                                 {isResending
                                     ? 'Sending...'
                                     : 'Resend Verification Email'}
@@ -159,14 +161,16 @@ export default function VerifyEmailPage() {
                                 <button
                                     onClick={handleResendVerification}
                                     disabled={isResending || !email}
-                                    className="w-full py-3 bg-gray-100 text-gray-700 rounded-xl font-medium disabled:opacity-50">
+                                    className="w-full py-3 bg-gray-100 text-gray-700 rounded-xl font-medium disabled:opacity-50"
+                                >
                                     {isResending
                                         ? 'Sending...'
                                         : 'Resend Verification Email'}
                                 </button>
                                 <Link
                                     href="/login"
-                                    className="block w-full py-3 text-primary font-medium">
+                                    className="block w-full py-3 text-primary font-medium"
+                                >
                                     Back to Login
                                 </Link>
                             </div>

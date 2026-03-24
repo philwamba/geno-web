@@ -62,7 +62,8 @@ export default function ServicesPage() {
                                 selectedCategory === category.value
                                     ? 'bg-primary text-white'
                                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
-                            )}>
+                            )}
+                        >
                             {category.label}
                         </button>
                     ))}
@@ -74,7 +75,8 @@ export default function ServicesPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse">
+                                className="bg-white rounded-2xl p-4 animate-pulse"
+                            >
                                 <div className="flex gap-4">
                                     <div className="w-24 h-24 bg-gray-200 rounded-xl" />
                                     <div className="flex-1 space-y-2">
@@ -92,7 +94,8 @@ export default function ServicesPage() {
                             <Link
                                 key={service.id}
                                 href={`/services/${service.slug}`}
-                                className="block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                className="block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                            >
                                 <div className="flex">
                                     <div className="relative w-28 h-28 bg-gray-200 flex-shrink-0">
                                         {service.image_path && (

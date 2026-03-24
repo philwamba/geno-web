@@ -88,7 +88,8 @@ function ResetPasswordContent() {
                                 successRedirectTimeoutRef.current = null
                             }
                         }}
-                        className="inline-flex items-center gap-2 text-primary font-medium">
+                        className="inline-flex items-center gap-2 text-primary font-medium"
+                    >
                         <FiArrowLeft className="w-4 h-4" />
                         Go to Sign In
                     </Link>
@@ -103,7 +104,8 @@ function ResetPasswordContent() {
                 {/* Back to Login */}
                 <Link
                     href="/login"
-                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start">
+                    className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start"
+                >
                     <FiArrowLeft className="w-4 h-4" />
                     Back to Login
                 </Link>
@@ -166,7 +168,8 @@ function ResetPasswordContent() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
+                        className="w-full py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                    >
                         {isLoading ? 'Resetting...' : 'Reset Password'}
                     </button>
                 </form>

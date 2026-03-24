@@ -167,7 +167,8 @@ export default function PhysicalWellnessPage() {
                         </h2>
                         <button
                             onClick={() => setShowBMIForm(!showBMIForm)}
-                            className="text-xs text-primary hover:underline">
+                            className="text-xs text-primary hover:underline"
+                        >
                             {showBMIForm ? 'Cancel' : 'Update'}
                         </button>
                     </div>
@@ -175,7 +176,8 @@ export default function PhysicalWellnessPage() {
                     {showBMIForm ? (
                         <form
                             onSubmit={handleSubmit(onSubmitBMI)}
-                            className="space-y-3">
+                            className="space-y-3"
+                        >
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
                                     <label className="mb-1 block text-xs text-gray-500">
@@ -212,7 +214,8 @@ export default function PhysicalWellnessPage() {
                                         className={cn(
                                             'text-sm font-medium',
                                             bmiCategory?.color,
-                                        )}>
+                                        )}
+                                    >
                                         {bmiCategory?.label}
                                     </p>
                                 </div>
@@ -232,7 +235,8 @@ export default function PhysicalWellnessPage() {
                                 className={cn(
                                     'text-sm font-medium',
                                     getBMICategory(metrics.bmi.value)?.color,
-                                )}>
+                                )}
+                            >
                                 {getBMICategory(metrics.bmi.value)?.label}
                             </p>
                             <div className="mt-2 flex justify-center gap-4 text-xs text-gray-500">
@@ -256,7 +260,8 @@ export default function PhysicalWellnessPage() {
                             <Button
                                 onClick={() => setShowBMIForm(true)}
                                 size="sm"
-                                variant="outline">
+                                variant="outline"
+                            >
                                 <FiPlus className="mr-1 h-4 w-4" />
                                 Add Measurements
                             </Button>
@@ -342,7 +347,8 @@ export default function PhysicalWellnessPage() {
                                     '/wellness/goals/new?category=physical',
                                 )
                             }
-                            className="flex items-center gap-1 text-xs text-primary hover:underline">
+                            className="flex items-center gap-1 text-xs text-primary hover:underline"
+                        >
                             <FiPlus className="h-3 w-3" />
                             Add Goal
                         </button>

@@ -116,7 +116,8 @@ export default function SessionDetailPage() {
                 className={cn(
                     'px-3 py-1 rounded-full text-sm font-medium',
                     config.className,
-                )}>
+                )}
+            >
                 {config.label}
             </span>
         )
@@ -238,7 +239,8 @@ export default function SessionDetailPage() {
                             />
                             <button
                                 onClick={() => setActiveVideo(false)}
-                                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm">
+                                className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm"
+                            >
                                 Close Video View
                             </button>
                         </section>
@@ -347,7 +349,8 @@ export default function SessionDetailPage() {
                             {session.can_join && (
                                 <button
                                     onClick={handleJoin}
-                                    className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2">
+                                    className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2"
+                                >
                                     <FiVideo className="w-5 h-5" />
                                     Join Session
                                 </button>
@@ -357,7 +360,8 @@ export default function SessionDetailPage() {
                                 !session.review && (
                                     <button
                                         onClick={() => setShowReviewModal(true)}
-                                        className="w-full py-4 bg-yellow-500 text-white rounded-2xl font-medium flex items-center justify-center gap-2">
+                                        className="w-full py-4 bg-yellow-500 text-white rounded-2xl font-medium flex items-center justify-center gap-2"
+                                    >
                                         <FiStar className="w-5 h-5" />
                                         Leave a Review
                                     </button>
@@ -366,7 +370,8 @@ export default function SessionDetailPage() {
                             {session.can_cancel && (
                                 <button
                                     onClick={() => setShowCancelModal(true)}
-                                    className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium">
+                                    className="w-full py-3 bg-red-50 text-red-600 rounded-2xl font-medium"
+                                >
                                     Cancel Session
                                 </button>
                             )}
@@ -377,7 +382,8 @@ export default function SessionDetailPage() {
                                         `/messages/${session.provider?.id}`,
                                     )
                                 }
-                                className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2">
+                                className="w-full py-3 bg-gray-100 text-gray-700 rounded-2xl font-medium flex items-center justify-center gap-2"
+                            >
                                 <FiMessageSquare className="w-5 h-5" />
                                 Message Provider
                             </button>
@@ -395,7 +401,8 @@ export default function SessionDetailPage() {
                                 </h3>
                                 <button
                                     onClick={() => setShowCancelModal(false)}
-                                    className="p-2 hover:bg-gray-100 rounded-full">
+                                    className="p-2 hover:bg-gray-100 rounded-full"
+                                >
                                     <FiX className="w-5 h-5" />
                                 </button>
                             </div>
@@ -406,13 +413,15 @@ export default function SessionDetailPage() {
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => setShowCancelModal(false)}
-                                    className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium">
+                                    className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium"
+                                >
                                     Keep Session
                                 </button>
                                 <button
                                     onClick={handleCancel}
                                     disabled={isSubmitting}
-                                    className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50">
+                                    className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50"
+                                >
                                     {isSubmitting ? 'Cancelling...' : 'Cancel'}
                                 </button>
                             </div>
@@ -430,7 +439,8 @@ export default function SessionDetailPage() {
                                 </h3>
                                 <button
                                     onClick={() => setShowReviewModal(false)}
-                                    className="p-2 hover:bg-gray-100 rounded-full">
+                                    className="p-2 hover:bg-gray-100 rounded-full"
+                                >
                                     <FiX className="w-5 h-5" />
                                 </button>
                             </div>
@@ -444,7 +454,8 @@ export default function SessionDetailPage() {
                                         <button
                                             key={star}
                                             onClick={() => setRating(star)}
-                                            className="p-1">
+                                            className="p-1"
+                                        >
                                             <FiStar
                                                 className={cn(
                                                     'w-8 h-8 transition-colors',
@@ -474,7 +485,8 @@ export default function SessionDetailPage() {
                             <button
                                 onClick={handleSubmitReview}
                                 disabled={rating === 0 || isSubmitting}
-                                className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50">
+                                className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
+                            >
                                 {isSubmitting
                                     ? 'Submitting...'
                                     : 'Submit Review'}

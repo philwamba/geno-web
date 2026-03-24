@@ -225,14 +225,16 @@ export default function OnboardingPage() {
                                             isSelected
                                                 ? 'border-primary bg-primary/5'
                                                 : 'border-gray-200 bg-white hover:border-gray-300',
-                                        )}>
+                                        )}
+                                    >
                                         <div
                                             className={cn(
                                                 'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0',
                                                 isSelected
                                                     ? dimension.color
                                                     : dimension.bgLight,
-                                            )}>
+                                            )}
+                                        >
                                             <Icon
                                                 className={cn(
                                                     'w-6 h-6',
@@ -286,7 +288,8 @@ export default function OnboardingPage() {
                                         className={cn(
                                             'flex items-center gap-2 px-3 py-2 rounded-full',
                                             dimension.bgLight,
-                                        )}>
+                                        )}
+                                    >
                                         <Icon
                                             className={cn(
                                                 'w-4 h-4',
@@ -297,7 +300,8 @@ export default function OnboardingPage() {
                                             className={cn(
                                                 'text-sm font-medium',
                                                 dimension.textColor,
-                                            )}>
+                                            )}
+                                        >
                                             {dimension.label}
                                         </span>
                                     </div>
@@ -318,7 +322,8 @@ export default function OnboardingPage() {
                     {step > 0 && (
                         <button
                             onClick={handleBack}
-                            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center gap-2">
+                            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium flex items-center gap-2"
+                        >
                             <FiArrowLeft className="w-5 h-5" />
                             Back
                         </button>
@@ -327,7 +332,8 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleNext}
                             disabled={step === 1 && selectedAreas.length === 0}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                             Continue
                             <FiArrowRight className="w-5 h-5" />
                         </button>
@@ -335,7 +341,8 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleComplete}
                             disabled={isLoading}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50">
+                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
+                        >
                             {isLoading ? 'Getting Started...' : "Let's Go!"}
                         </button>
                     )}
@@ -343,7 +350,8 @@ export default function OnboardingPage() {
                 {step === 0 && (
                     <button
                         onClick={() => router.push('/home')}
-                        className="w-full mt-3 py-2 text-gray-500 text-sm">
+                        className="w-full mt-3 py-2 text-gray-500 text-sm"
+                    >
                         Skip for now
                     </button>
                 )}
