@@ -44,13 +44,13 @@ export default function LoginPage() {
         <div className="min-h-screen flex items-center justify-center px-6 py-12">
             <div className="w-full max-w-md flex flex-col">
                 {/* Back to Home */}
-                <Link
-                    href="/"
+                <a
+                    href="https://genoessence.com"
                     className="flex items-center gap-2 text-subtitle hover:text-title mb-6 self-start"
                 >
                     <FiArrowLeft className="w-4 h-4" />
                     Back to Home
-                </Link>
+                </a>
 
                 {/* Header */}
                 <div className="text-center mb-8">
