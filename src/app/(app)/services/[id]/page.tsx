@@ -148,7 +148,7 @@ export default function ServiceDetailPage() {
                                     key={provider.id}
                                     onClick={() =>
                                         router.push(
-                                            `/book/${service.slug}?provider=${provider.id}`,
+                                            `/book/${service.slug || service.id}?provider=${provider.id}`,
                                         )
                                     }
                                     className="w-full flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors text-left">
@@ -200,7 +200,7 @@ export default function ServiceDetailPage() {
 
                 {/* Book Now Button */}
                 <button
-                    onClick={() => router.push(`/book/${service.slug}`)}
+                    onClick={() => router.push(`/book/${service.slug || service.id}`)}
                     className="w-full py-4 bg-primary text-white rounded-2xl font-medium text-lg">
                     Book Now
                 </button>
