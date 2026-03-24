@@ -332,7 +332,7 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleNext}
                             disabled={step === 1 && selectedAreas.length === 0}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 py-3 bg-primary text-white rounded-lg font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Continue
                             <FiArrowRight className="w-5 h-5" />
@@ -341,7 +341,7 @@ export default function OnboardingPage() {
                         <button
                             onClick={handleComplete}
                             disabled={isLoading}
-                            className="flex-1 py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
+                            className="flex-1 py-3 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
                         >
                             {isLoading ? 'Getting Started...' : "Let's Go!"}
                         </button>

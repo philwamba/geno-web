@@ -53,7 +53,7 @@ export default function VerifyEmailPage() {
 
     const handleResendVerification = async () => {
         if (!email) {
-            toast.error('Email address is required')
+            toast.error('Email is required')
             return
         }
 
@@ -114,7 +114,7 @@ export default function VerifyEmailPage() {
                             </p>
                             <Link
                                 href="/login"
-                                className="inline-block px-6 py-3 bg-primary text-white rounded-xl font-medium"
+                                className="inline-block px-6 py-3 bg-primary text-white rounded-lg font-medium"
                             >
                                 Go to Login
                             </Link>
@@ -135,7 +135,7 @@ export default function VerifyEmailPage() {
                             <button
                                 onClick={handleResendVerification}
                                 disabled={isResending}
-                                className="w-full py-3 bg-primary text-white rounded-xl font-medium disabled:opacity-50"
+                                className="w-full py-3 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
                             >
                                 {isResending
                                     ? 'Sending...'
