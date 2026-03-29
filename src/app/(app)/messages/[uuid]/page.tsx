@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { messagesApi } from '@/lib/api/client'
 import { useAuthStore } from '@/lib/stores/auth-store'
-import { AppHeader } from '@/components/layout/app-header'
 import type { Conversation, Message } from '@/types'
 import { FiSend } from 'react-icons/fi'
 

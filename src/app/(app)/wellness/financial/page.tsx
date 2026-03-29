@@ -35,10 +35,9 @@ export default function FinancialWellnessPage() {
 
     const [incomeMetrics, setIncomeMetrics] = useState<WellnessMetric[]>([])
     const [expenseMetrics, setExpenseMetrics] = useState<WellnessMetric[]>([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [_isLoading, setIsLoading] = useState(true)
     const [showLogModal, setShowLogModal] = useState<LogType>(null)
     const [logAmount, setLogAmount] = useState('')
-    const [logNote, setLogNote] = useState('')
     const [isSaving, setIsSaving] = useState(false)
 
     const financialGoals = goals.filter(
@@ -80,7 +79,7 @@ export default function FinancialWellnessPage() {
             )
             setShowLogModal(null)
             setLogAmount('')
-            setLogNote('')
+
             loadMetrics()
         } catch {
             toast.error('Failed to log entry')
@@ -378,7 +377,7 @@ export default function FinancialWellnessPage() {
                                 onClick={() => {
                                     setShowLogModal(null)
                                     setLogAmount('')
-                                    setLogNote('')
+                        
                                 }}
                                 className="p-1 hover:bg-gray-100 rounded-lg">
                                 <FiX className="w-5 h-5" />
@@ -407,7 +406,7 @@ export default function FinancialWellnessPage() {
                                     onClick={() => {
                                         setShowLogModal(null)
                                         setLogAmount('')
-                                        setLogNote('')
+                            
                                     }}>
                                     Cancel
                                 </Button>

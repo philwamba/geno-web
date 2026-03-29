@@ -170,8 +170,14 @@ class ApiClient {
         })
     }
 
-    async delete<T>(endpoint: string, body?: unknown): Promise<T> {
-        return this.request<T>(endpoint, { method: 'DELETE', body })
+    async delete<T>(endpoint: string, body?: Record<string, unknown>): Promise<T> {
+        return this.request<T>(endpoint, {
+            method: 'DELETE',
+            ...(body && {
+                body: JSON.stringify(body),
+                headers: { 'Content-Type': 'application/json' },
+            }),
+        })
     }
 }
 

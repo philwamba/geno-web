@@ -18,7 +18,6 @@ import {
     FiCalendar,
     FiBook,
     FiCheck,
-    FiX,
 } from 'react-icons/fi'
 
 const INTERACTION_TYPES = [
@@ -37,9 +36,7 @@ export default function SocialWellnessPage() {
     const { goals, fetchGoals } = useWellnessStore()
 
     const [interactions, setInteractions] = useState<WellnessMetric[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [showLogModal, setShowLogModal] = useState(false)
-    const [selectedType, setSelectedType] = useState<string>('')
+    const [_isLoading, setIsLoading] = useState(true)
     const [isSaving, setIsSaving] = useState(false)
 
     const socialGoals = goals.filter(
@@ -74,8 +71,6 @@ export default function SocialWellnessPage() {
                 unit: type,
             })
             toast.success('Interaction logged!')
-            setShowLogModal(false)
-            setSelectedType('')
             loadInteractions()
         } catch {
             toast.error('Failed to log interaction')

@@ -248,6 +248,10 @@ export interface WellnessMetric {
         | 'sleep'
         | 'water'
         | 'calories'
+        | 'financial_income'
+        | 'financial_expense'
+        | 'social_interaction'
+        | string
     value: number
     unit: string | null
     logged_at: string
