@@ -4,7 +4,6 @@ import { QueryProvider } from '@/lib/providers/query-provider'
 import { NotificationsProvider } from '@/lib/providers/notifications-provider'
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
-import './styles/app.css'
 
 const domine = Domine({
     subsets: ['latin'],
