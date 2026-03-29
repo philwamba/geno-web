@@ -97,7 +97,6 @@ export default function FinancialWellnessPage() {
     const savingsRate =
         totalIncome > 0 ? Math.round((balance / totalIncome) * 100) : 0
 
-    // Build chart data from last 7 entries
     const chartData = [...incomeMetrics, ...expenseMetrics]
         .sort(
             (a, b) =>
@@ -112,7 +111,9 @@ export default function FinancialWellnessPage() {
                 ).toLocaleDateString('en', { month: 'short', day: 'numeric' })
                 const existing = acc.find(d => d.date === date)
                 const key =
-                    m.metric_type === 'financial_income' ? 'income' : 'expense'
+                    (m.metric_type as string) === 'financial_income'
+                        ? 'income'
+                        : 'expense'
                 if (existing) {
                     existing[key] = (existing[key] || 0) + (m.value || 0)
                 } else {
