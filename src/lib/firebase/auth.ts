@@ -11,7 +11,8 @@ import {
     AuthError,
 } from 'firebase/auth'
 import { auth } from './config'
-import { api, authApi } from '../api/client'
+import { authApi } from '../api/client'
+import { setToken } from '@/lib/cookies'
 
 export type AuthUser = FirebaseUser
 
@@ -97,7 +98,7 @@ export async function authenticateWithBackend(firebaseUser: FirebaseUser) {
     })
 
     // Store the token
-    api.setToken(response.token)
+    setToken(response.token)
 
     return response
 }
