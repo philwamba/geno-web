@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { toast } from 'sonner'
+import { getToken } from '@/lib/cookies'
 import { PageHeader } from '@/components/layout/page-header'
 import { sessionsApi } from '@/lib/api/client'
 import { Session } from '@/types'
@@ -148,7 +149,7 @@ export default function SessionDetailPage() {
 
         if (activeVideo && session?.id) {
             const fetchToken = async () => {
-                const token = localStorage.getItem('token')
+                const token = getToken()
                 if (!token) {
                     toast.error('Authentication required. Please log in again.')
                     // Optionally redirect to login or show auth modal

@@ -5,6 +5,7 @@ import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 import { messaging } from '@/lib/firebase/config'
 import { onMessage, getToken } from 'firebase/messaging'
+import { getToken as getAuthToken } from '@/lib/cookies'
 import { notificationsApi } from '@/lib/api/client'
 import { useNotifications } from '@/lib/hooks/use-notifications'
 import { useAuthStore } from '@/lib/stores/auth-store'
@@ -56,7 +57,7 @@ export function NotificationsProvider({
             authEndpoint: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'}/broadcasting/auth`,
             auth: {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+                    Authorization: `Bearer ${getAuthToken()}`,
                 },
             },
         })

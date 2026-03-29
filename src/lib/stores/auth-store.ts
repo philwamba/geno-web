@@ -1,7 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User, ProviderProfile } from '@/types'
-import { api, authApi, AuthenticationError, ApiError } from '../api/client'
+import { authApi, AuthenticationError, ApiError } from '../api/client'
+import { setToken as setCookieToken, removeToken } from '@/lib/cookies'
 import { AuthError } from 'firebase/auth'
 import {
     signInWithEmail,
@@ -70,7 +71,11 @@ export const useAuthStore = create<AuthState>()(
             setUser: user => set({ user, isAuthenticated: !!user }),
             setFirebaseUser: firebaseUser => set({ firebaseUser }),
             setToken: token => {
-                api.setToken(token)
+                if (token) {
+                    setCookieToken(token)
+                } else {
+                    removeToken()
+                }
                 set({ token })
             },
             setLoading: isLoading => set({ isLoading }),
@@ -154,7 +159,7 @@ export const useAuthStore = create<AuthState>()(
                 try {
                     await firebaseSignOut()
                     await authApi.logout().catch(() => {}) // Ignore errors
-                    api.setToken(null)
+                    removeToken()
                     set({
                         user: null,
                         firebaseUser: null,
@@ -243,7 +248,7 @@ export const useAuthStore = create<AuthState>()(
             }),
             onRehydrateStorage: () => state => {
                 if (state?.token) {
-                    api.setToken(state.token)
+                    setCookieToken(state.token)
                 }
             },
         },

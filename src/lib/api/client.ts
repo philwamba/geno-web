@@ -1,3 +1,5 @@
+import axios, { AxiosInstance, AxiosError } from 'axios'
+import { getToken } from '@/lib/cookies'
 import type {
     Service,
     Provider,
@@ -30,157 +32,6 @@ interface PaginationMeta {
 const API_BASE_URL =
     process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
 
-interface RequestOptions extends RequestInit {
-    params?: Record<string, string | number | boolean | undefined>
-}
-
-class ApiClient {
-    private baseUrl: string
-    private token: string | null = null
-
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl
-    }
-
-    setToken(token: string | null) {
-        this.token = token
-        if (typeof window !== 'undefined') {
-            if (token) {
-                localStorage.setItem('auth_token', token)
-            } else {
-                localStorage.removeItem('auth_token')
-            }
-        }
-    }
-
-    getToken(): string | null {
-        if (this.token) return this.token
-        if (typeof window !== 'undefined') {
-            this.token = localStorage.getItem('auth_token')
-        }
-        return this.token
-    }
-
-    private buildUrl(
-        endpoint: string,
-        params?: Record<string, string | number | boolean | undefined>,
-    ): string {
-        const url = new URL(`${this.baseUrl}${endpoint}`)
-        if (params) {
-            Object.entries(params).forEach(([key, value]) => {
-                if (value !== undefined) {
-                    url.searchParams.append(key, String(value))
-                }
-            })
-        }
-        return url.toString()
-    }
-
-    private async request<T>(
-        endpoint: string,
-        options: RequestOptions = {},
-    ): Promise<T> {
-        const { params, ...fetchOptions } = options
-        const url = this.buildUrl(endpoint, params)
-
-        const headers: HeadersInit = {
-            Accept: 'application/json',
-            ...options.headers,
-        }
-
-        if (
-            !(fetchOptions.body instanceof FormData) &&
-            !(headers as Record<string, string>)['Content-Type']
-        ) {
-            ;(headers as Record<string, string>)['Content-Type'] =
-                'application/json'
-        }
-
-        const token = this.getToken()
-        if (token) {
-            ;(headers as Record<string, string>)['Authorization'] =
-                `Bearer ${token}`
-        }
-
-        const response = await fetch(url, {
-            ...fetchOptions,
-            headers,
-        })
-
-        if (!response.ok) {
-            const rawText = await response.text().catch(() => '')
-            let errorData: {
-                message?: string
-                errors?: Record<string, string[]>
-            } = {}
-            try {
-                errorData = rawText ? JSON.parse(rawText) : {}
-            } catch {
-                // Non-JSON response, use raw text as message
-            }
-            const errorMessage =
-                errorData.message || rawText || 'An error occurred'
-            if (response.status === 401) {
-                throw new AuthenticationError(errorMessage)
-            }
-            throw new ApiError(errorMessage, response.status, errorData.errors)
-        }
-
-        return response.json()
-    }
-
-    async get<T>(
-        endpoint: string,
-        params?: Record<string, string | number | boolean | undefined>,
-    ): Promise<T> {
-        return this.request<T>(endpoint, { method: 'GET', params })
-    }
-
-    async post<T>(
-        endpoint: string,
-        data?: unknown,
-        options?: RequestInit,
-    ): Promise<T> {
-        const isFormData = data instanceof FormData
-        return this.request<T>(endpoint, {
-            method: 'POST',
-            body: isFormData
-                ? (data as BodyInit)
-                : data
-                  ? JSON.stringify(data)
-                  : undefined,
-            ...options,
-        })
-    }
-
-    async put<T>(
-        endpoint: string,
-        data?: unknown,
-        options?: RequestInit,
-    ): Promise<T> {
-        const isFormData = data instanceof FormData
-        return this.request<T>(endpoint, {
-            method: 'PUT',
-            body: isFormData
-                ? (data as BodyInit)
-                : data
-                  ? JSON.stringify(data)
-                  : undefined,
-            ...options,
-        })
-    }
-
-    async delete<T>(endpoint: string, body?: Record<string, unknown>): Promise<T> {
-        return this.request<T>(endpoint, {
-            method: 'DELETE',
-            ...(body && {
-                body: JSON.stringify(body),
-                headers: { 'Content-Type': 'application/json' },
-            }),
-        })
-    }
-}
-
 export class ApiError extends Error {
     status: number
     errors?: Record<string, string[]>
@@ -204,7 +55,81 @@ export class AuthenticationError extends Error {
     }
 }
 
-export const api = new ApiClient(API_BASE_URL)
+// Create axios instance
+const axiosInstance: AxiosInstance = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        Accept: 'application/json',
+    },
+})
+
+// Request interceptor: attach auth token from cookie
+axiosInstance.interceptors.request.use(config => {
+    const token = getToken()
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    // Set Content-Type to JSON unless it's FormData
+    if (!(config.data instanceof FormData) && !config.headers['Content-Type']) {
+        config.headers['Content-Type'] = 'application/json'
+    }
+    return config
+})
+
+// Response interceptor: map errors to ApiError / AuthenticationError
+axiosInstance.interceptors.response.use(
+    response => response,
+    (error: AxiosError<{ message?: string; errors?: Record<string, string[]> }>) => {
+        const status = error.response?.status ?? 0
+        const data = error.response?.data
+        const message = data?.message || error.message || 'An error occurred'
+
+        if (status === 401) {
+            return Promise.reject(new AuthenticationError(message))
+        }
+
+        return Promise.reject(new ApiError(message, status, data?.errors))
+    },
+)
+
+// Helper wrappers that mirror the old class API
+const api = {
+    async get<T>(
+        endpoint: string,
+        params?: Record<string, string | number | boolean | undefined>,
+    ): Promise<T> {
+        const { data } = await axiosInstance.get<T>(endpoint, { params })
+        return data
+    },
+
+    async post<T>(
+        endpoint: string,
+        body?: unknown,
+        options?: { headers?: Record<string, string> },
+    ): Promise<T> {
+        const { data } = await axiosInstance.post<T>(endpoint, body, options)
+        return data
+    },
+
+    async put<T>(
+        endpoint: string,
+        body?: unknown,
+        options?: { headers?: Record<string, string> },
+    ): Promise<T> {
+        const { data } = await axiosInstance.put<T>(endpoint, body, options)
+        return data
+    },
+
+    async delete<T>(
+        endpoint: string,
+        body?: Record<string, unknown>,
+    ): Promise<T> {
+        const { data } = await axiosInstance.delete<T>(endpoint, {
+            data: body,
+        })
+        return data
+    },
+}
 
 // Auth API
 export const authApi = {
