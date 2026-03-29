@@ -107,7 +107,7 @@ export function CreateSessionForm() {
                             className={cn(
                                 'relative flex flex-col items-center gap-2 p-4 rounded-lg border-2 cursor-pointer transition-all',
                                 sessionType === 'one_on_one'
-                                    ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
+                                    ? 'border-primary bg-primary/5 text-primary-700'
                                     : 'border-gray-200 hover:border-gray-300 text-gray-600',
                             )}
                         >
@@ -125,7 +125,7 @@ export function CreateSessionForm() {
                             className={cn(
                                 'relative flex flex-col items-center gap-2 p-4 rounded-lg border-2 cursor-pointer transition-all',
                                 sessionType === 'group'
-                                    ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
+                                    ? 'border-primary bg-primary/5 text-primary-700'
                                     : 'border-gray-200 hover:border-gray-300 text-gray-600',
                             )}
                         >
@@ -153,7 +153,7 @@ export function CreateSessionForm() {
                         id="title"
                         type="text"
                         {...register('title')}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                         placeholder="e.g., Weekly Check-in"
                     />
                     {errors.title && (
@@ -178,7 +178,7 @@ export function CreateSessionForm() {
                                 id="date"
                                 type="date"
                                 {...register('date')}
-                                className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                             />
                         </div>
                         {errors.date && (
@@ -201,7 +201,7 @@ export function CreateSessionForm() {
                                 id="time"
                                 type="time"
                                 {...register('time')}
-                                className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none"
+                                className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                             />
                         </div>
                         {errors.time && (
@@ -223,7 +223,7 @@ export function CreateSessionForm() {
                     <select
                         id="duration"
                         {...register('duration')}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none bg-white"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-white"
                     >
                         <option value="15">15 minutes</option>
                         <option value="30">30 minutes</option>
@@ -246,7 +246,7 @@ export function CreateSessionForm() {
                         id="description"
                         {...register('description')}
                         rows={3}
-                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none resize-none"
+                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
                         placeholder="Add details about the session..."
                     />
                 </div>
@@ -286,7 +286,7 @@ export function CreateSessionForm() {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-medium flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors font-medium flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                     {isSubmitting ? (
                         <>Processing...</>

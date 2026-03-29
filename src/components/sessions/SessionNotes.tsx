@@ -44,7 +44,7 @@ export function SessionNotes({
         <div className="absolute right-0 top-0 bottom-0 w-80 bg-white shadow-xl border-l border-gray-200 flex flex-col z-50 animate-in slide-in-from-right duration-200">
             <div className="p-4 border-b border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-indigo-600" />
+                    <FileText className="w-5 h-5 text-primary" />
                     <h3 className="font-semibold text-gray-900">
                         Session Notes
                     </h3>

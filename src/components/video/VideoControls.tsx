@@ -105,7 +105,7 @@ export function VideoControls({
                 onClick={toggleScreenShare}
                 className={`p-4 rounded-full transition-colors ${
                     isScreenSharing
-                        ? 'bg-indigo-600 text-white'
+                        ? 'bg-primary text-white'
                         : 'bg-gray-700 text-white hover:bg-gray-600'
                 }`}
                 title="Share Screen"
@@ -118,7 +118,7 @@ export function VideoControls({
                     onClick={onToggleNotes}
                     className={`p-4 rounded-full transition-colors ${
                         showNotes
-                            ? 'bg-indigo-600 text-white'
+                            ? 'bg-primary text-white'
                             : 'bg-gray-700 text-white hover:bg-gray-600'
                     }`}
                     title="Session Notes"

@@ -78,13 +78,13 @@ export function ParticipantManager({
                         onKeyDown={handleKeyDown}
                         placeholder="Enter participant email"
                         aria-label="Participant email address"
-                        className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+                        className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                     />
                 </div>
                 <button
                     type="button"
                     onClick={() => handleAdd()}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                    className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors flex items-center gap-2"
                 >
                     <Plus className="w-4 h-4" />
                     Add
@@ -104,7 +104,7 @@ export function ParticipantManager({
                                 className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg shadow-sm"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                         <User className="w-4 h-4" />
                                     </div>
                                     <div>

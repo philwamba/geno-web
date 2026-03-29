@@ -96,7 +96,7 @@ export function DocumentUploader({
                         href={currentDocumentUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline flex items-center gap-1"
+                        className="text-sm text-primary hover:text-primary-700 hover:underline flex items-center gap-1"
                     >
                         <FileText className="w-4 h-4" />
                         View Current
