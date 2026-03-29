@@ -152,7 +152,6 @@ export default function SessionDetailPage() {
                 const token = getToken()
                 if (!token) {
                     toast.error('Authentication required. Please log in again.')
-                    // Optionally redirect to login or show auth modal
                     return
                 }
 
