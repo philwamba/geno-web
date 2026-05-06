@@ -12,6 +12,10 @@ import { FiCalendar, FiClock, FiCheck } from 'react-icons/fi'
 
 type BookingStep = 'provider' | 'date' | 'time' | 'confirm'
 
+function toArray<T>(value: unknown): T[] {
+    return Array.isArray(value) ? value : []
+}
+
 export default function BookingPage() {
     const params = useParams()
     const searchParams = useSearchParams()
@@ -37,7 +41,13 @@ export default function BookingPage() {
                 servicesApi.providers(params.serviceId as string),
             ])
             setService(serviceRes.service)
-            setProviders(providersRes.providers)
+            setProviders(
+                toArray<Provider>(
+                    (providersRes as { providers?: unknown[]; data?: unknown[] })
+                        .providers ??
+                        (providersRes as { data?: unknown[] }).data,
+                ),
+            )
         } catch (error) {
             console.error('Failed to fetch service:', error)
             toast.error('Failed to fetch service')
@@ -53,7 +63,13 @@ export default function BookingPage() {
                 selectedProvider.id.toString(),
                 selectedDate,
             )
-            setAvailableSlots(response.slots)
+            setAvailableSlots(
+                toArray<TimeSlot>(
+                    (response as { slots?: unknown[]; time_slots?: unknown[] })
+                        .slots ??
+                        (response as { time_slots?: unknown[] }).time_slots,
+                ),
+            )
         } catch (error) {
             console.error('Failed to fetch available slots:', error)
             toast.error('Failed to fetch available slots')
