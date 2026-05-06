@@ -63,13 +63,13 @@ export default function BookingPage() {
                 selectedProvider.id.toString(),
                 selectedDate,
             )
-            setAvailableSlots(
-                toArray<TimeSlot>(
+            const slots = toArray<TimeSlot>(
                     (response as { slots?: unknown[]; time_slots?: unknown[] })
                         .slots ??
                         (response as { time_slots?: unknown[] }).time_slots,
-                ),
-            )
+                ).filter(slot => slot.is_available)
+
+            setAvailableSlots(slots)
         } catch (error) {
             console.error('Failed to fetch available slots:', error)
             toast.error('Failed to fetch available slots')
@@ -392,14 +392,11 @@ export default function BookingPage() {
                                     <button
                                         key={slot.id}
                                         onClick={() => handleSlotSelect(slot)}
-                                        disabled={!slot.is_available}
                                         className={cn(
                                             'py-3 rounded-xl text-sm font-medium transition-colors',
                                             selectedSlot?.id === slot.id
                                                 ? 'bg-primary text-white'
-                                                : slot.is_available
-                                                  ? 'app-tab-inactive'
-                                                  : 'bg-gray-100 text-gray-400 cursor-not-allowed',
+                                                : 'app-tab-inactive',
                                         )}
                                     >
                                         {slot.start_time}
