@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { AppHeader } from '@/components/layout/app-header'
 import { servicesApi } from '@/lib/api/client'
 import { Service } from '@/types'
-import { cn } from '@/lib/utils'
+import { cn, normalizeAssetSrc } from '@/lib/utils'
 import { FiChevronRight } from 'react-icons/fi'
 
 export default function ServicesPage() {
@@ -98,9 +98,15 @@ export default function ServicesPage() {
                             >
                                 <div className="flex">
                                     <div className="relative w-28 h-28 bg-gray-200 flex-shrink-0">
-                                        {service.image_path && (
+                                        {normalizeAssetSrc(
+                                            service.image_path,
+                                        ) && (
                                             <Image
-                                                src={service.image_path}
+                                                src={
+                                                    normalizeAssetSrc(
+                                                        service.image_path,
+                                                    ) as string
+                                                }
                                                 alt={service.title}
                                                 fill
                                                 className="object-cover"

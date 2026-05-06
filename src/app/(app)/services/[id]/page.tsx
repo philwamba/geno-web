@@ -7,7 +7,12 @@ import { toast } from 'sonner'
 import { PageHeader } from '@/components/layout/page-header'
 import { servicesApi } from '@/lib/api/client'
 import { Service, Provider } from '@/types'
-import { formatCurrency, getInitials } from '@/lib/utils'
+import {
+    formatCurrency,
+    getInitials,
+    normalizeAssetSrc,
+    toFiniteNumber,
+} from '@/lib/utils'
 import { FiStar, FiClock, FiUsers, FiCheck } from 'react-icons/fi'
 
 export default function ServiceDetailPage() {
@@ -68,10 +73,10 @@ export default function ServiceDetailPage() {
 
             <main className="app-page-container space-y-6">
                 {/* Service Image */}
-                {service.image_path && (
+                {normalizeAssetSrc(service.image_path) && (
                     <div className="relative rounded-2xl overflow-hidden h-48">
                         <Image
-                            src={service.image_path}
+                            src={normalizeAssetSrc(service.image_path) as string}
                             alt={service.title}
                             fill
                             className="object-cover"
@@ -182,8 +187,11 @@ export default function ServiceDetailPage() {
                                         <div className="flex items-center gap-2 mt-1">
                                             <span className="flex items-center gap-1 text-sm text-yellow-500">
                                                 <FiStar className="w-3.5 h-3.5 fill-current" />
-                                                {provider.rating?.toFixed(1) ||
-                                                    'New'}
+                                                {provider.rating
+                                                    ? toFiniteNumber(
+                                                          provider.rating,
+                                                      ).toFixed(1)
+                                                    : 'New'}
                                             </span>
                                             <span className="text-xs text-gray-400">
                                                 ({provider.total_reviews || 0}{' '}

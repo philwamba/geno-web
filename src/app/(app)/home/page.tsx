@@ -9,7 +9,7 @@ import { useAuthStore } from '@/lib/stores/auth-store'
 import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { contentApi, servicesApi } from '@/lib/api/client'
 import { Service, WellnessTip, Article } from '@/types'
-import { cn, getGreeting } from '@/lib/utils'
+import { cn, getGreeting, normalizeAssetSrc } from '@/lib/utils'
 import {
     FiChevronRight,
     FiHeart,
@@ -46,7 +46,7 @@ const wellnessCategories = [
         color: 'bg-blue-100 text-blue-600',
     },
     {
-        id: 'work',
+        id: 'occupational',
         label: 'Work-Life',
         icon: FiBriefcase,
         color: 'bg-orange-100 text-orange-600',
@@ -270,7 +270,7 @@ export default function HomePage() {
                         {services.slice(0, 4).map(service => {
                             const imageSrc =
                                 serviceImages[service.slug] ||
-                                service.image_path
+                                normalizeAssetSrc(service.image_path)
 
                             return (
                                 <Link
@@ -318,9 +318,15 @@ export default function HomePage() {
                                     className="surface-card surface-card-hover flex gap-3 p-3"
                                 >
                                     <div className="relative w-20 h-20 rounded-lg bg-gray-200 flex-shrink-0 overflow-hidden">
-                                        {article.featured_image && (
+                                        {normalizeAssetSrc(
+                                            article.featured_image,
+                                        ) && (
                                             <Image
-                                                src={article.featured_image}
+                                                src={
+                                                    normalizeAssetSrc(
+                                                        article.featured_image,
+                                                    ) as string
+                                                }
                                                 alt={article.title}
                                                 fill
                                                 className="object-cover"

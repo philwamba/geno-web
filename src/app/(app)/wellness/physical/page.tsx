@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn, calculateBMI, getBMICategory } from '@/lib/utils'
+import { cn, calculateBMI, getBMICategory, toFiniteNumber } from '@/lib/utils'
 import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { wellnessApi } from '@/lib/api/client'
 import { toast } from 'sonner'
@@ -229,15 +229,21 @@ export default function PhysicalWellnessPage() {
                     ) : metrics.bmi ? (
                         <div className="text-center">
                             <p className="text-4xl font-bold text-gray-900">
-                                {metrics.bmi.value.toFixed(1)}
+                                {toFiniteNumber(metrics.bmi.value).toFixed(1)}
                             </p>
                             <p
                                 className={cn(
                                     'text-sm font-medium',
-                                    getBMICategory(metrics.bmi.value)?.color,
+                                    getBMICategory(
+                                        toFiniteNumber(metrics.bmi.value),
+                                    )?.color,
                                 )}
                             >
-                                {getBMICategory(metrics.bmi.value)?.label}
+                                {
+                                    getBMICategory(
+                                        toFiniteNumber(metrics.bmi.value),
+                                    )?.label
+                                }
                             </p>
                             <div className="mt-2 flex justify-center gap-4 text-xs text-gray-500">
                                 {metrics.height && (

@@ -186,3 +186,24 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 export function generateAvatarUrl(name: string): string {
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff`
 }
+
+/**
+ * Normalize API asset paths for Next Image.
+ */
+export function normalizeAssetSrc(src?: string | null): string | null {
+    if (!src) return null
+    if (
+        src.startsWith('/') ||
+        src.startsWith('http://') ||
+        src.startsWith('https://') ||
+        src.startsWith('data:')
+    ) {
+        return src
+    }
+    return `/${src}`
+}
+
+export function toFiniteNumber(value: unknown, fallback = 0): number {
+    const number = Number(value)
+    return Number.isFinite(number) ? number : fallback
+}

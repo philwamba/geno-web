@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { PageHeader } from '@/components/layout/page-header'
 import { providersApi } from '@/lib/api/client'
 import { Provider, Service, Review } from '@/types'
-import { formatCurrency, cn, getInitials } from '@/lib/utils'
+import { formatCurrency, cn, getInitials, toFiniteNumber } from '@/lib/utils'
 import {
     FiStar,
     FiClock,
@@ -130,7 +130,11 @@ export default function ProviderProfilePage() {
                             <div className="flex items-center gap-3 text-sm">
                                 <span className="flex items-center gap-1 text-yellow-500">
                                     <FiStar className="w-4 h-4 fill-current" />
-                                    {provider.rating?.toFixed(1) || 'New'}
+                                    {provider.rating
+                                        ? toFiniteNumber(provider.rating).toFixed(
+                                              1,
+                                          )
+                                        : 'New'}
                                 </span>
                                 <span className="text-gray-400">
                                     ({provider.total_reviews || 0} reviews)
@@ -343,7 +347,9 @@ export default function ProviderProfilePage() {
                             <div className="flex items-center gap-4">
                                 <div className="text-center">
                                     <p className="text-3xl font-bold text-gray-900">
-                                        {provider.rating?.toFixed(1) || '0.0'}
+                                        {toFiniteNumber(provider.rating).toFixed(
+                                            1,
+                                        )}
                                     </p>
                                     <div className="flex items-center gap-0.5 my-1">
                                         {[1, 2, 3, 4, 5].map(star => (
