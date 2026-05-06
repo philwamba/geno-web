@@ -105,9 +105,13 @@ export default function BookingPage() {
             const response = await bookingsApi.create({
                 service_id: service.id,
                 provider_id: selectedProvider.id,
-                time_slot_id: selectedSlot.id,
-                scheduled_at: `${selectedDate} ${selectedSlot.start_time}`,
-                notes,
+                scheduled_date: selectedDate,
+                scheduled_time: selectedSlot.start_time.slice(0, 5),
+                duration_minutes:
+                    service.duration_minutes ||
+                    selectedSlot.slot_duration_minutes ||
+                    60,
+                client_notes: notes,
             })
             router.push(`/bookings/${response.booking.uuid}/success`)
         } catch (error) {

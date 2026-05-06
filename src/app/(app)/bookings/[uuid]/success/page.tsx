@@ -56,10 +56,10 @@ export default function BookingSuccessPage() {
                     <FiCheckCircle className="w-10 h-10 text-green-500" />
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                    Booking Confirmed!
+                    Booking Request Sent
                 </h1>
                 <p className="text-gray-500">
-                    Your session has been successfully booked.
+                    Your provider has been notified and will confirm your session.
                 </p>
             </div>
 
@@ -106,10 +106,10 @@ export default function BookingSuccessPage() {
 
             <div className="mt-8 space-y-3 w-full max-w-sm">
                 <Link
-                    href="/sessions"
+                    href={`/bookings/${booking.uuid}`}
                     className="block w-full py-3 bg-primary text-white rounded-xl font-medium text-center"
                 >
-                    View My Sessions
+                    View Booking Details
                 </Link>
                 <Link
                     href="/home"
