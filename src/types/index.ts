@@ -295,6 +295,7 @@ export interface Article {
     id: number
     slug: string
     title: string
+    subtitle?: string | null
     excerpt: string | null
     content?: string
     featured_image: string | null

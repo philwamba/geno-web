@@ -72,6 +72,54 @@ const moods = [
     { id: 'tired', emoji: '😴' },
 ]
 
+const fallbackArticles: Article[] = [
+    {
+        id: -1,
+        slug: 'financial-wellness-basics',
+        title: 'Financial Wellness: Where to Begin',
+        subtitle: 'Start with simple habits that reduce money stress.',
+        excerpt: 'Start with simple habits that reduce money stress.',
+        featured_image: '/images/services/finance.jpg',
+        category: 'financial',
+        tags: [],
+        is_featured: false,
+        published_at: null,
+        view_count: 0,
+        reading_time_minutes: 4,
+        author_name: 'GENO Wellness Team',
+    },
+    {
+        id: -2,
+        slug: 'understanding-your-mood-patterns',
+        title: 'Understanding Your Mood Patterns',
+        subtitle: 'Notice triggers and build a steadier daily rhythm.',
+        excerpt: 'Notice triggers and build a steadier daily rhythm.',
+        featured_image: '/images/services/mental_wellness.jpg',
+        category: 'mental-health',
+        tags: [],
+        is_featured: false,
+        published_at: null,
+        view_count: 0,
+        reading_time_minutes: 3,
+        author_name: 'GENO Wellness Team',
+    },
+    {
+        id: -3,
+        slug: 'all-it-takes-is-10-mindful-minutes',
+        title: 'All it Takes is 10 Mindful Minutes',
+        subtitle: 'A short daily reset for attention and calm.',
+        excerpt: 'A short daily reset for attention and calm.',
+        featured_image: '/images/services/practice.jpg',
+        category: 'mindfulness',
+        tags: [],
+        is_featured: true,
+        published_at: null,
+        view_count: 0,
+        reading_time_minutes: 10,
+        author_name: 'GENO Wellness Team',
+    },
+]
+
 export default function HomePage() {
     const { user } = useAuthStore()
     const { todayMood, logMood, isMoodLoading } = useWellnessStore()
@@ -89,11 +137,21 @@ export default function HomePage() {
                 await Promise.all([
                     servicesApi.list().catch(() => ({ services: [] })),
                     contentApi.getDailyTip().catch(() => ({ tip: null })),
-                    contentApi.getArticles().catch(() => ({ articles: [] })),
+                    contentApi
+                        .getArticles({ limit: 3 })
+                        .catch(() => ({ articles: [] })),
                 ])
             setServices(servicesResult.services)
             setTip(tipResult.tip as WellnessTip | null)
-            setArticles((articlesResult.articles as Article[]).slice(0, 3))
+            const fetchedArticles = (articlesResult.articles as Article[]).slice(
+                0,
+                3,
+            )
+            setArticles(
+                fetchedArticles.length > 0
+                    ? fetchedArticles
+                    : fallbackArticles,
+            )
         } catch (error) {
             console.error('Failed to fetch home data:', error)
         } finally {
@@ -287,50 +345,62 @@ export default function HomePage() {
                 </section>
 
                 {/* Recommended Articles */}
-                {articles.length > 0 && (
-                    <section>
-                        <div className="flex items-center justify-between mb-3">
-                            <h2 className="font-semibold text-gray-900">
-                                Recommended for You
-                            </h2>
-                        </div>
-                        <div className="space-y-3">
-                            {articles.map(article => (
+                <section>
+                    <div className="flex items-center justify-between mb-3">
+                        <h2 className="font-semibold text-gray-900">
+                            Recommended for You
+                        </h2>
+                    </div>
+                    <div className="space-y-3">
+                        {(articles.length > 0
+                            ? articles
+                            : fallbackArticles
+                        ).map(article => {
+                            const imageSrc = normalizeAssetSrc(
+                                article.featured_image,
+                            )
+                            const subtitle =
+                                article.subtitle ?? article.excerpt ?? ''
+
+                            return (
                                 <Link
                                     key={article.id}
                                     href={`/articles/${article.slug}`}
                                     className="surface-card surface-card-hover flex gap-3 p-3"
                                 >
                                     <div className="relative w-20 h-20 rounded-lg bg-gray-200 flex-shrink-0 overflow-hidden">
-                                        {normalizeAssetSrc(
-                                            article.featured_image,
-                                        ) && (
+                                        {imageSrc ? (
                                             <Image
-                                                src={
-                                                    normalizeAssetSrc(
-                                                        article.featured_image,
-                                                    ) as string
-                                                }
+                                                src={imageSrc}
                                                 alt={article.title}
                                                 fill
                                                 className="object-cover"
                                             />
+                                        ) : (
+                                            <div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary">
+                                                <FiStar className="size-6" />
+                                            </div>
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="font-medium text-gray-900 line-clamp-2">
                                             {article.title}
                                         </p>
+                                        {subtitle && (
+                                            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                                                {subtitle}
+                                            </p>
+                                        )}
                                         <p className="text-xs text-gray-500 mt-1">
                                             {article.reading_time_minutes} min
                                             read
                                         </p>
                                     </div>
                                 </Link>
-                            ))}
-                        </div>
-                    </section>
-                )}
+                            )
+                        })}
+                    </div>
+                </section>
 
                 {/* Wellness Stats Preview */}
                 {user?.wellness_stats && (

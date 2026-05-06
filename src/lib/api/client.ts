@@ -558,6 +558,7 @@ export const contentApi = {
         category?: string
         per_page?: number
         page?: number
+        limit?: number
     }) =>
         api.get<{ articles: unknown[]; meta: unknown }>(
             '/content/articles',
