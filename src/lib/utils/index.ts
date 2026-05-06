@@ -118,10 +118,14 @@ export function truncate(text: string, length: number): string {
 /**
  * Get initials from name
  */
-export function getInitials(name: string): string {
-    return name
-        .split(' ')
-        .map(n => n[0])
+export function getInitials(name?: string | null): string {
+    const cleanName = typeof name === 'string' ? name.trim() : ''
+
+    if (!cleanName) return '?'
+
+    return cleanName
+        .split(/\s+/)
+        .map(part => part.charAt(0))
         .join('')
         .toUpperCase()
         .slice(0, 2)
@@ -183,8 +187,10 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 /**
  * Generate avatar URL from name
  */
-export function generateAvatarUrl(name: string): string {
-    return `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff`
+export function generateAvatarUrl(name?: string | null): string {
+    const cleanName = typeof name === 'string' && name.trim() ? name.trim() : 'User'
+
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=random&color=fff`
 }
 
 /**
