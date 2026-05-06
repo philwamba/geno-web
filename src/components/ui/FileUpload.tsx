@@ -127,7 +127,7 @@ export function FileUpload({
     return (
         <div className={cn('w-full', className)}>
             {label && (
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="mb-1.5 block text-sm font-semibold text-gray-700">
                     {label}
                 </label>
             )}
@@ -135,12 +135,12 @@ export function FileUpload({
             <div
                 {...getRootProps()}
                 className={cn(
-                    'relative border-2 border-dashed rounded-lg p-6 transition-colors cursor-pointer flex flex-col items-center justify-center text-center min-h-[150px]',
+                    'relative flex min-h-[150px] cursor-pointer flex-col items-center justify-center rounded-3xl border-2 border-dashed p-6 text-center shadow-sm transition-all',
                     isDragActive
-                        ? 'border-primary bg-primary/5'
-                        : 'border-gray-300 hover:border-primary/50',
-                    errorMessage ? 'border-red-500 bg-red-50' : '',
-                    hasFile ? 'border-solid border-gray-200 bg-gray-50' : '',
+                        ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10'
+                        : 'border-gray-300 bg-white hover:border-primary/50 hover:shadow-md',
+                    errorMessage ? 'border-red-500 bg-red-50 shadow-none' : '',
+                    hasFile ? 'border-solid border-black/[0.06] bg-white' : '',
                     disabled
                         ? 'opacity-60 cursor-not-allowed hover:border-gray-300'
                         : '',
@@ -151,7 +151,7 @@ export function FileUpload({
                 {hasFile ? (
                     <div className="relative w-full flex items-center gap-4">
                         {preview ? (
-                            <div className="relative w-16 h-16 rounded-md overflow-hidden shrink-0 border border-gray-200">
+                            <div className="relative w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-black/[0.06]">
                                 <img
                                     src={preview}
                                     alt="Preview"
@@ -159,7 +159,7 @@ export function FileUpload({
                                 />
                             </div>
                         ) : (
-                            <div className="w-16 h-16 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                            <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
                                 <File className="w-8 h-8 text-gray-400" />
                             </div>
                         )}
@@ -178,7 +178,7 @@ export function FileUpload({
                             <button
                                 type="button"
                                 onClick={handleRemove}
-                                className="p-1 hover:bg-gray-200 rounded-full transition-colors text-gray-500 hover:text-red-500"
+                                className="rounded-xl p-1.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-red-500"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -186,7 +186,7 @@ export function FileUpload({
                     </div>
                 ) : (
                     <>
-                        <div className="p-3 bg-gray-100 rounded-full mb-3">
+                        <div className="mb-3 rounded-2xl bg-gray-100 p-3 ring-1 ring-black/[0.04]">
                             <UploadCloud className="w-6 h-6 text-gray-500" />
                         </div>
                         <div className="space-y-1">

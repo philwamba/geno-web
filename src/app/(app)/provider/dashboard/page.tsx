@@ -61,15 +61,17 @@ export default function ProviderDashboardPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#eef2ff_0,#f8fafc_36%,#f9fafb_100%)] pb-24">
             <PageHeader title="Dashboard" />
 
             <main className="px-4 py-6 space-y-6">
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-2xl shadow-sm">
+                    <div className="surface-card surface-card-hover p-4">
                         <div className="flex items-center gap-2 mb-2 text-primary">
-                            <FiCalendar className="w-5 h-5" />
+                            <span className="metric-icon bg-primary/10">
+                                <FiCalendar className="w-5 h-5" />
+                            </span>
                             <span className="text-sm font-medium">
                                 Sessions
                             </span>
@@ -78,9 +80,11 @@ export default function ProviderDashboardPage() {
                             {isLoading ? '-' : stats?.total_sessions || 0}
                         </p>
                     </div>
-                    <div className="bg-white p-4 rounded-2xl shadow-sm">
+                    <div className="surface-card surface-card-hover p-4">
                         <div className="flex items-center gap-2 mb-2 text-green-600">
-                            <FiDollarSign className="w-5 h-5" />
+                            <span className="metric-icon bg-green-100">
+                                <FiDollarSign className="w-5 h-5" />
+                            </span>
                             <span className="text-sm font-medium">
                                 Earnings
                             </span>
@@ -91,9 +95,11 @@ export default function ProviderDashboardPage() {
                                 : formatCurrency(stats?.total_earnings || 0)}
                         </p>
                     </div>
-                    <div className="bg-white p-4 rounded-2xl shadow-sm">
+                    <div className="surface-card surface-card-hover p-4">
                         <div className="flex items-center gap-2 mb-2 text-yellow-500">
-                            <FiStar className="w-5 h-5" />
+                            <span className="metric-icon bg-yellow-100">
+                                <FiStar className="w-5 h-5" />
+                            </span>
                             <span className="text-sm font-medium">Rating</span>
                         </div>
                         <div className="flex items-end gap-2">
@@ -106,9 +112,11 @@ export default function ProviderDashboardPage() {
                             </span>
                         </div>
                     </div>
-                    <div className="bg-white p-4 rounded-2xl shadow-sm">
+                    <div className="surface-card surface-card-hover p-4">
                         <div className="flex items-center gap-2 mb-2 text-blue-600">
-                            <FiClock className="w-5 h-5" />
+                            <span className="metric-icon bg-blue-100">
+                                <FiClock className="w-5 h-5" />
+                            </span>
                             <span className="text-sm font-medium">
                                 Upcoming
                             </span>
@@ -127,9 +135,9 @@ export default function ProviderDashboardPage() {
                     <div className="grid grid-cols-2 gap-4">
                         <Link
                             href="/provider/availability"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                            className="surface-card surface-card-hover p-4 flex flex-col items-center justify-center gap-2"
                         >
-                            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                            <div className="metric-icon bg-primary/10 text-primary">
                                 <FiClock className="w-6 h-6" />
                             </div>
                             <span className="text-sm font-medium text-gray-900">
@@ -138,9 +146,9 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/provider/profile"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                            className="surface-card surface-card-hover p-4 flex flex-col items-center justify-center gap-2"
                         >
-                            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                            <div className="metric-icon bg-purple-100 text-purple-600">
                                 <FiUser className="w-6 h-6" />
                             </div>
                             <span className="text-sm font-medium text-gray-900">
@@ -149,9 +157,9 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/provider/analytics"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                            className="surface-card surface-card-hover p-4 flex flex-col items-center justify-center gap-2"
                         >
-                            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                            <div className="metric-icon bg-blue-100 text-blue-600">
                                 <FiTrendingUp className="w-6 h-6" />
                             </div>
                             <span className="text-sm font-medium text-gray-900">
@@ -160,9 +168,9 @@ export default function ProviderDashboardPage() {
                         </Link>
                         <Link
                             href="/profile/settings"
-                            className="bg-white p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition-colors"
+                            className="surface-card surface-card-hover p-4 flex flex-col items-center justify-center gap-2"
                         >
-                            <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-600">
+                            <div className="metric-icon bg-gray-100 text-gray-600">
                                 <FiSettings className="w-6 h-6" />
                             </div>
                             <span className="text-sm font-medium text-gray-900">
@@ -200,7 +208,7 @@ export default function ProviderDashboardPage() {
                                 <Link
                                     key={session.id}
                                     href={`/sessions/${session.uuid}`}
-                                    className="block bg-white p-4 rounded-2xl shadow-sm border border-gray-100"
+                                    className="surface-card surface-card-hover block p-4"
                                 >
                                     <div className="flex justify-between items-start">
                                         <div>
@@ -214,7 +222,7 @@ export default function ProviderDashboardPage() {
                                             </p>
                                         </div>
                                         <span
-                                            className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
                                                 session.status === 'confirmed'
                                                     ? 'bg-green-100 text-green-700'
                                                     : 'bg-yellow-100 text-yellow-700'
@@ -233,7 +241,7 @@ export default function ProviderDashboardPage() {
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-white rounded-2xl p-6 text-center shadow-sm">
+                        <div className="surface-card p-6 text-center">
                             <FiCalendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                             <p className="text-gray-500">
                                 No sessions scheduled

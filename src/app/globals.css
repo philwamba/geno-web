@@ -103,3 +103,19 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
   }
 }
+
+@utility surface-card {
+  @apply rounded-2xl border border-black/[0.06] bg-white shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-all duration-200;
+}
+
+@utility surface-card-hover {
+  @apply hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-[0_14px_40px_rgba(15,23,42,0.10)];
+}
+
+@utility soft-chip {
+  @apply inline-flex items-center rounded-full border border-white/40 bg-white/20 px-3 py-1 text-xs font-semibold backdrop-blur;
+}
+
+@utility metric-icon {
+  @apply flex size-11 items-center justify-center rounded-2xl ring-1 ring-black/[0.04];
+}

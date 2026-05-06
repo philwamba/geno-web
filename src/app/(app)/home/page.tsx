@@ -159,13 +159,16 @@ export default function HomePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#fff7ed_0,#f8fafc_34%,#f9fafb_100%)]">
             <AppHeader showGreeting={false} />
 
             <main className="container mx-auto px-4 py-6 space-y-6 pb-24 max-w-4xl">
                 {/* Greeting */}
-                <section>
-                    <h1 className="text-2xl font-bold text-gray-900">
+                <section className="rounded-3xl border border-white/70 bg-white/75 p-5 shadow-[0_16px_50px_rgba(15,23,42,0.08)] backdrop-blur">
+                    <p className="mb-2 inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                        Today&apos;s dashboard
+                    </p>
+                    <h1 className="text-2xl font-bold text-gray-950">
                         {getGreeting()}, {firstName}!
                     </h1>
                     <p className="text-gray-600 mt-1">
@@ -174,18 +177,18 @@ export default function HomePage() {
                 </section>
 
                 {/* Mood Tracker */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
-                    <div className="flex justify-between items-center">
+                <section className="surface-card p-4">
+                    <div className="flex justify-between items-center gap-2">
                         {moods.map(mood => (
                             <button
                                 key={mood.id}
                                 onClick={() => handleMoodSelect(mood.id)}
                                 disabled={isMoodLoading}
                                 className={cn(
-                                    'w-12 h-12 rounded-full flex items-center justify-center text-2xl transition-all',
+                                    'w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all ring-1 ring-black/[0.04]',
                                     selectedMood === mood.id
-                                        ? 'bg-primary/10 ring-2 ring-primary scale-110'
-                                        : 'hover:bg-gray-100',
+                                        ? 'bg-primary/10 ring-2 ring-primary scale-105 shadow-lg shadow-primary/10'
+                                        : 'bg-gray-50 hover:bg-white hover:shadow-md',
                                     isMoodLoading &&
                                         'opacity-50 cursor-not-allowed',
                                 )}
@@ -198,13 +201,13 @@ export default function HomePage() {
 
                 {/* Daily Wellness Tip */}
                 {tip && (
-                    <section className="bg-gradient-to-r from-primary to-orange-500 rounded-2xl p-4 text-white">
+                    <section className="rounded-3xl bg-gradient-to-br from-primary via-orange-500 to-amber-400 p-5 text-white shadow-[0_20px_50px_rgba(253,113,3,0.22)]">
                         <p className="text-sm font-medium opacity-90">
                             Daily Tip
                         </p>
                         <p className="mt-2 font-semibold">{tip.content}</p>
                         {tip.category && (
-                            <span className="inline-block mt-3 px-3 py-1 bg-white/20 rounded-full text-xs">
+                            <span className="soft-chip mt-3">
                                 {tip.category}
                             </span>
                         )}
@@ -231,11 +234,11 @@ export default function HomePage() {
                                 <Link
                                     key={category.id}
                                     href={`/wellness/${category.id}`}
-                                    className="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow"
+                                    className="surface-card surface-card-hover p-4 text-center"
                                 >
                                     <div
                                         className={cn(
-                                            'w-10 h-10 rounded-full mx-auto flex items-center justify-center mb-2',
+                                            'metric-icon mx-auto mb-2',
                                             category.color,
                                         )}
                                     >
@@ -273,7 +276,7 @@ export default function HomePage() {
                                 <Link
                                     key={service.id}
                                     href={`/services/${service.slug}`}
-                                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                                    className="surface-card surface-card-hover overflow-hidden"
                                 >
                                     <div className="relative h-28 sm:h-32 bg-gray-200">
                                         {imageSrc && (
@@ -312,7 +315,7 @@ export default function HomePage() {
                                 <Link
                                     key={article.id}
                                     href={`/articles/${article.slug}`}
-                                    className="flex gap-3 bg-white rounded-xl p-3 shadow-sm"
+                                    className="surface-card surface-card-hover flex gap-3 p-3"
                                 >
                                     <div className="relative w-20 h-20 rounded-lg bg-gray-200 flex-shrink-0 overflow-hidden">
                                         {article.featured_image && (
@@ -341,7 +344,7 @@ export default function HomePage() {
 
                 {/* Wellness Stats Preview */}
                 {user?.wellness_stats && (
-                    <section className="bg-white rounded-2xl p-4 shadow-sm">
+                    <section className="surface-card p-5">
                         <h2 className="font-semibold text-gray-900 mb-3">
                             Your Progress
                         </h2>

@@ -35,14 +35,14 @@ export function AppHeader({
     }
 
     return (
-        <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/85 backdrop-blur-xl">
             <div className="px-4 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         {showBack && (
                             <button
                                 onClick={handleBack}
-                                className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+                                className="-ml-2 rounded-xl p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
                             >
                                 <FiArrowLeft className="w-5 h-5" />
                             </button>
@@ -84,9 +84,12 @@ export function AppHeader({
                         <NotificationCenter />
 
                         {user && (
-                            <Link href="/profile" className="flex-shrink-0">
+                            <Link
+                                href="/profile"
+                                className="flex-shrink-0 rounded-2xl ring-1 ring-black/[0.04] transition-all hover:shadow-md"
+                            >
                                 {user.avatar ? (
-                                    <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                                    <div className="relative w-10 h-10 overflow-hidden rounded-2xl">
                                         <Image
                                             src={user.avatar}
                                             alt={user.name}
@@ -95,7 +98,7 @@ export function AppHeader({
                                         />
                                     </div>
                                 ) : (
-                                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-medium">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary font-semibold text-white">
                                         {getInitials(user.name)}
                                     </div>
                                 )}
