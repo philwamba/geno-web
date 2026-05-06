@@ -83,6 +83,7 @@ function usesFirebaseAuth(url?: string): boolean {
         path.startsWith('/sessions/') ||
         path.startsWith('/wellness') ||
         path.startsWith('/bookings') ||
+        path.startsWith('/messages') ||
         path.startsWith('/payments') ||
         path.startsWith('/wallet')
     )
@@ -715,7 +716,17 @@ export const messagesApi = {
             `/messages/${uuid}`,
         ),
 
-    send: (data: { recipient_id: number; body: string }) =>
+    forSession: (sessionUuid: string) =>
+        api.get<{ conversation: Conversation; messages: Message[] }>(
+            `/messages/session/${sessionUuid}`,
+        ),
+
+    send: (data: {
+        recipient_id?: number
+        provider_id?: number
+        body: string
+        session_id?: number
+    }) =>
         api.post<{ conversation: Conversation; message: Message }>(
             '/messages',
             data,

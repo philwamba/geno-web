@@ -57,23 +57,25 @@ export default function MessagesPage() {
     }, [fetchConversations])
 
     const filtered = conversations.filter(c =>
-        c.other_participant.name.toLowerCase().includes(search.toLowerCase()),
+        (c.other_participant?.name || '')
+            .toLowerCase()
+            .includes(search.toLowerCase()),
     )
 
     return (
         <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader title="Messages" />
 
-            <main className="app-page-container-tight space-y-3">
+            <main className="app-page-container-tight space-y-4">
                 {/* Search */}
-                <div className="relative">
+                <div className="relative rounded-2xl bg-white shadow-sm ring-1 ring-black/[0.04]">
                     <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                     <input
                         type="text"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                         placeholder="Search conversations..."
-                        className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-primary focus:outline-none"
+                        className="w-full rounded-2xl border-0 bg-transparent py-3 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20"
                     />
                 </div>
 
@@ -93,9 +95,11 @@ export default function MessagesPage() {
                         ))}
                     </div>
                 ) : filtered.length === 0 ? (
-                    <div className="surface-card p-12 text-center">
-                        <FiMessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                        <p className="text-sm font-medium text-gray-600">
+                    <div className="surface-card p-10 text-center">
+                        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                            <FiMessageSquare className="h-7 w-7" />
+                        </div>
+                        <p className="text-sm font-semibold text-gray-800">
                             {search
                                 ? 'No conversations found'
                                 : 'No messages yet'}
@@ -106,66 +110,61 @@ export default function MessagesPage() {
                     </div>
                 ) : (
                     <div className="space-y-2">
-                        {filtered.map(conversation => (
-                            <button
-                                key={conversation.uuid}
-                                onClick={() =>
-                                    router.push(
-                                        `/messages/${conversation.uuid}`,
-                                    )
-                                }
-                                className="flex w-full items-center gap-3 surface-card p-4 hover:shadow-md transition-shadow text-left">
-                                {conversation.other_participant.avatar ? (
-                                    <Image
-                                        src={
-                                            conversation.other_participant
-                                                .avatar
-                                        }
-                                        alt={
-                                            conversation.other_participant.name
-                                        }
-                                        width={48}
-                                        height={48}
-                                        className="w-12 h-12 rounded-full object-cover"
-                                        unoptimized
-                                    />
-                                ) : (
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium">
-                                        {getInitials(
-                                            conversation.other_participant.name,
-                                        )}
+                        {filtered.map(conversation => {
+                            const other = conversation.other_participant
+                            if (!other) return null
+                            return (
+                                <button
+                                    key={conversation.uuid}
+                                    onClick={() =>
+                                        router.push(
+                                            `/messages/${conversation.uuid}`,
+                                        )
+                                    }
+                                    className="flex w-full items-center gap-3 surface-card p-4 text-left transition hover:-translate-y-0.5 hover:shadow-md"
+                                >
+                                    {other.avatar ? (
+                                        <Image
+                                            src={other.avatar}
+                                            alt={other.name}
+                                            width={48}
+                                            height={48}
+                                            className="h-12 w-12 rounded-2xl object-cover ring-1 ring-black/[0.04]"
+                                            unoptimized
+                                        />
+                                    ) : (
+                                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 font-semibold text-primary ring-1 ring-black/[0.04]">
+                                            {getInitials(other.name)}
+                                        </div>
+                                    )}
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex items-center justify-between">
+                                            <p className="truncate font-semibold text-gray-900">
+                                                {other.name}
+                                            </p>
+                                            {conversation.last_message_at && (
+                                                <span className="ml-2 shrink-0 text-xs font-medium text-gray-400">
+                                                    {formatRelativeTime(
+                                                        conversation.last_message_at,
+                                                    )}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="mt-0.5 flex items-center justify-between">
+                                            <p className="truncate text-sm text-gray-500">
+                                                {conversation.latest_message
+                                                    ?.body || 'No messages yet'}
+                                            </p>
+                                            {conversation.unread_count > 0 && (
+                                                <span className="ml-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-xs text-white">
+                                                    {conversation.unread_count}
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                )}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center justify-between">
-                                        <p className="font-medium text-gray-900 truncate">
-                                            {
-                                                conversation.other_participant
-                                                    .name
-                                            }
-                                        </p>
-                                        {conversation.last_message_at && (
-                                            <span className="text-xs text-gray-400 shrink-0 ml-2">
-                                                {formatRelativeTime(
-                                                    conversation.last_message_at,
-                                                )}
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className="flex items-center justify-between mt-0.5">
-                                        <p className="text-sm text-gray-500 truncate">
-                                            {conversation.latest_message
-                                                ?.body || 'No messages yet'}
-                                        </p>
-                                        {conversation.unread_count > 0 && (
-                                            <span className="ml-2 shrink-0 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center">
-                                                {conversation.unread_count}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-                            </button>
-                        ))}
+                                </button>
+                            )
+                        })}
                     </div>
                 )}
             </main>
