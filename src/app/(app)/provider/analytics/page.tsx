@@ -129,7 +129,7 @@ export default function AnalyticsPage() {
     }, [user])
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <PageHeader
                 title="Analytics"
                 showBack
@@ -149,7 +149,7 @@ export default function AnalyticsPage() {
                         ? [1, 2, 3, 4].map(i => (
                               <div
                                   key={i}
-                                  className="bg-white p-4 rounded-2xl shadow-sm animate-pulse"
+                                  className="surface-card p-4 animate-pulse"
                               >
                                   <div className="flex justify-between mb-3">
                                       <div className="w-10 h-10 bg-gray-200 rounded-full" />
@@ -161,7 +161,7 @@ export default function AnalyticsPage() {
                         : stats.map((stat, index) => (
                               <div
                                   key={index}
-                                  className="bg-white p-4 rounded-2xl shadow-sm"
+                                  className="surface-card p-4"
                               >
                                   <div className="flex items-center justify-between mb-3">
                                       <div
@@ -183,7 +183,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Earnings Chart */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm">
+                <div className="surface-card p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-6">
                         Revenue History (Last 30 Days)
                     </h3>
@@ -257,7 +257,7 @@ export default function AnalyticsPage() {
                 </div>
 
                 {/* Sessions Chart */}
-                <div className="bg-white p-6 rounded-2xl shadow-sm">
+                <div className="surface-card p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-6">
                         Sessions (Last 30 Days)
                     </h3>

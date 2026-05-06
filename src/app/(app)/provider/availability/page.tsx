@@ -140,7 +140,7 @@ export default function AvailabilityPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <PageHeader
                 title="Manage Availability"
                 showBack
@@ -148,7 +148,7 @@ export default function AvailabilityPage() {
             />
 
             <main className="app-page-container">
-                <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <div className="surface-card overflow-hidden">
                     <div className="p-6 border-b border-gray-100">
                         <div className="flex items-center gap-2 text-gray-900">
                             <FiClock className="w-5 h-5 text-primary" />

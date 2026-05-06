@@ -96,7 +96,7 @@ export default function SocialWellnessPage() {
     ).length
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Social Wellness"
                 showBack
@@ -141,7 +141,7 @@ export default function SocialWellnessPage() {
                 </section>
 
                 {/* Quick Log */}
-                <section className="rounded-xl bg-white p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h2 className="mb-3 text-sm font-medium text-gray-700">
                         Log an Interaction
                     </h2>
@@ -170,7 +170,7 @@ export default function SocialWellnessPage() {
 
                 {/* Recent Interactions */}
                 {interactions.length > 0 && (
-                    <section className="rounded-xl bg-white p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="mb-3 text-sm font-medium text-gray-700">
                             Recent Interactions
                         </h2>
@@ -214,7 +214,7 @@ export default function SocialWellnessPage() {
                 )}
 
                 {/* Connection Actions */}
-                <section className="rounded-xl bg-white p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h2 className="mb-3 text-sm font-medium text-gray-700">
                         Strengthen Connections
                     </h2>
@@ -271,7 +271,7 @@ export default function SocialWellnessPage() {
                     </div>
 
                     {socialGoals.length === 0 ? (
-                        <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+                        <div className="surface-card p-6 text-center">
                             <FiTarget className="mx-auto mb-3 h-12 w-12 text-gray-300" />
                             <p className="mb-2 text-sm font-medium text-gray-600">
                                 No social goals yet

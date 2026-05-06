@@ -79,7 +79,7 @@ export default function JournalPage() {
     }, [router])
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Journal"
                 showBack
@@ -97,7 +97,7 @@ export default function JournalPage() {
             <main className="app-page-container-tight space-y-4">
                 {/* Quick Stats */}
                 <section className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl bg-white p-4 shadow-sm">
+                    <div className="surface-card p-4">
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
                                 <FiBook className="h-5 w-5 text-blue-500" />
@@ -156,7 +156,7 @@ export default function JournalPage() {
                             ))}
                         </div>
                     ) : filteredEntries.length === 0 ? (
-                        <div className="rounded-xl bg-white p-8 text-center shadow-sm">
+                        <div className="surface-card p-8 text-center">
                             <FiBook className="mx-auto mb-3 h-12 w-12 text-gray-300" />
                             <p className="mb-2 text-sm font-medium text-gray-600">
                                 {filters.search || filters.mood

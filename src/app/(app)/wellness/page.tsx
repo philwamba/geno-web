@@ -121,7 +121,7 @@ export default function WellnessPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader title="Wellness" showGreeting={false} />
 
             <main className="app-page-container-tight space-y-4">
@@ -135,9 +135,9 @@ export default function WellnessPage() {
                 <section className="grid grid-cols-3 gap-3">
                     <Link
                         href="/wellness/mood"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                        className="surface-card surface-card-hover flex flex-col items-center gap-2 p-4"
                     >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100">
+                        <div className="metric-icon bg-purple-100">
                             <FiSmile className="h-5 w-5 text-purple-500" />
                         </div>
                         <span className="text-xs font-medium text-gray-700">
@@ -146,9 +146,9 @@ export default function WellnessPage() {
                     </Link>
                     <Link
                         href="/wellness/journal"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                        className="surface-card surface-card-hover flex flex-col items-center gap-2 p-4"
                     >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                        <div className="metric-icon bg-blue-100">
                             <FiBook className="h-5 w-5 text-blue-500" />
                         </div>
                         <span className="text-xs font-medium text-gray-700">
@@ -157,9 +157,9 @@ export default function WellnessPage() {
                     </Link>
                     <Link
                         href="/wellness/goals"
-                        className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                        className="surface-card surface-card-hover flex flex-col items-center gap-2 p-4"
                     >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                        <div className="metric-icon bg-green-100">
                             <FiTarget className="h-5 w-5 text-green-500" />
                         </div>
                         <span className="text-xs font-medium text-gray-700">
@@ -189,10 +189,10 @@ export default function WellnessPage() {
                                     key={dimension.id}
                                     onClick={() => setActiveArea(dimension.id)}
                                     className={cn(
-                                        'flex shrink-0 items-center gap-2 rounded-full px-4 py-2 transition-colors',
+                                        'app-tab flex shrink-0 items-center gap-2',
                                         activeArea === dimension.id
-                                            ? `${dimension.color} text-white`
-                                            : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
+                                            ? `${dimension.color} text-white shadow-lg`
+                                            : 'app-tab-inactive',
                                     )}
                                 >
                                     <Icon className="h-4 w-4" />
@@ -209,7 +209,7 @@ export default function WellnessPage() {
                 <section
                     onClick={handleDimensionClick}
                     className={cn(
-                        'cursor-pointer rounded-2xl p-5 transition-all hover:shadow-md',
+                        'surface-card surface-card-hover cursor-pointer p-5',
                         activeDimension.bgLight,
                     )}
                 >
@@ -251,7 +251,7 @@ export default function WellnessPage() {
                                 <Link
                                     key={dimension.id}
                                     href={`/wellness/${dimension.id}`}
-                                    className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-sm transition-shadow hover:shadow-md"
+                                    className="surface-card surface-card-hover flex items-center gap-3 p-3"
                                 >
                                     <div
                                         className={cn(
@@ -274,7 +274,7 @@ export default function WellnessPage() {
                 </section>
 
                 {/* Tips & Resources */}
-                <section className="rounded-xl bg-white p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h3 className="mb-3 text-sm font-medium text-gray-700">
                         Daily Tips
                     </h3>
@@ -298,7 +298,7 @@ export default function WellnessPage() {
                                 <Link
                                     key={tip.id}
                                     href={`/wellness/tips/${tip.id}`}
-                                    className="block rounded-lg bg-gray-50 p-3 transition-colors hover:bg-gray-100"
+                                    className="block rounded-2xl bg-gray-50 p-3 transition-colors hover:bg-gray-100"
                                 >
                                     <div className="flex items-start justify-between gap-2">
                                         <div className="flex-1">

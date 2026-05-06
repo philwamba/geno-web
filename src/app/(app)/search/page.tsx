@@ -132,7 +132,7 @@ export default function SearchPage() {
         (showArticles ? results.articles.length : 0)
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader title="Search" showGreeting={false} />
 
             <main className="app-page-container-tight">
@@ -225,7 +225,7 @@ export default function SearchPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse"
+                                className="surface-card p-4 animate-pulse"
                             >
                                 <div className="flex gap-4">
                                     <div className="w-16 h-16 bg-gray-200 rounded-xl" />
@@ -258,7 +258,7 @@ export default function SearchPage() {
                                         <Link
                                             key={service.id}
                                             href={`/services/${service.slug}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                            className="surface-card surface-card-hover flex items-center gap-3 p-3"
                                         >
                                             <div className="relative w-14 h-14 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {service.image_path && (
@@ -296,7 +296,7 @@ export default function SearchPage() {
                                         <Link
                                             key={provider.id}
                                             href={`/providers/${provider.id}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                            className="surface-card surface-card-hover flex items-center gap-3 p-3"
                                         >
                                             <div className="relative w-14 h-14 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {provider.avatar ? (
@@ -359,7 +359,7 @@ export default function SearchPage() {
                                         <Link
                                             key={article.id}
                                             href={`/articles/${article.slug}`}
-                                            className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow"
+                                            className="surface-card surface-card-hover flex items-center gap-3 p-3"
                                         >
                                             <div className="relative w-14 h-14 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
                                                 {article.featured_image && (

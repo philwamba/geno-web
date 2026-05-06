@@ -87,7 +87,7 @@ export default function MoodHistoryPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Mood History"
                 showBack
@@ -97,7 +97,7 @@ export default function MoodHistoryPage() {
             <main className="app-page-container-tight space-y-4">
                 {/* Distribution Chart */}
                 {moodDistribution.length > 0 && (
-                    <section className="rounded-xl bg-white p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="mb-3 text-sm font-medium text-gray-700">
                             Mood Distribution
                         </h2>

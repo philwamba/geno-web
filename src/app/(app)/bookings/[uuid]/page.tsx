@@ -151,12 +151,12 @@ export default function BookingDetailPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <PageHeader title="Booking Details" />
 
             <main className="app-page-container space-y-6">
                 {/* Status Card */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <div className="flex items-start justify-between mb-4">
                         <div>
                             <h1 className="text-xl font-bold text-gray-900 mb-2">
@@ -204,7 +204,7 @@ export default function BookingDetailPage() {
                 </section>
 
                 {/* Booking Details */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h3 className="font-semibold text-gray-900 mb-4">
                         Booking Details
                     </h3>
@@ -256,7 +256,7 @@ export default function BookingDetailPage() {
 
                 {/* Notes */}
                 {booking.client_notes && (
-                    <section className="bg-white rounded-2xl p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h3 className="font-semibold text-gray-900 mb-2">
                             Your Notes
                         </h3>
@@ -267,7 +267,7 @@ export default function BookingDetailPage() {
                 )}
 
                 {/* Payment Details */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h3 className="font-semibold text-gray-900 mb-4">
                         Payment Details
                     </h3>
@@ -291,7 +291,7 @@ export default function BookingDetailPage() {
                 </section>
 
                 {/* Timeline */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h3 className="font-semibold text-gray-900 mb-4">
                         Booking Timeline
                     </h3>
@@ -433,7 +433,7 @@ export default function BookingDetailPage() {
                     aria-modal="true"
                 >
                     <div
-                        className="bg-white rounded-2xl p-6 w-full max-w-sm"
+                        className="w-full max-w-sm rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.22)] backdrop-blur-xl"
                         onClick={e => e.stopPropagation()}
                     >
                         <div className="flex items-center justify-between mb-4">

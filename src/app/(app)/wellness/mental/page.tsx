@@ -40,7 +40,7 @@ export default function MentalWellnessPage() {
     }, [fetchGoals, fetchMoodTrends, fetchTodayMood, fetchWellnessStats])
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Mental & Emotional"
                 showBack
@@ -71,7 +71,7 @@ export default function MentalWellnessPage() {
                         type="button"
                         onClick={() => router.push('/wellness/mood')}
                         aria-label="Open Mood tracker"
-                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left"
+                        className="cursor-pointer surface-card p-4 transition-shadow hover:shadow-md text-left"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -94,7 +94,7 @@ export default function MentalWellnessPage() {
                         type="button"
                         onClick={() => router.push('/wellness/journal')}
                         aria-label="Open Journal"
-                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md text-left"
+                        className="cursor-pointer surface-card p-4 transition-shadow hover:shadow-md text-left"
                     >
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export default function MentalWellnessPage() {
                     </div>
 
                     {mentalGoals.length === 0 ? (
-                        <div className="rounded-xl bg-white p-4 text-center shadow-sm">
+                        <div className="surface-card p-4 text-center">
                             <FiTarget className="mx-auto mb-2 h-8 w-8 text-gray-300" />
                             <p className="text-sm text-gray-500">
                                 No mental goals yet

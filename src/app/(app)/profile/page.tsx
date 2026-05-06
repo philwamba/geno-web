@@ -123,7 +123,7 @@ export default function ProfilePage() {
 
             <main className="app-page-container space-y-6">
                 {/* Profile Header */}
-                <section className="bg-white rounded-2xl p-6 shadow-sm text-center">
+                <section className="surface-card p-6 text-center">
                     <div className="flex justify-center mb-4">
                         {user.avatar ? (
                             <div className="relative w-24 h-24 rounded-full overflow-hidden">
@@ -169,7 +169,7 @@ export default function ProfilePage() {
                 </section>
 
                 {/* Daily Check-in */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="font-semibold text-gray-900">
                             Daily Check-in
@@ -203,7 +203,7 @@ export default function ProfilePage() {
                 </section>
 
                 {/* Wellness Dimensions */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h3 className="font-semibold text-gray-900 mb-4">
                         Wellness Dimensions
                     </h3>
@@ -235,7 +235,7 @@ export default function ProfilePage() {
                 </section>
 
                 {/* Menu Items */}
-                <section className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <section className="surface-card overflow-hidden">
                     {menuItems.map((item, index) => {
                         const Icon = item.icon
                         return (

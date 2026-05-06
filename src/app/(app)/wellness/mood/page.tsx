@@ -43,7 +43,7 @@ export default function MoodPage() {
     }, [fetchTodayMood, fetchMoodTrends, fetchMoodHistory, fetchWellnessStats])
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Mood Tracking"
                 showBack
@@ -61,14 +61,14 @@ export default function MoodPage() {
 
                 {/* Quick Stats */}
                 <section className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl bg-white p-4 shadow-sm">
+                    <div className="surface-card p-4">
                         <StreakCounter
                             stats={wellnessStats}
                             variant="default"
                         />
                     </div>
                     <div
-                        className="cursor-pointer rounded-xl bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+                        className="cursor-pointer surface-card p-4 transition-shadow hover:shadow-md"
                         onClick={() => router.push('/wellness/mood/history')}
                     >
                         <div className="flex items-center justify-between">

@@ -125,7 +125,7 @@ export default function FinancialWellnessPage() {
         )
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Financial Wellness"
                 showBack
@@ -176,7 +176,7 @@ export default function FinancialWellnessPage() {
                 <div className="grid grid-cols-2 gap-3">
                     <button
                         onClick={() => setShowLogModal('income')}
-                        className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm hover:shadow-md transition-shadow">
+                        className="flex items-center gap-3 surface-card p-4 hover:shadow-md transition-shadow">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
                             <FiTrendingUp className="h-5 w-5 text-green-600" />
                         </div>
@@ -191,7 +191,7 @@ export default function FinancialWellnessPage() {
                     </button>
                     <button
                         onClick={() => setShowLogModal('expense')}
-                        className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm hover:shadow-md transition-shadow">
+                        className="flex items-center gap-3 surface-card p-4 hover:shadow-md transition-shadow">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
                             <FiTrendingDown className="h-5 w-5 text-red-600" />
                         </div>
@@ -208,7 +208,7 @@ export default function FinancialWellnessPage() {
 
                 {/* Chart */}
                 {chartData.length > 0 && (
-                    <section className="rounded-xl bg-white p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="mb-3 text-sm font-medium text-gray-700">
                             Income vs Expenses
                         </h2>
@@ -241,7 +241,7 @@ export default function FinancialWellnessPage() {
 
                 {/* Budget Progress */}
                 {totalIncome > 0 && (
-                    <section className="rounded-xl bg-white p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="mb-3 text-sm font-medium text-gray-700">
                             Budget Progress
                         </h2>
@@ -297,7 +297,7 @@ export default function FinancialWellnessPage() {
                     </div>
 
                     {financialGoals.length === 0 ? (
-                        <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+                        <div className="surface-card p-6 text-center">
                             <FiTarget className="mx-auto mb-3 h-12 w-12 text-gray-300" />
                             <p className="mb-2 text-sm font-medium text-gray-600">
                                 No financial goals yet

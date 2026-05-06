@@ -89,7 +89,7 @@ export default function JournalEntryDetailPage() {
 
     if (!isValidId || (!entry && hasFetchedEntries && !isJournalLoading)) {
         return (
-            <div className="min-h-screen bg-gray-50 pb-24">
+            <div className="min-h-screen app-shell-bg pb-24">
                 <AppHeader
                     title="Journal Entry"
                     showBack
@@ -106,7 +106,7 @@ export default function JournalEntryDetailPage() {
 
     if (!entry) {
         return (
-            <div className="min-h-screen bg-gray-50 pb-24">
+            <div className="min-h-screen app-shell-bg pb-24">
                 <AppHeader
                     title="Journal Entry"
                     showBack
@@ -126,7 +126,7 @@ export default function JournalEntryDetailPage() {
     const emoji = mood ? MOOD_EMOJIS[mood] : null
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title={isEditing ? 'Edit Entry' : 'Journal Entry'}
                 showBack
@@ -139,7 +139,7 @@ export default function JournalEntryDetailPage() {
 
             <main className="app-page-container-tight">
                 {isEditing ? (
-                    <div className="rounded-xl bg-white p-4 shadow-sm">
+                    <div className="surface-card p-4">
                         <JournalEntryForm
                             initialData={{
                                 content: entry.content,
@@ -155,7 +155,7 @@ export default function JournalEntryDetailPage() {
                 ) : (
                     <div className="space-y-4">
                         {/* Entry Content */}
-                        <div className="rounded-xl bg-white p-4 shadow-sm">
+                        <div className="surface-card p-4">
                             {/* Header */}
                             <div className="mb-4 flex items-start justify-between">
                                 <div className="flex items-center gap-2 text-sm text-gray-500">

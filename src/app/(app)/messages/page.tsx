@@ -61,7 +61,7 @@ export default function MessagesPage() {
     )
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader title="Messages" />
 
             <main className="app-page-container-tight space-y-3">
@@ -83,7 +83,7 @@ export default function MessagesPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm animate-pulse">
+                                className="flex items-center gap-3 surface-card p-4 animate-pulse">
                                 <div className="w-12 h-12 bg-gray-200 rounded-full" />
                                 <div className="flex-1 space-y-2">
                                     <div className="h-4 bg-gray-200 rounded w-2/3" />
@@ -93,7 +93,7 @@ export default function MessagesPage() {
                         ))}
                     </div>
                 ) : filtered.length === 0 ? (
-                    <div className="rounded-xl bg-white p-12 text-center shadow-sm">
+                    <div className="surface-card p-12 text-center">
                         <FiMessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                         <p className="text-sm font-medium text-gray-600">
                             {search
@@ -114,7 +114,7 @@ export default function MessagesPage() {
                                         `/messages/${conversation.uuid}`,
                                     )
                                 }
-                                className="flex w-full items-center gap-3 rounded-xl bg-white p-4 shadow-sm hover:shadow-md transition-shadow text-left">
+                                className="flex w-full items-center gap-3 surface-card p-4 hover:shadow-md transition-shadow text-left">
                                 {conversation.other_participant.avatar ? (
                                     <Image
                                         src={

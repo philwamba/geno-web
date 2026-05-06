@@ -63,7 +63,7 @@ export default function BookingSuccessPage() {
                 </p>
             </div>
 
-            <div className="w-full max-w-sm bg-white rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="w-full max-w-sm surface-card p-6 space-y-4">
                 <div className="text-center pb-4 border-b border-gray-100">
                     <h2 className="font-semibold text-gray-900">
                         {booking.service?.title}

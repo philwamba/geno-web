@@ -16,7 +16,7 @@ export default function NewJournalEntryPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="New Journal Entry"
                 showBack
@@ -24,7 +24,7 @@ export default function NewJournalEntryPage() {
             />
 
             <main className="app-page-container-tight">
-                <div className="rounded-xl bg-white p-4 shadow-sm">
+                <div className="surface-card p-4">
                     <JournalEntryForm
                         onSuccess={handleSuccess}
                         onCancel={handleCancel}

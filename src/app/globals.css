@@ -127,3 +127,31 @@ h1, h2, h3, h4, h5, h6 {
 @utility app-page-container-tight {
   @apply mx-auto w-full max-w-4xl p-4;
 }
+
+@utility app-shell-bg {
+  @apply bg-[radial-gradient(circle_at_top_left,#fff7ed_0,#f8fafc_34%,#f9fafb_100%)];
+}
+
+@utility app-tab {
+  @apply rounded-2xl px-4 py-2.5 text-sm font-semibold transition-all;
+}
+
+@utility app-tab-active {
+  @apply bg-primary text-white shadow-lg shadow-primary/20;
+}
+
+@utility app-tab-inactive {
+  @apply bg-white text-gray-700 shadow-sm ring-1 ring-black/[0.04] hover:bg-gray-50 hover:shadow-md;
+}
+
+@utility app-chip {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
+}
+
+@utility app-primary-action {
+  @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:bg-primary-600;
+}
+
+@utility app-secondary-action {
+  @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-black/[0.06] transition-all hover:-translate-y-0.5 hover:bg-gray-50 hover:shadow-md;
+}

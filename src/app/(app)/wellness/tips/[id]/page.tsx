@@ -191,7 +191,7 @@ export default function WellnessTipDetailPage() {
                                 <a
                                     key={relatedTip.id}
                                     href={`/wellness/tips/${relatedTip.id}`}
-                                    className="block p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+                                    className="surface-card surface-card-hover block p-4"
                                 >
                                     <h4 className="font-medium text-gray-900">
                                         {relatedTip.title}

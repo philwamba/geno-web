@@ -94,7 +94,7 @@ export default function NotificationsPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse"
+                                className="surface-card p-4 animate-pulse"
                             >
                                 <div className="flex gap-3">
                                     <div className="w-10 h-10 bg-gray-200 rounded-full" />
@@ -117,7 +117,7 @@ export default function NotificationsPage() {
                             <div
                                 key={notification.id}
                                 className={cn(
-                                    'bg-white rounded-2xl p-4 shadow-sm relative',
+                                    'surface-card p-4 relative',
                                     !notification.read_at &&
                                         'ring-1 ring-primary/20',
                                 )}

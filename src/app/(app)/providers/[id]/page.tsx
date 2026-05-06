@@ -64,7 +64,7 @@ export default function ProviderProfilePage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen app-shell-bg">
                 <PageHeader title="Provider" />
                 <div className="app-page-container space-y-4">
                     <div className="flex items-center gap-4">
@@ -82,7 +82,7 @@ export default function ProviderProfilePage() {
 
     if (!provider) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen app-shell-bg">
                 <PageHeader title="Provider" />
                 <div className="mx-auto w-full max-w-4xl px-4 py-12 text-center">
                     <p className="text-gray-500">Provider not found</p>
@@ -92,12 +92,12 @@ export default function ProviderProfilePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <PageHeader title={provider.name || 'Provider'} />
 
             <main className="app-page-container space-y-6">
                 {/* Provider Header */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <div className="flex items-start gap-4">
                         <div className="relative w-20 h-20 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                             {provider.avatar ? (
@@ -173,10 +173,10 @@ export default function ProviderProfilePage() {
                             key={tab}
                             onClick={() => setActiveTab(tab)}
                             className={cn(
-                                'flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors capitalize',
+                                'app-tab flex-1 capitalize',
                                 activeTab === tab
                                     ? 'bg-primary text-white'
-                                    : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
+                                    : 'app-tab-inactive',
                             )}
                         >
                             {tab}
@@ -189,7 +189,7 @@ export default function ProviderProfilePage() {
                     <div className="space-y-4">
                         {/* Bio */}
                         {provider.bio && (
-                            <section className="bg-white rounded-2xl p-4 shadow-sm">
+                            <section className="surface-card p-4">
                                 <h3 className="font-semibold text-gray-900 mb-2">
                                     About
                                 </h3>
@@ -200,7 +200,7 @@ export default function ProviderProfilePage() {
                         )}
 
                         {/* Details */}
-                        <section className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
+                        <section className="surface-card p-4 space-y-3">
                             {provider.timezone && (
                                 <div className="flex items-center gap-3">
                                     <FiClock className="w-5 h-5 text-gray-400" />
@@ -256,7 +256,7 @@ export default function ProviderProfilePage() {
                         {/* Qualifications */}
                         {provider.qualifications &&
                             provider.qualifications.length > 0 && (
-                                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                                <section className="surface-card p-4">
                                     <h3 className="font-semibold text-gray-900 mb-3">
                                         Qualifications
                                     </h3>
@@ -289,7 +289,7 @@ export default function ProviderProfilePage() {
                 {activeTab === 'services' && (
                     <div className="space-y-3">
                         {services.length === 0 ? (
-                            <div className="bg-white rounded-2xl p-8 text-center shadow-sm">
+                            <div className="surface-card p-8 text-center">
                                 <p className="text-gray-500">
                                     No services available
                                 </p>
@@ -303,7 +303,7 @@ export default function ProviderProfilePage() {
                                             `/book/${service.id}?provider=${provider.id}`,
                                         )
                                     }
-                                    className="w-full bg-white rounded-2xl p-4 shadow-sm text-left hover:bg-gray-50 transition-colors"
+                                    className="w-full surface-card p-4 text-left hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1 min-w-0">
@@ -339,7 +339,7 @@ export default function ProviderProfilePage() {
                 {activeTab === 'reviews' && (
                     <div className="space-y-4">
                         {/* Rating Summary */}
-                        <section className="bg-white rounded-2xl p-4 shadow-sm">
+                        <section className="surface-card p-4">
                             <div className="flex items-center gap-4">
                                 <div className="text-center">
                                     <p className="text-3xl font-bold text-gray-900">
@@ -399,7 +399,7 @@ export default function ProviderProfilePage() {
 
                         {/* Reviews List */}
                         {reviews.length === 0 ? (
-                            <div className="bg-white rounded-2xl p-8 text-center shadow-sm">
+                            <div className="surface-card p-8 text-center">
                                 <p className="text-gray-500">No reviews yet</p>
                             </div>
                         ) : (
@@ -407,7 +407,7 @@ export default function ProviderProfilePage() {
                                 {reviews.map(review => (
                                     <div
                                         key={review.id}
-                                        className="bg-white rounded-2xl p-4 shadow-sm"
+                                        className="surface-card p-4"
                                     >
                                         <div className="flex items-start justify-between mb-2">
                                             <div>

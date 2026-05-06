@@ -213,7 +213,7 @@ export default function SettingsPage() {
     )
 
     return (
-        <div className="bg-gray-50 min-h-screen pb-20">
+        <div className="app-shell-bg min-h-screen pb-20">
             <AppHeader title="Settings" showBack={false} />
 
             <main className="app-page-container">
@@ -237,7 +237,7 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Content */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
+                <div className="surface-card p-6">
                     {activeTab === 'profile' && (
                         <form
                             onSubmit={handleUpdateProfile}

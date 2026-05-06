@@ -115,7 +115,7 @@ export default function ProfileSettingsPage() {
                     )}
 
                     {/* Form Fields */}
-                    <div className="bg-white rounded-2xl p-4 shadow-sm space-y-4">
+                    <div className="surface-card p-4 space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Full Name
@@ -187,7 +187,7 @@ export default function ProfileSettingsPage() {
                     <button
                         type="button"
                         onClick={() => router.push('/profile/change-password')}
-                        className="w-full flex items-center justify-between p-4 bg-white rounded-2xl shadow-sm"
+                        className="surface-card surface-card-hover flex w-full items-center justify-between p-4"
                     >
                         <div className="flex items-center gap-3">
                             <FiLock className="w-5 h-5 text-gray-500" />

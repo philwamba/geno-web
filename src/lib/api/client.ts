@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from 'axios'
 import { getToken } from '@/lib/cookies'
+import { auth } from '@/lib/firebase/config'
 import type {
     Service,
     Provider,
@@ -63,9 +64,41 @@ const axiosInstance: AxiosInstance = axios.create({
     },
 })
 
-// Request interceptor: attach auth token from cookie
-axiosInstance.interceptors.request.use(config => {
-    const token = getToken()
+function getEndpointPath(url?: string): string {
+    if (!url) return ''
+    try {
+        return new URL(url, API_BASE_URL).pathname.replace(/^\/api\/v1/, '')
+    } catch {
+        return url
+    }
+}
+
+function usesFirebaseAuth(url?: string): boolean {
+    const path = getEndpointPath(url)
+
+    if (path === '/sessions/global') return false
+
+    return (
+        path === '/sessions' ||
+        path.startsWith('/sessions/') ||
+        path.startsWith('/wellness') ||
+        path.startsWith('/bookings') ||
+        path.startsWith('/payments') ||
+        path.startsWith('/wallet')
+    )
+}
+
+async function getAuthHeaderToken(url?: string): Promise<string | null> {
+    if (usesFirebaseAuth(url)) {
+        return auth.currentUser?.getIdToken() ?? null
+    }
+
+    return getToken()
+}
+
+// Request interceptor: attach the token expected by each backend guard.
+axiosInstance.interceptors.request.use(async config => {
+    const token = await getAuthHeaderToken(config.url)
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -525,17 +558,27 @@ export const contentApi = {
         category?: string
         per_page?: number
         page?: number
-    }) => api.get<{ articles: unknown[]; meta: unknown }>('/articles', params),
+    }) =>
+        api.get<{ articles: unknown[]; meta: unknown }>(
+            '/content/articles',
+            params,
+        ),
 
     getFeaturedArticles: () =>
-        api.get<{ articles: unknown[] }>('/articles/featured'),
+        api.get<{ articles: unknown[] }>('/content/articles', {
+            featured: true,
+        }),
 
     getArticle: (slug: string) =>
-        api.get<{ article: unknown }>(`/articles/${slug}`),
+        api.get<{ article: unknown }>(`/content/articles/${slug}`),
 
-    getDailyTip: () => api.get<{ tip: unknown }>('/tips/daily'),
+    getDailyTip: async () => {
+        const tip = await api.get<unknown>('/content/tips')
+        return { tip }
+    },
 
-    getTip: (id: number | string) => api.get<{ tip: unknown }>(`/tips/${id}`),
+    getTip: (id: number | string) =>
+        api.get<{ tip: unknown }>(`/content/tips/${id}`),
 }
 
 // Notifications API

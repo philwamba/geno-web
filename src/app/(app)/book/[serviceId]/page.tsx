@@ -226,7 +226,7 @@ export default function BookingPage() {
                             <button
                                 key={provider.id}
                                 onClick={() => handleProviderSelect(provider)}
-                                className="w-full flex items-center gap-3 p-4 bg-white rounded-2xl shadow-sm text-left hover:bg-gray-50 transition-colors"
+                                className="surface-card surface-card-hover flex w-full items-center gap-3 p-4 text-left"
                             >
                                 <div className="relative w-14 h-14 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                                     {provider.avatar ? (
@@ -319,7 +319,7 @@ export default function BookingPage() {
                                         'flex-shrink-0 w-16 py-3 rounded-xl text-center transition-colors',
                                         selectedDate === date.value
                                             ? 'bg-primary text-white'
-                                            : 'bg-white shadow-sm hover:bg-gray-50',
+                                            : 'app-tab-inactive',
                                     )}
                                 >
                                     <p className="text-xs">{date.day}</p>
@@ -378,7 +378,7 @@ export default function BookingPage() {
                                             selectedSlot?.id === slot.id
                                                 ? 'bg-primary text-white'
                                                 : slot.is_available
-                                                  ? 'bg-white shadow-sm hover:bg-gray-50'
+                                                  ? 'app-tab-inactive'
                                                   : 'bg-gray-100 text-gray-400 cursor-not-allowed',
                                         )}
                                     >
@@ -397,7 +397,7 @@ export default function BookingPage() {
                             Confirm Booking
                         </h2>
 
-                        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-4">
+                        <div className="surface-card p-4 space-y-4">
                             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                                 <span className="text-gray-500">Service</span>
                                 <span className="font-medium text-gray-900">

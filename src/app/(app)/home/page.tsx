@@ -137,7 +137,7 @@ export default function HomePage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen app-shell-bg">
                 <AppHeader showGreeting={false} />
                 <main className="container mx-auto px-4 py-6 space-y-6 pb-24 max-w-4xl">
                     <div className="animate-pulse space-y-6">

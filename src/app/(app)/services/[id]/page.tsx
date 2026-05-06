@@ -80,7 +80,7 @@ export default function ServiceDetailPage() {
                 )}
 
                 {/* Service Info */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <div className="flex items-start justify-between mb-3">
                         <div>
                             <h1 className="text-xl font-bold text-gray-900">
@@ -113,7 +113,7 @@ export default function ServiceDetailPage() {
 
                 {/* Features */}
                 {service.features && service.features.length > 0 && (
-                    <section className="bg-white rounded-2xl p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="font-semibold text-gray-900 mb-3">
                             What's Included
                         </h2>
@@ -134,7 +134,7 @@ export default function ServiceDetailPage() {
                 )}
 
                 {/* Available Providers */}
-                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <h2 className="font-semibold text-gray-900 mb-4">
                         Available Providers
                     </h2>

@@ -78,7 +78,7 @@ export default function GoalDetailPage() {
 
     if (!goal && !isGoalsLoading) {
         return (
-            <div className="min-h-screen bg-gray-50 pb-24">
+            <div className="min-h-screen app-shell-bg pb-24">
                 <AppHeader
                     title="Goal"
                     showBack
@@ -93,7 +93,7 @@ export default function GoalDetailPage() {
 
     if (!goal) {
         return (
-            <div className="min-h-screen bg-gray-50 pb-24">
+            <div className="min-h-screen app-shell-bg pb-24">
                 <AppHeader
                     title="Goal"
                     showBack
@@ -116,7 +116,7 @@ export default function GoalDetailPage() {
     const isOverdue = goal.is_overdue && isActive
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Goal Details"
                 showBack
@@ -125,7 +125,7 @@ export default function GoalDetailPage() {
 
             <main className="app-page-container-tight space-y-4">
                 {/* Goal Header */}
-                <section className="rounded-xl bg-white p-4 shadow-sm">
+                <section className="surface-card p-4">
                     <div className="mb-3 flex items-center gap-2">
                         <div
                             className={cn(
@@ -196,7 +196,7 @@ export default function GoalDetailPage() {
 
                 {/* Progress Section */}
                 {goal.target_value && (
-                    <section className="rounded-xl bg-white p-4 shadow-sm">
+                    <section className="surface-card p-4">
                         <h2 className="mb-3 text-sm font-medium text-gray-700">
                             Progress
                         </h2>

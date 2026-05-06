@@ -35,7 +35,7 @@ function getStatusBadge(status: string) {
     return (
         <span
             className={cn(
-                'px-2 py-0.5 rounded-full text-xs font-medium',
+                'app-chip',
                 config.className,
             )}
         >
@@ -118,7 +118,7 @@ export default function BookingsPage() {
     ]
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader title="My Bookings" showGreeting={false} />
 
             <main className="app-page-container">
@@ -129,10 +129,10 @@ export default function BookingsPage() {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={cn(
-                                'flex-1 py-2.5 rounded-xl text-sm font-medium transition-colors',
+                                'app-tab flex-1',
                                 activeTab === tab.id
-                                    ? 'bg-primary text-white'
-                                    : 'bg-white text-gray-700 shadow-sm hover:bg-gray-50',
+                                    ? 'app-tab-active'
+                                    : 'app-tab-inactive',
                             )}
                         >
                             {tab.label}
@@ -146,7 +146,7 @@ export default function BookingsPage() {
                         {[1, 2, 3].map(i => (
                             <div
                                 key={i}
-                                className="bg-white rounded-2xl p-4 animate-pulse"
+                                className="surface-card p-4 animate-pulse"
                             >
                                 <div className="space-y-3">
                                     <div className="h-5 bg-gray-200 rounded w-3/4" />
@@ -164,7 +164,7 @@ export default function BookingsPage() {
                         {bookings.map(booking => (
                             <div
                                 key={booking.id}
-                                className="bg-white rounded-2xl p-4 shadow-sm"
+                                className="surface-card surface-card-hover p-4"
                             >
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="flex-1">
@@ -178,7 +178,7 @@ export default function BookingsPage() {
 
                                 {booking.provider && (
                                     <div className="flex items-center gap-2 mb-3">
-                                        <div className="relative w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+                                        <div className="relative w-10 h-10 rounded-2xl bg-gray-200 overflow-hidden ring-1 ring-black/[0.04]">
                                             {booking.provider.avatar ? (
                                                 <Image
                                                     src={
@@ -235,7 +235,7 @@ export default function BookingsPage() {
                                                         `/bookings/${booking.uuid}/reschedule`,
                                                     )
                                                 }
-                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-primary hover:bg-primary/5 rounded-lg transition-colors"
+                                                className="rounded-xl px-3 py-1.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
                                             >
                                                 <FiRefreshCw className="w-4 h-4" />
                                                 Reschedule
@@ -248,7 +248,7 @@ export default function BookingsPage() {
                                                         booking.uuid,
                                                     )
                                                 }
-                                                className="flex items-center gap-1 px-3 py-1.5 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                                className="rounded-xl px-3 py-1.5 text-sm font-semibold text-red-500 transition-colors hover:bg-red-50"
                                             >
                                                 <FiX className="w-4 h-4" />
                                                 Cancel
@@ -256,7 +256,7 @@ export default function BookingsPage() {
                                         )}
                                         <Link
                                             href={`/bookings/${booking.uuid}`}
-                                            className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-500 hover:bg-gray-50 rounded-lg transition-colors"
+                                            className="rounded-xl px-3 py-1.5 text-sm font-semibold text-gray-500 transition-colors hover:bg-gray-50"
                                         >
                                             Details
                                             <FiChevronRight className="w-4 h-4" />
@@ -279,7 +279,7 @@ export default function BookingsPage() {
                         <p className="text-gray-500 mb-6">{error}</p>
                         <button
                             onClick={fetchBookings}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 font-medium transition-colors"
+                            className="app-secondary-action"
                         >
                             <FiRefreshCw className="w-4 h-4" />
                             Try Again
@@ -300,7 +300,7 @@ export default function BookingsPage() {
                         {activeTab === 'upcoming' && (
                             <Link
                                 href="/services"
-                                className="inline-block px-6 py-2 bg-primary text-white rounded-full text-sm font-medium"
+                                className="app-primary-action"
                             >
                                 Book a Service
                             </Link>
@@ -312,7 +312,7 @@ export default function BookingsPage() {
             {/* Cancel Modal */}
             {showCancelModal && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm"
                     onClick={() => {
                         setShowCancelModal(null)
                         setCancelReason('')
@@ -322,7 +322,7 @@ export default function BookingsPage() {
                     aria-labelledby="modal-title"
                 >
                     <div
-                        className="bg-white rounded-2xl p-6 w-full max-w-md"
+                        className="w-full max-w-md rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.22)] backdrop-blur-xl"
                         onClick={e => e.stopPropagation()}
                     >
                         <h3
@@ -341,7 +341,7 @@ export default function BookingsPage() {
                             placeholder="Reason for cancellation (optional)"
                             rows={3}
                             autoFocus
-                            className="w-full p-3 border border-gray-200 rounded-xl mb-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                            className="mb-4 w-full resize-none rounded-2xl border border-black/[0.08] bg-white p-3 shadow-sm transition-all focus:border-primary/60 focus:outline-none focus:ring-4 focus:ring-primary/10"
                         />
                         <div className="flex gap-3">
                             <button
@@ -350,14 +350,14 @@ export default function BookingsPage() {
                                     setCancelReason('')
                                 }}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium"
+                                className="app-secondary-action flex-1"
                             >
                                 Keep Booking
                             </button>
                             <button
                                 onClick={handleCancelBooking}
                                 disabled={isCancelling}
-                                className="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium disabled:opacity-50"
+                                className="flex-1 rounded-2xl bg-red-500 py-3 font-semibold text-white shadow-lg shadow-red-500/20 transition-all hover:-translate-y-0.5 hover:bg-red-600 disabled:opacity-50"
                             >
                                 {isCancelling
                                     ? 'Cancelling...'

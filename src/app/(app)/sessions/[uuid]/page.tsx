@@ -229,7 +229,7 @@ export default function SessionDetailPage() {
 
                 <main className="app-page-container space-y-6">
                     {activeVideo && session.meeting_url ? (
-                        <section className="bg-white rounded-2xl p-4 shadow-sm">
+                        <section className="surface-card p-4">
                             <h2 className="text-xl font-bold text-gray-900 mb-4">
                                 Live Session
                             </h2>
@@ -247,7 +247,7 @@ export default function SessionDetailPage() {
                     ) : (
                         <>
                             {/* Session Info */}
-                            <section className="bg-white rounded-2xl p-4 shadow-sm">
+                            <section className="surface-card p-4">
                                 <div className="flex items-start justify-between mb-4">
                                     <h1 className="text-xl font-bold text-gray-900">
                                         {session.title}
@@ -316,7 +316,7 @@ export default function SessionDetailPage() {
 
                             {/* Description */}
                             {session.description && (
-                                <section className="bg-white rounded-2xl p-4 shadow-sm">
+                                <section className="surface-card p-4">
                                     <h3 className="font-semibold text-gray-900 mb-2">
                                         Session Details
                                     </h3>
@@ -327,7 +327,7 @@ export default function SessionDetailPage() {
                             )}
 
                             {/* Payment Info */}
-                            <section className="bg-white rounded-2xl p-4 shadow-sm">
+                            <section className="surface-card p-4">
                                 <h3 className="font-semibold text-gray-900 mb-3">
                                     Payment Details
                                 </h3>
@@ -394,7 +394,7 @@ export default function SessionDetailPage() {
                 {/* Cancel Modal */}
                 {showCancelModal && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-                        <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
+                        <div className="w-full max-w-sm rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.22)] backdrop-blur-xl">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold text-gray-900">
                                     Cancel Session
@@ -432,7 +432,7 @@ export default function SessionDetailPage() {
                 {/* Review Modal */}
                 {showReviewModal && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-                        <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
+                        <div className="w-full max-w-sm rounded-3xl border border-white/70 bg-white/95 p-6 shadow-[0_24px_70px_rgba(15,23,42,0.22)] backdrop-blur-xl">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold text-gray-900">
                                     Leave a Review

@@ -27,7 +27,7 @@ export default function OccupationalWellnessPage() {
     }, [fetchGoals])
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <AppHeader
                 title="Occupational Wellness"
                 showBack
@@ -54,7 +54,7 @@ export default function OccupationalWellnessPage() {
 
                 {/* Quick Actions */}
                 <section className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl bg-white p-4 shadow-sm">
+                    <div className="surface-card p-4">
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100">
                                 <FiBook className="h-5 w-5 text-orange-500" />
@@ -69,7 +69,7 @@ export default function OccupationalWellnessPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="rounded-xl bg-white p-4 shadow-sm">
+                    <div className="surface-card p-4">
                         <div className="flex items-center gap-3">
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">
                                 <FiTrendingUp className="h-5 w-5 text-amber-500" />
@@ -106,7 +106,7 @@ export default function OccupationalWellnessPage() {
                     </div>
 
                     {occupationalGoals.length === 0 ? (
-                        <div className="rounded-xl bg-white p-6 text-center shadow-sm">
+                        <div className="surface-card p-6 text-center">
                             <FiTarget className="mx-auto mb-3 h-12 w-12 text-gray-300" />
                             <p className="mb-2 text-sm font-medium text-gray-600">
                                 No occupational goals yet

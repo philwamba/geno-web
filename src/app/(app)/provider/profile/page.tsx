@@ -75,7 +75,7 @@ export default function ProviderProfilePage() {
 
     if (!user || !profile) {
         return (
-            <div className="min-h-screen bg-gray-50 pb-24 flex items-center justify-center">
+            <div className="min-h-screen app-shell-bg pb-24 flex items-center justify-center">
                 <div className="text-center p-6">
                     <h2 className="text-xl font-semibold text-gray-900 mb-2">
                         Profile Not Found
@@ -96,7 +96,7 @@ export default function ProviderProfilePage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-24">
+        <div className="min-h-screen app-shell-bg pb-24">
             <PageHeader
                 title="Edit Provider Profile"
                 showBack
@@ -105,7 +105,7 @@ export default function ProviderProfilePage() {
 
             <main className="app-page-container">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-white rounded-2xl p-6 shadow-sm space-y-6">
+                    <div className="surface-card p-6 space-y-6">
                         {/* Bio */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
