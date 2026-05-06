@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
                         Forgot Password
                     </h1>
                     <p className="text-subtitle">
-                        Enter your email and we'll send you a link to
+                        Enter your email address and we'll send you a link to
                         reset your password.
                     </p>
                 </div>
@@ -102,7 +102,7 @@ export default function ForgotPasswordPage() {
 
                     <div>
                         <label className="block text-sm font-medium text-title mb-1">
-                            Email <span className="text-red-500">*</span>
+                            Email address <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                             <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-inactive" />
@@ -110,7 +110,7 @@ export default function ForgotPasswordPage() {
                                 type="email"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
-                                placeholder="Enter your email"
+                                placeholder="Enter your email address"
                                 required
                                 className="w-full pl-10 pr-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                             />

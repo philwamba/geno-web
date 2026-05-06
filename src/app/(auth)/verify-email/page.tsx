@@ -32,16 +32,16 @@ export default function VerifyEmailPage() {
 
             if (response.ok) {
                 setStatus('success')
-                toast.success('Email verified successfully!')
+                toast.success('Email address verified successfully!')
                 setTimeout(() => router.push('/login'), 2000)
             } else {
                 setStatus('error')
-                toast.error('Email verification failed')
+                toast.error('Email address verification failed')
             }
         } catch (error) {
-            console.error('Email verification failed:', error)
+            console.error('Email address verification failed:', error)
             setStatus('error')
-            toast.error('Email verification failed')
+            toast.error('Email address verification failed')
         }
     }, [token, email, router])
 
@@ -53,7 +53,7 @@ export default function VerifyEmailPage() {
 
     const handleResendVerification = async () => {
         if (!email) {
-            toast.error('Email is required')
+            toast.error('Email address is required')
             return
         }
 
@@ -91,7 +91,7 @@ export default function VerifyEmailPage() {
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
                             </div>
                             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                                Verifying Email
+                                Verifying Email Address
                             </h1>
                             <p className="text-gray-500">
                                 Please wait while we verify your email
@@ -106,10 +106,10 @@ export default function VerifyEmailPage() {
                                 <FiCheckCircle className="w-8 h-8 text-green-500" />
                             </div>
                             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                                Email Verified!
+                                Email Address Verified!
                             </h1>
                             <p className="text-gray-500 mb-6">
-                                Your email has been verified successfully.
+                                Your email address has been verified successfully.
                                 Redirecting to login...
                             </p>
                             <Link
@@ -139,7 +139,7 @@ export default function VerifyEmailPage() {
                             >
                                 {isResending
                                     ? 'Sending...'
-                                    : 'Resend Verification Email'}
+                                    : 'Resend Verification Email Address'}
                             </button>
                         </>
                     )}
@@ -150,7 +150,7 @@ export default function VerifyEmailPage() {
                                 <FiMail className="w-8 h-8 text-primary" />
                             </div>
                             <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                                Check Your Email
+                                Check Your Email Address
                             </h1>
                             <p className="text-gray-500 mb-6">
                                 We sent a verification link to your email
@@ -165,7 +165,7 @@ export default function VerifyEmailPage() {
                                 >
                                     {isResending
                                         ? 'Sending...'
-                                        : 'Resend Verification Email'}
+                                        : 'Resend Verification Email Address'}
                                 </button>
                                 <Link
                                     href="/login"
