@@ -35,6 +35,7 @@ export interface IVideoRoom {
 
     setMicrophoneEnabled(enabled: boolean): Promise<void>
     setCameraEnabled(enabled: boolean): Promise<void>
+    setScreenShareEnabled(enabled: boolean): Promise<void>
 
     on(event: 'connected', listener: () => void): void
     on(event: 'disconnected', listener: () => void): void

@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
     FiActivity,
-    FiBriefcase,
     FiCalendar,
     FiGrid,
     FiHome,
@@ -32,16 +31,10 @@ const navItems = [
         match: ['/services', '/providers', '/book'],
     },
     {
-        href: '/bookings',
-        label: 'Bookings',
-        icon: FiBriefcase,
-        match: ['/bookings'],
-    },
-    {
         href: '/sessions',
         label: 'Sessions',
         icon: FiCalendar,
-        match: ['/sessions'],
+        match: ['/sessions', '/bookings'],
     },
     {
         href: '/profile',
@@ -57,7 +50,7 @@ export function BottomNav() {
     return (
         <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-black/[0.06] bg-white/90 backdrop-blur-xl safe-area-bottom">
             <div className="mx-auto max-w-4xl px-2 sm:px-4">
-                <div className="grid h-16 grid-cols-6 items-center gap-1">
+                <div className="grid h-16 grid-cols-5 items-center gap-1">
                     {navItems.map(item => {
                         const isActive = item.match.some(
                             path =>

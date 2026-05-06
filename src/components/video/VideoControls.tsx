@@ -10,7 +10,6 @@ import {
     FiPhoneOff,
     FiMonitor,
     FiFileText,
-    FiSettings,
 } from 'react-icons/fi'
 import { toast } from 'sonner'
 
@@ -57,10 +56,16 @@ export function VideoControls({
         }
     }
 
-    const toggleScreenShare = () => {
-        // Todo: Implement screen share in provider
-        setIsScreenSharing(!isScreenSharing)
-        toast.info('Screen sharing coming soon')
+    const toggleScreenShare = async () => {
+        if (!room) return
+        try {
+            const newState = !isScreenSharing
+            await room.setScreenShareEnabled(newState)
+            setIsScreenSharing(newState)
+        } catch (error) {
+            console.error(error)
+            toast.error('Failed to toggle screen sharing')
+        }
     }
 
     if (!isConnected) return null
@@ -126,14 +131,6 @@ export function VideoControls({
                     <FiFileText className="w-6 h-6" />
                 </button>
             )}
-
-            <button
-                className="p-4 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors"
-                title="Settings"
-                onClick={() => toast.info('Settings coming soon')}
-            >
-                <FiSettings className="w-6 h-6" />
-            </button>
 
             <div className="w-px h-8 bg-gray-700 mx-2" />
 

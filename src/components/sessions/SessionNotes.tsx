@@ -17,13 +17,11 @@ export function SessionNotes({
     const [note, setNote] = useState('')
     const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
-    // Load saved note (mock)
     useEffect(() => {
         const saved = localStorage.getItem(`session_note_${sessionId}`)
         if (saved) setNote(saved)
     }, [sessionId])
 
-    // Auto-save logic (mock)
     useEffect(() => {
         const timer = setTimeout(() => {
             if (note) {

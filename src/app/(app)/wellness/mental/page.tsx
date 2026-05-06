@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useWellnessStore } from '@/lib/stores/wellness-store'
 import { AppHeader } from '@/components/layout/app-header'
@@ -21,8 +21,10 @@ export default function MentalWellnessPage() {
     const {
         goals,
         moodHistory,
+        todayMood,
         wellnessStats,
         fetchGoals,
+        fetchMoodHistory,
         fetchMoodTrends,
         fetchTodayMood,
         fetchWellnessStats,
@@ -32,12 +34,29 @@ export default function MentalWellnessPage() {
         g => g.category === 'mental' && g.status === 'active',
     )
 
+    const chartMoodHistory = useMemo(() => {
+        if (!todayMood) return moodHistory
+        const hasTodayMood = moodHistory.some(
+            mood =>
+                mood.id === todayMood.id ||
+                mood.logged_date === todayMood.logged_date,
+        )
+        return hasTodayMood ? moodHistory : [todayMood, ...moodHistory]
+    }, [moodHistory, todayMood])
+
     useEffect(() => {
         fetchGoals('mental')
         fetchMoodTrends(7)
+        fetchMoodHistory({ per_page: 30 })
         fetchTodayMood()
         fetchWellnessStats()
-    }, [fetchGoals, fetchMoodTrends, fetchTodayMood, fetchWellnessStats])
+    }, [
+        fetchGoals,
+        fetchMoodHistory,
+        fetchMoodTrends,
+        fetchTodayMood,
+        fetchWellnessStats,
+    ])
 
     return (
         <div className="min-h-screen app-shell-bg pb-24">
@@ -129,7 +148,7 @@ export default function MentalWellnessPage() {
                 </section>
 
                 {/* Mood Trends */}
-                {moodHistory.length > 0 && (
+                {chartMoodHistory.length > 0 && (
                     <section>
                         <div className="mb-2 flex items-center justify-between">
                             <h2 className="text-sm font-medium text-gray-700">
@@ -142,7 +161,10 @@ export default function MentalWellnessPage() {
                                 View More
                             </button>
                         </div>
-                        <MoodTrendChart moodHistory={moodHistory} days={7} />
+                        <MoodTrendChart
+                            moodHistory={chartMoodHistory}
+                            days={7}
+                        />
                     </section>
                 )}
 

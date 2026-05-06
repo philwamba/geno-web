@@ -68,11 +68,13 @@ export function CreateSessionForm() {
         setIsSubmitting(true)
 
         try {
-            // Mock API call
-            console.log('Creating session:', { ...data, participants })
+            localStorage.setItem(
+                `session_draft_${Date.now()}`,
+                JSON.stringify({ ...data, participants }),
+            )
             await new Promise(resolve => setTimeout(resolve, 1500))
 
-            toast.success('Session scheduled successfully!')
+            toast.success('Session draft saved')
             router.push('/sessions') // navigate back to sessions list
         } catch (error) {
             console.error(error)

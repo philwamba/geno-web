@@ -103,6 +103,13 @@ class LiveKitVideoRoom implements IVideoRoom {
         }
     }
 
+    async setScreenShareEnabled(enabled: boolean): Promise<void> {
+        if (this.room.localParticipant) {
+            await this.room.localParticipant.setScreenShareEnabled(enabled)
+            this.updateParticipants()
+        }
+    }
+
     on(event: 'connected', listener: () => void): void
     on(event: 'disconnected', listener: () => void): void
     on(

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useWellnessStore } from '@/lib/stores/wellness-store'
@@ -25,6 +25,7 @@ export default function MoodPage() {
     const router = useRouter()
     const {
         moodHistory,
+        todayMood,
         wellnessStats,
         fetchTodayMood,
         fetchMoodTrends,
@@ -34,6 +35,16 @@ export default function MoodPage() {
 
     const [viewMode, setViewMode] = useState<ViewMode>('chart')
     const [chartDays, setChartDays] = useState<7 | 14 | 30>(7)
+
+    const chartMoodHistory = useMemo(() => {
+        if (!todayMood) return moodHistory
+        const hasTodayMood = moodHistory.some(
+            mood =>
+                mood.id === todayMood.id ||
+                mood.logged_date === todayMood.logged_date,
+        )
+        return hasTodayMood ? moodHistory : [todayMood, ...moodHistory]
+    }, [moodHistory, todayMood])
 
     useEffect(() => {
         fetchTodayMood()
@@ -145,7 +156,7 @@ export default function MoodPage() {
                             ))}
                         </div>
                         <MoodTrendChart
-                            moodHistory={moodHistory}
+                            moodHistory={chartMoodHistory}
                             days={chartDays}
                         />
                     </section>

@@ -6,51 +6,106 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { toast } from 'sonner'
 import { AppHeader } from '@/components/layout/app-header'
-import { sessionsApi } from '@/lib/api/client'
-import { Session } from '@/types'
-import { formatDateTime, cn, getInitials } from '@/lib/utils'
+import { bookingsApi, sessionsApi } from '@/lib/api/client'
+import { Booking, Session } from '@/types'
+import {
+    formatCurrency,
+    formatDateTime,
+    cn,
+    getInitials,
+} from '@/lib/utils'
 import { FiCalendar, FiClock, FiVideo, FiPlay } from 'react-icons/fi'
 
 type TabType = 'upcoming' | 'explore' | 'past'
+type SessionListItem =
+    | { kind: 'session'; id: string; session: Session }
+    | { kind: 'booking'; id: string; booking: Booking }
+
+function extractList<T>(response: unknown, key: string): T[] {
+    const payload = response as Record<string, unknown>
+    return ((payload[key] as T[] | undefined) ??
+        (payload.sessions as T[] | undefined) ??
+        (payload.data as T[] | undefined) ??
+        []) as T[]
+}
 
 export default function SessionsPage() {
     const router = useRouter()
     const [activeTab, setActiveTab] = useState<TabType>('upcoming')
-    const [upcomingSessions, setUpcomingSessions] = useState<Session[]>([])
-    const [globalSessions, setGlobalSessions] = useState<Session[]>([])
-    const [pastSessions, setPastSessions] = useState<Session[]>([])
+    const [upcomingItems, setUpcomingItems] = useState<SessionListItem[]>([])
+    const [globalSessions, setGlobalSessions] = useState<SessionListItem[]>([])
+    const [pastItems, setPastItems] = useState<SessionListItem[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
     const fetchSessions = useCallback(async () => {
         setIsLoading(true)
         try {
             if (activeTab === 'upcoming') {
-                const response = await sessionsApi.upcoming()
-                // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions =
-                    (response as { sessions?: unknown[]; data?: unknown[] })
-                        .sessions ??
-                    (response as { data?: unknown[] }).data ??
-                    []
-                setUpcomingSessions(sessions as Session[])
+                const [sessionsResponse, bookingsResponse] =
+                    await Promise.all([
+                        sessionsApi.upcoming().catch(() => ({ sessions: [] })),
+                        bookingsApi.upcoming().catch(() => ({ bookings: [] })),
+                    ])
+                const sessions = extractList<Session>(
+                    sessionsResponse,
+                    'sessions',
+                )
+                const bookings = extractList<Booking>(
+                    bookingsResponse,
+                    'bookings',
+                )
+
+                setUpcomingItems([
+                    ...bookings.map(booking => ({
+                        kind: 'booking' as const,
+                        id: `booking-${booking.uuid}`,
+                        booking,
+                    })),
+                    ...sessions.map(session => ({
+                        kind: 'session' as const,
+                        id: `session-${session.uuid}`,
+                        session,
+                    })),
+                ])
             } else if (activeTab === 'explore') {
                 const response = await sessionsApi.global()
-                // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions =
-                    (response as { sessions?: unknown[]; data?: unknown[] })
-                        .sessions ??
-                    (response as { data?: unknown[] }).data ??
-                    []
-                setGlobalSessions(sessions as Session[])
+                const sessions = extractList<Session>(response, 'sessions')
+                setGlobalSessions(
+                    sessions.map(session => ({
+                        kind: 'session',
+                        id: `session-${session.uuid}`,
+                        session,
+                    })),
+                )
             } else {
-                const response = await sessionsApi.past()
-                // Handle both { sessions: [] } and paginated { data: [] } formats
-                const sessions =
-                    (response as { sessions?: unknown[]; data?: unknown[] })
-                        .sessions ??
-                    (response as { data?: unknown[] }).data ??
-                    []
-                setPastSessions(sessions as Session[])
+                const [sessionsResponse, bookingsResponse] =
+                    await Promise.all([
+                        sessionsApi.past().catch(() => ({ sessions: [] })),
+                        bookingsApi
+                            .list({ status: 'completed' })
+                            .catch(() => ({ bookings: [] })),
+                    ])
+                const sessions = extractList<Session>(
+                    sessionsResponse,
+                    'sessions',
+                )
+                const bookings = extractList<Booking>(
+                    bookingsResponse,
+                    'bookings',
+                )
+
+                setPastItems([
+                    ...bookings.map(booking => ({
+                        kind: 'booking' as const,
+                        id: `booking-${booking.uuid}`,
+                        booking,
+                    })),
+                    ...sessions.map(session => ({
+                        kind: 'session' as const,
+                        id: `session-${session.uuid}`,
+                        session,
+                    })),
+                ])
             }
         } catch (error) {
             console.error('Failed to fetch sessions:', error)
@@ -72,12 +127,12 @@ export default function SessionsPage() {
 
     const currentSessions =
         activeTab === 'upcoming'
-            ? upcomingSessions
+            ? upcomingItems
             : activeTab === 'explore'
               ? globalSessions
-              : pastSessions
+              : pastItems
 
-    const getStatusBadge = (session: Session) => {
+    const getStatusBadge = (status: string) => {
         const statusConfig: Record<
             string,
             { label: string; className: string }
@@ -90,6 +145,10 @@ export default function SessionsPage() {
                 label: 'Confirmed',
                 className: 'bg-green-100 text-green-700',
             },
+            rescheduled: {
+                label: 'Rescheduled',
+                className: 'bg-blue-100 text-blue-700',
+            },
             ongoing: { label: 'LIVE', className: 'bg-red-100 text-red-700' },
             completed: {
                 label: 'Completed',
@@ -101,7 +160,7 @@ export default function SessionsPage() {
             },
         }
 
-        const config = statusConfig[session.status] || statusConfig.pending
+        const config = statusConfig[status] || statusConfig.pending
 
         return (
             <span
@@ -114,6 +173,32 @@ export default function SessionsPage() {
             </span>
         )
     }
+
+    const getItemTitle = (item: SessionListItem) =>
+        item.kind === 'session'
+            ? item.session.title
+            : item.booking.service?.title || 'Wellness Session'
+
+    const getItemProvider = (item: SessionListItem) =>
+        item.kind === 'session' ? item.session.provider : item.booking.provider
+
+    const getItemStatus = (item: SessionListItem) =>
+        item.kind === 'session' ? item.session.status : item.booking.status
+
+    const getItemDate = (item: SessionListItem) =>
+        item.kind === 'session'
+            ? item.session.scheduled_at
+            : item.booking.scheduled_at
+
+    const getItemDuration = (item: SessionListItem) =>
+        item.kind === 'session'
+            ? item.session.duration_minutes
+            : item.booking.duration_minutes
+
+    const getItemHref = (item: SessionListItem) =>
+        item.kind === 'session'
+            ? `/sessions/${item.session.uuid}`
+            : `/bookings/${item.booking.uuid}`
 
     const handleJoinSession = (e: MouseEvent, session: Session) => {
         e.preventDefault()
@@ -189,91 +274,116 @@ export default function SessionsPage() {
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        {currentSessions.map(session => (
-                            <Link
-                                key={session.id}
-                                href={`/sessions/${session.uuid}`}
-                                className="surface-card surface-card-hover block p-4"
-                            >
-                                <div className="flex items-start justify-between mb-2">
-                                    <h3 className="font-semibold text-gray-900 flex-1 pr-2">
-                                        {session.title}
-                                    </h3>
-                                    {getStatusBadge(session)}
-                                </div>
+                        {currentSessions.map(item => {
+                            const provider = getItemProvider(item)
+                            const title = getItemTitle(item)
 
-                                {session.provider && (
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="relative w-8 h-8 rounded-xl bg-gray-200 overflow-hidden ring-1 ring-black/[0.04]">
-                                            {session.provider.avatar ? (
-                                                <Image
-                                                    src={
-                                                        session.provider.avatar
-                                                    }
-                                                    alt={
-                                                        session.provider.name ||
-                                                        'Provider'
-                                                    }
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            ) : (
-                                                <span className="flex h-full w-full items-center justify-center text-xs font-medium text-primary">
-                                                    {getInitials(
-                                                        session.provider.name ||
-                                                            'P',
-                                                    )}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">
-                                                {session.provider.name}
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                                {session.provider.title}
-                                            </p>
-                                        </div>
+                            return (
+                                <Link
+                                    key={item.id}
+                                    href={getItemHref(item)}
+                                    className="surface-card surface-card-hover block p-4"
+                                >
+                                    <div className="flex items-start justify-between mb-2">
+                                        <h3 className="font-semibold text-gray-900 flex-1 pr-2">
+                                            {title}
+                                        </h3>
+                                        {getStatusBadge(getItemStatus(item))}
                                     </div>
-                                )}
 
-                                <div className="flex items-center gap-4 text-sm text-gray-500">
-                                    <span className="flex items-center gap-1">
-                                        <FiCalendar className="w-4 h-4" />
-                                        {formatDateTime(session.scheduled_at)}
-                                    </span>
-                                    <span className="flex items-center gap-1">
-                                        <FiClock className="w-4 h-4" />
-                                        {session.duration_minutes} min
-                                    </span>
-                                </div>
-
-                                {session.can_join && (
-                                    <button
-                                        onClick={e =>
-                                            handleJoinSession(e, session)
-                                        }
-                                        className="app-primary-action mt-4 w-full"
-                                    >
-                                        <FiVideo className="w-4 h-4" />
-                                        Join Now
-                                    </button>
-                                )}
-
-                                {session.has_recording &&
-                                    activeTab === 'past' && (
-                                        <button
-                                            onClick={e =>
-                                                handleWatchRecording(e, session)
-                                            }
-                                            className="app-secondary-action mt-4 w-full"
-                                        >
-                                            <FiPlay className="w-4 h-4" />
-                                            Watch Recording
-                                        </button>
+                                    {provider && (
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="relative w-8 h-8 rounded-xl bg-gray-200 overflow-hidden ring-1 ring-black/[0.04]">
+                                                {provider.avatar ? (
+                                                    <Image
+                                                        src={provider.avatar}
+                                                        alt={
+                                                            provider.name ||
+                                                            'Provider'
+                                                        }
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                ) : (
+                                                    <span className="flex h-full w-full items-center justify-center text-xs font-medium text-primary">
+                                                        {getInitials(
+                                                            provider.name ||
+                                                                'P',
+                                                        )}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-medium text-gray-900">
+                                                    {provider.name}
+                                                </p>
+                                                <p className="text-xs text-gray-500">
+                                                    {provider.title}
+                                                </p>
+                                            </div>
+                                        </div>
                                     )}
-                            </Link>
-                        ))}
+
+                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                        <span className="flex items-center gap-1">
+                                            <FiCalendar className="w-4 h-4" />
+                                            {formatDateTime(getItemDate(item))}
+                                        </span>
+                                        <span className="flex items-center gap-1">
+                                            <FiClock className="w-4 h-4" />
+                                            {getItemDuration(item)} min
+                                        </span>
+                                    </div>
+
+                                    {item.kind === 'booking' && (
+                                        <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
+                                            <span className="text-sm font-medium text-primary">
+                                                {formatCurrency(
+                                                    item.booking.price,
+                                                    item.booking.currency,
+                                                )}
+                                            </span>
+                                            <span className="text-xs font-semibold text-gray-500">
+                                                Session request
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {item.kind === 'session' &&
+                                        item.session.can_join && (
+                                            <button
+                                                onClick={e =>
+                                                    handleJoinSession(
+                                                        e,
+                                                        item.session,
+                                                    )
+                                                }
+                                                className="app-primary-action mt-4 w-full"
+                                            >
+                                                <FiVideo className="w-4 h-4" />
+                                                Join Now
+                                            </button>
+                                        )}
+
+                                    {item.kind === 'session' &&
+                                        item.session.has_recording &&
+                                        activeTab === 'past' && (
+                                            <button
+                                                onClick={e =>
+                                                    handleWatchRecording(
+                                                        e,
+                                                        item.session,
+                                                    )
+                                                }
+                                                className="app-secondary-action mt-4 w-full"
+                                            >
+                                                <FiPlay className="w-4 h-4" />
+                                                Watch Recording
+                                            </button>
+                                        )}
+                                </Link>
+                            )
+                        })}
                     </div>
                 )}
 

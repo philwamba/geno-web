@@ -91,7 +91,14 @@ export const useWellnessStore = create<WellnessState>((set, _get) => ({
         set({ isMoodLoading: true })
         try {
             const response = await wellnessApi.logMood({ mood, note })
-            set({ todayMood: response.mood_log as MoodLog })
+            const moodLog = response.mood_log as MoodLog
+            set(state => ({
+                todayMood: moodLog,
+                moodHistory: [
+                    moodLog,
+                    ...state.moodHistory.filter(log => log.id !== moodLog.id),
+                ],
+            }))
             return { points_earned: response.points_earned }
         } finally {
             set({ isMoodLoading: false })

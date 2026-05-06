@@ -106,6 +106,16 @@ class DailyVideoRoom implements IVideoRoom {
         }
     }
 
+    async setScreenShareEnabled(enabled: boolean): Promise<void> {
+        if (this.call) {
+            if (enabled) {
+                await this.call.startScreenShare()
+            } else {
+                await this.call.stopScreenShare()
+            }
+        }
+    }
+
     on(event: 'connected', listener: () => void): void
     on(event: 'disconnected', listener: () => void): void
     on(

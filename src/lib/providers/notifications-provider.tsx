@@ -63,7 +63,6 @@ export function NotificationsProvider({
         })
 
         // 2. Listen for Notifications
-        console.log(`Listening to App.Models.User.${user.id}`)
         echoInstance
             .private(`App.Models.User.${user.id}`)
             .notification(
@@ -72,7 +71,6 @@ export function NotificationsProvider({
                     body?: string
                     message?: string
                 }) => {
-                    console.log('New notification:', notification)
                     mutate()
                     mutateUnreadCount()
                     toast.info(notification.title || 'New Notification', {
@@ -114,7 +112,6 @@ export function NotificationsProvider({
         let unsubscribe: (() => void) | undefined
         if (messaging) {
             unsubscribe = onMessage(messaging, payload => {
-                console.log('Foreground message:', payload)
                 mutate()
                 mutateUnreadCount()
                 toast.info(payload.notification?.title || 'New Notification', {
