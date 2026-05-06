@@ -203,16 +203,7 @@ export default function SessionsPage() {
     const handleJoinSession = (e: MouseEvent, session: Session) => {
         e.preventDefault()
         e.stopPropagation()
-        if (session.meeting_url) {
-            const newWindow = window.open(
-                session.meeting_url,
-                '_blank',
-                'noopener,noreferrer',
-            )
-            if (newWindow) newWindow.opener = null
-        } else {
-            router.push(`/sessions/${session.uuid}`)
-        }
+        router.push(`/sessions/${session.uuid}`)
     }
 
     const handleWatchRecording = (e: MouseEvent, session: Session) => {

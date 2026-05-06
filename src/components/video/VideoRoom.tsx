@@ -11,19 +11,34 @@ interface VideoRoomProps {
     token: string
     roomUrl?: string
     className?: string
+    onLeave?: () => void | Promise<void>
 }
 
-export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
+export function VideoRoom({
+    token,
+    roomUrl,
+    className = '',
+    onLeave,
+}: VideoRoomProps) {
     const { room, connect, isConnected, isConnecting, error, disconnect } =
         useVideo()
 
     const [hasJoined, setHasJoined] = React.useState(false)
     const [showNotes, setShowNotes] = React.useState(false)
+    const leaveCalledRef = React.useRef(false)
+
+    const notifyLeave = React.useCallback(async () => {
+        if (leaveCalledRef.current) return
+        leaveCalledRef.current = true
+        await onLeave?.()
+    }, [onLeave])
 
     // Ensure we disconnect when component unmounts
     useEffect(() => {
         return () => {
-            disconnect()
+            disconnect().finally(() => {
+                void notifyLeave()
+            })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -122,6 +137,7 @@ export function VideoRoom({ token, roomUrl, className = '' }: VideoRoomProps) {
                 <VideoControls
                     showNotes={showNotes}
                     onToggleNotes={() => setShowNotes(!showNotes)}
+                    onLeave={notifyLeave}
                 />
             </div>
         </div>

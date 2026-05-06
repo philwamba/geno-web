@@ -1,11 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { PageHeader } from '@/components/layout/page-header'
 import { useAuthStore } from '@/lib/stores/auth-store'
 import { formatCurrency } from '@/lib/utils'
 import { providerDashboardApi } from '@/lib/api/client'
+import { VideoProvider } from '@/lib/video/context'
+import { VideoProviderFactory } from '@/lib/video/factory'
+import { VideoRoom } from '@/components/video/VideoRoom'
 import {
     FiCalendar,
     FiClock,
@@ -14,6 +18,7 @@ import {
     FiUser,
     FiSettings,
     FiTrendingUp,
+    FiVideo,
 } from 'react-icons/fi'
 
 import { ProviderDashboardStats, Session } from '@/types'
@@ -24,6 +29,18 @@ export default function ProviderDashboardPage() {
     const [stats, setStats] = useState<ProviderDashboardStats | null>(null)
     const [upcomingSessions, setUpcomingSessions] = useState<Session[]>([])
     const [isLoading, setIsLoading] = useState(true)
+    const [activeCall, setActiveCall] = useState<{
+        uuid: string
+        token: string
+        roomUrl: string
+        title: string
+    } | null>(null)
+    const [busySessionId, setBusySessionId] = useState<string | null>(null)
+
+    const videoProvider = useMemo(() => {
+        const envProvider = process.env.NEXT_PUBLIC_VIDEO_PROVIDER
+        return VideoProviderFactory.create(envProvider === 'livekit' ? 'livekit' : 'daily')
+    }, [])
 
     useEffect(() => {
         let isMounted = true
@@ -61,10 +78,60 @@ export default function ProviderDashboardPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#eef2ff_0,#f8fafc_36%,#f9fafb_100%)] pb-24">
-            <PageHeader title="Dashboard" />
+        <VideoProvider initialProvider={videoProvider}>
+            <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#eef2ff_0,#f8fafc_36%,#f9fafb_100%)] pb-24">
+                <PageHeader title="Dashboard" />
 
-            <main className="app-page-container space-y-6">
+                <main className="app-page-container space-y-6">
+                    {activeCall && (
+                        <section className="surface-card p-4">
+                            <div className="mb-4 flex items-center justify-between gap-3">
+                                <div>
+                                    <h2 className="text-lg font-semibold text-gray-900">
+                                        {activeCall.title}
+                                    </h2>
+                                    <p className="text-sm text-gray-500">
+                                        Live provider room
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={async () => {
+                                        try {
+                                            const res =
+                                                await providerDashboardApi.endSession(
+                                                    activeCall.uuid,
+                                                )
+                                            setUpcomingSessions(current =>
+                                                current.map(item =>
+                                                    item.uuid === activeCall.uuid
+                                                        ? res.session
+                                                        : item,
+                                                ),
+                                            )
+                                            setActiveCall(null)
+                                            toast.success('Session ended')
+                                        } catch (error) {
+                                            console.error(
+                                                'Failed to end session:',
+                                                error,
+                                            )
+                                            toast.error(
+                                                'Failed to end session',
+                                            )
+                                        }
+                                    }}
+                                    className="rounded-xl bg-red-50 px-4 py-2 text-sm font-semibold text-red-600"
+                                >
+                                    End Session
+                                </button>
+                            </div>
+                            <VideoRoom
+                                token={activeCall.token}
+                                roomUrl={activeCall.roomUrl}
+                                onLeave={() => setActiveCall(null)}
+                            />
+                        </section>
+                    )}
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 gap-4">
                     <div className="surface-card surface-card-hover p-4">
@@ -205,9 +272,8 @@ export default function ProviderDashboardPage() {
                     ) : upcomingSessions.length > 0 ? (
                         <div className="space-y-3">
                             {upcomingSessions.map(session => (
-                                <Link
+                                <div
                                     key={session.id}
-                                    href={`/sessions/${session.uuid}`}
                                     className="surface-card surface-card-hover block p-4"
                                 >
                                     <div className="flex justify-between items-start">
@@ -237,7 +303,62 @@ export default function ProviderDashboardPage() {
                                             {session.client?.name || 'Client'}
                                         </span>
                                     </div>
-                                </Link>
+                                    {session.can_join && (
+                                        <button
+                                            onClick={async () => {
+                                                setBusySessionId(session.uuid)
+                                                try {
+                                                    const res =
+                                                        await providerDashboardApi.startSession(
+                                                            session.uuid,
+                                                        )
+                                                    setUpcomingSessions(
+                                                        current =>
+                                                            current.map(item =>
+                                                                item.uuid ===
+                                                                session.uuid
+                                                                    ? res.session
+                                                                    : item,
+                                                            ),
+                                                    )
+                                                    setActiveCall({
+                                                        uuid: session.uuid,
+                                                        token: res.token,
+                                                        roomUrl:
+                                                            res.room_url ||
+                                                            res.meeting_url,
+                                                        title:
+                                                            session.title ||
+                                                            'Session',
+                                                    })
+                                                } catch (error) {
+                                                    console.error(
+                                                        'Failed to start session:',
+                                                        error,
+                                                    )
+                                                    toast.error(
+                                                        error instanceof Error
+                                                            ? error.message
+                                                            : 'Failed to start session',
+                                                    )
+                                                } finally {
+                                                    setBusySessionId(null)
+                                                }
+                                            }}
+                                            disabled={
+                                                busySessionId === session.uuid
+                                            }
+                                            className="app-primary-action mt-4 w-full"
+                                        >
+                                            <FiVideo className="h-4 w-4" />
+                                            {busySessionId === session.uuid
+                                                ? 'Preparing room...'
+                                                : session.status === 'ongoing'
+                                                  ? 'Join Room'
+                                                  : 'Start Session'}
+                                        </button>
+                                    )}
+                                </div>
                             ))}
                         </div>
                     ) : (
@@ -249,7 +370,8 @@ export default function ProviderDashboardPage() {
                         </div>
                     )}
                 </section>
-            </main>
-        </div>
+                </main>
+            </div>
+        </VideoProvider>
     )
 }

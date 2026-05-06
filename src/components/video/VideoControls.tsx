@@ -17,12 +17,14 @@ interface VideoControlsProps {
     className?: string
     showNotes?: boolean
     onToggleNotes?: () => void
+    onLeave?: () => void | Promise<void>
 }
 
 export function VideoControls({
     className = '',
     showNotes,
     onToggleNotes,
+    onLeave,
 }: VideoControlsProps) {
     const { room, isConnected, disconnect } = useVideo()
     const [isMuted, setIsMuted] = useState(false)
@@ -135,7 +137,10 @@ export function VideoControls({
             <div className="w-px h-8 bg-gray-700 mx-2" />
 
             <button
-                onClick={disconnect}
+                onClick={async () => {
+                    await disconnect()
+                    await onLeave?.()
+                }}
                 className="p-4 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors"
                 title="Leave Call"
             >
