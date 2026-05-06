@@ -404,9 +404,16 @@ export const sessionsApi = {
     get: (uuid: string) => api.get<{ session: unknown }>(`/sessions/${uuid}`),
 
     join: (uuid: string) =>
-        api.post<{ message: string; meeting_url: string }>(
-            `/sessions/${uuid}/join`,
-        ),
+        api.post<{
+            token: string
+            meeting_url: string
+            room_url: string
+            room_name: string
+            session?: unknown
+        }>(`/sessions/${uuid}/join`),
+
+    leave: (uuid: string) =>
+        api.post<{ message: string }>(`/sessions/${uuid}/leave`),
 
     rate: (
         uuid: string,
@@ -681,6 +688,21 @@ export const providerDashboardApi = {
         api.get<{ data: ChartDataItem[] }>('/provider/analytics/sessions'),
     getRevenueAnalytics: () =>
         api.get<{ data: ChartDataItem[] }>('/provider/analytics/revenue'),
+
+    startSession: (uuid: string) =>
+        api.post<{
+            message: string
+            token: string
+            meeting_url: string
+            room_url: string
+            room_name: string
+            session: Session
+        }>(`/provider/sessions/${uuid}/start`),
+
+    endSession: (uuid: string) =>
+        api.post<{ message: string; session: Session }>(
+            `/provider/sessions/${uuid}/end`,
+        ),
 }
 
 // Messages API

@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import { getToken } from '@/lib/cookies'
 import { PageHeader } from '@/components/layout/page-header'
 import { sessionsApi } from '@/lib/api/client'
 import { Session } from '@/types'
@@ -32,6 +31,8 @@ export default function SessionDetailPage() {
     const [review, setReview] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [activeVideo, setActiveVideo] = useState(false)
+    const [token, setToken] = useState('')
+    const [roomUrl, setRoomUrl] = useState('')
 
     const fetchSession = useCallback(async () => {
         try {
@@ -49,8 +50,39 @@ export default function SessionDetailPage() {
         fetchSession()
     }, [fetchSession])
 
-    const handleJoin = () => {
-        setActiveVideo(true)
+    const handleJoin = async () => {
+        if (!session) return
+        setIsSubmitting(true)
+        try {
+            const data = await sessionsApi.join(session.uuid)
+            setToken(data.token)
+            setRoomUrl(data.room_url || data.meeting_url)
+            if (data.session) {
+                setSession(data.session as Session)
+            }
+            setActiveVideo(true)
+        } catch (error) {
+            console.error('Failed to join session:', error)
+            toast.error(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to start video session. Please try again.',
+            )
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
+    const handleLeave = async () => {
+        if (!session) return
+        setActiveVideo(false)
+        setToken('')
+        setRoomUrl('')
+        try {
+            await sessionsApi.leave(session.uuid)
+        } catch (error) {
+            console.error('Failed to leave session cleanly:', error)
+        }
     }
 
     const handleCancel = async () => {
@@ -142,62 +174,6 @@ export default function SessionDetailPage() {
         return VideoProviderFactory.create(providerName)
     }, [])
 
-    const [token, setToken] = useState<string>('')
-
-    useEffect(() => {
-        const abortController = new AbortController()
-
-        if (activeVideo && session?.id) {
-            const fetchToken = async () => {
-                const token = getToken()
-                if (!token) {
-                    toast.error('Authentication required. Please log in again.')
-                    return
-                }
-
-                try {
-                    const baseUrl =
-                        process.env.NEXT_PUBLIC_API_URL ||
-                        'http://localhost:8000/api/v1'
-                    const res = await fetch(`${baseUrl}/video/token`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${token}`,
-                        },
-                        body: JSON.stringify({ sessionId: session.id }),
-                        signal: abortController.signal,
-                    })
-
-                    if (!res.ok) {
-                        throw new Error(
-                            `Failed to fetch token: ${res.statusText}`,
-                        )
-                    }
-
-                    const data = await res.json()
-                    setToken(data.token)
-                } catch (error) {
-                    if (error instanceof Error && error.name !== 'AbortError') {
-                        console.error('Failed to fetch video token:', error)
-                        toast.error(
-                            'Failed to start video session. Please try again.',
-                        )
-                        setActiveVideo(false)
-                    }
-                }
-            }
-            fetchToken()
-        } else {
-            setToken('')
-        }
-
-        return () => {
-            abortController.abort()
-            setToken('')
-        }
-    }, [activeVideo, session?.id])
-
     if (isLoading) {
         return (
             <div>
@@ -228,17 +204,18 @@ export default function SessionDetailPage() {
                 <PageHeader title="Session Details" />
 
                 <main className="app-page-container space-y-6">
-                    {activeVideo && session.meeting_url ? (
+                    {activeVideo && roomUrl ? (
                         <section className="surface-card p-4">
                             <h2 className="text-xl font-bold text-gray-900 mb-4">
                                 Live Session
                             </h2>
                             <VideoRoom
                                 token={token}
-                                roomUrl={session.meeting_url}
+                                roomUrl={roomUrl}
+                                onLeave={handleLeave}
                             />
                             <button
-                                onClick={() => setActiveVideo(false)}
+                                onClick={handleLeave}
                                 className="mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm"
                             >
                                 Close Video View
@@ -349,10 +326,11 @@ export default function SessionDetailPage() {
                             {session.can_join && (
                                 <button
                                     onClick={handleJoin}
+                                    disabled={isSubmitting}
                                     className="w-full py-4 bg-primary text-white rounded-2xl font-medium flex items-center justify-center gap-2"
                                 >
                                     <FiVideo className="w-5 h-5" />
-                                    Join Session
+                                    {isSubmitting ? 'Preparing room...' : 'Join Session'}
                                 </button>
                             )}
 
